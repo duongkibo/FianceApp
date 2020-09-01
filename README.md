@@ -1,1 +1,1 @@
-# FianceApp
+# MyMoney
