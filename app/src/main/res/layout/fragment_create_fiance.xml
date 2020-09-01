@@ -1,53 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fragment_container"
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_width="match_parent"
+    android:background="@android:color/white"
     android:layout_height="match_parent"
-    android:gravity="center">
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarMain"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="20dp"
+        app:navigationIcon="@drawable/ic_baseline_close_24"
+        android:layout_marginBottom="@dimen/_30sdp"
+        android:background="@android:color/white"
+        app:title="Thêm giao dịch" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/_16sdp"
         android:layout_marginRight="@dimen/_16sdp"
         android:hint="Currency">
+
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:textSize="@dimen/_18sdp"
-            android:inputType="number"
+            android:layout_height="wrap_content"
             android:drawableLeft="@drawable/money_bag"
             android:fontFamily="@font/lato_light_3"
-            android:layout_height="wrap_content"/>
+            android:inputType="number"
+            android:textSize="@dimen/_18sdp" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/_16sdp"
         android:layout_marginRight="@dimen/_16sdp"
         android:hint="Nhóm">
+
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:textSize="@dimen/_18sdp"
-            android:inputType="number"
+            android:layout_height="wrap_content"
             android:drawableLeft="@drawable/money_bag"
             android:fontFamily="@font/lato_light_3"
-            android:layout_height="wrap_content"/>
+            android:inputType="number"
+            android:textSize="@dimen/_18sdp" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/_16sdp"
         android:layout_marginRight="@dimen/_16sdp"
         android:hint="Date">
+
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:textSize="@dimen/_18sdp"
-            android:inputType="datetime"
+            android:layout_height="wrap_content"
             android:drawableLeft="@drawable/money_bag"
             android:fontFamily="@font/lato_light_3"
-            android:layout_height="wrap_content"/>
+            android:inputType="datetime"
+            android:textSize="@dimen/_18sdp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

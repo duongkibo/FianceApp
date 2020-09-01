@@ -5,31 +5,31 @@
 
     <item
         android:id="@+id/home"
-        android:icon="@drawable/ic_home"
-        android:title="Home"
+        android:icon="@drawable/ic_wallet_24"
+        android:title="sổ giao dịch"
         app:cnb_backgroundColor="#1132EC"
         app:cnb_iconColor="#fff"
         app:cnb_textColor="#fff" />
 
     <item
         android:id="@+id/discover"
-        android:icon="@drawable/ic_discover"
-        android:title="Discover"
+        android:icon="@drawable/ic_chart_24"
+        android:title="Báo cáo"
         app:cnb_backgroundColor="#1132EC"
         app:cnb_iconColor="#fff"
         app:cnb_textColor="#fff" />
 
     <item
-        android:id="@+id/account"
-        android:icon="@drawable/ic_account"
-        android:title="Account"
+        android:id="@+id/plan"
+        android:icon="@drawable/ic_plan_24"
+        android:title="Lập kế hoạch"
         app:cnb_backgroundColor="#1132EC"
         app:cnb_iconColor="#fff"
         app:cnb_textColor="#fff" />
     <item
-        android:id="@+id/baocao"
+        android:id="@+id/account"
         android:icon="@drawable/ic_account"
-        android:title="Account"
+        android:title="Tài khoản"
         app:cnb_backgroundColor="#1132EC"
         app:cnb_iconColor="#fff"
         app:cnb_textColor="#fff" />

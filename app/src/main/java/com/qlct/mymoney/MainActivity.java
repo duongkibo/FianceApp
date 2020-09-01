@@ -16,9 +16,11 @@ import com.qlct.mymoney.fragment.AccountFragment;
 import com.qlct.mymoney.fragment.CreateFianceFragment;
 import com.qlct.mymoney.fragment.DiscoverFragment;
 import com.qlct.mymoney.fragment.HomeFragment;
+import com.qlct.mymoney.fragment.PlanFragment;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
+    private  CreateFianceFragment createFianceFragment;
     ChipNavigationBar bottomNav;
     FragmentManager fragmentManager;
     FloatingActionButton btnAdd;
@@ -28,22 +30,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         bottomNav = findViewById(R.id.bottom_nav);
-         btnAdd = findViewById(R.id.btn_add);
-         btnAdd.setOnClickListener(
-                 new View.OnClickListener() {
-                     @Override
-                     public void onClick(View view) {
-                         Fragment newCase=new CreateFianceFragment();
-                          FragmentManager fragmentManager;
-                         FragmentTransaction transaction= getSupportFragmentManager().beginTransaction();
-                         transaction.replace(R.id.fragment_container,newCase); // give your fragment container id in first parameter
-                         transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
-                         transaction.commit();
-                         btnAdd.setVisibility(View.GONE);
+        btnAdd = findViewById(R.id.btn_add);
+        btnAdd.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        /*Fragment newCase = new CreateFianceFragment();
+                        FragmentManager fragmentManager;
+                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.fragment_container, newCase); // give your fragment container id in first parameter
+                        transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
+                        transaction.commit();
+                        btnAdd.setVisibility(View.GONE);
+                        bottomNav.setVisibility(View.GONE);
+*/
+                        openCreateFianceFragment();
 
-                     }
-                 }
-         );
+                    }
+                }
+        );
 
         if (savedInstanceState == null) {
             bottomNav.setItemSelected(R.id.home, true);
@@ -65,6 +70,9 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.discover:
                         fragment = new DiscoverFragment();
                         break;
+                    case R.id.plan:
+                        fragment = new PlanFragment();
+                        break;
                     case R.id.account:
                         fragment = new AccountFragment();
                         break;
@@ -80,5 +88,13 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void openCreateFianceFragment(){
+        createFianceFragment = new CreateFianceFragment();
+        getSupportFragmentManager().beginTransaction()
+                .replace(android.R.id.content, createFianceFragment)
+                .addToBackStack(null)
+                .commit();
     }
 }
