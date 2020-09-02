@@ -3,4 +3,8 @@
     <string name="content_slide_one">Quản lý chi tiêu cá nhân và hoàn thiện mục tiêu tài chính</string>
     <string name="content_slide_two">Kiểm soát từng khoản chi với hệ thống báo cáo chi tiết</string>
     <string name="content_slide_three">Lập kế hoạch tài chính thông minh và từng bước tiết kiệm</string>
+    <string name="plan2">Tạo một sự kiện trong ứng dụng để theo dõi việc chi tiêu trong sự kiện có thực nào đó, ví dụ như đi du lịch cuối tuần</string>
+    <string name="plan4">Theo dõi hóa đơn của bạn như điện, internet, nước,...</string>
+    <string name="plan3">Tạo ra định kỳ các giao dịch sẽ được tự động thêm trong tương lai</string>
+    <string name="plan1">Tạo ngân sách cho từng nhóm hoặc cho cả ví</string>
 </resources>
