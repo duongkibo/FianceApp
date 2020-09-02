@@ -3,7 +3,6 @@ package com.qlct.mymoney;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,14 +12,14 @@ import android.view.View;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 import com.qlct.mymoney.fragment.AccountFragment;
-import com.qlct.mymoney.fragment.CreateFianceFragment;
+import com.qlct.mymoney.fragment.CreateFianceActivity;
 import com.qlct.mymoney.fragment.DiscoverFragment;
 import com.qlct.mymoney.fragment.HomeFragment;
 import com.qlct.mymoney.fragment.PlanFragment;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
-    private  CreateFianceFragment createFianceFragment;
+    private CreateFianceActivity createFianceActivity;
     ChipNavigationBar bottomNav;
     FragmentManager fragmentManager;
     FloatingActionButton btnAdd;
@@ -90,11 +89,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void openCreateFianceFragment(){
-        createFianceFragment = new CreateFianceFragment();
-        getSupportFragmentManager().beginTransaction()
-                .replace(android.R.id.content, createFianceFragment)
-                .addToBackStack(null)
-                .commit();
+    public void openCreateFianceFragment() {
+        Intent intent = new Intent(this, CreateFianceActivity.class);
+        startActivity(intent);
     }
 }
