@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="My Money"
-        android:textColor="@color/dark_gray"
+        android:textColor="@color/primary_blue"
         android:textSize="45sp"
         android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"

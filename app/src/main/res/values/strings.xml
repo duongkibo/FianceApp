@@ -7,4 +7,6 @@
     <string name="plan4">Theo dõi hóa đơn của bạn như điện, internet, nước,...</string>
     <string name="plan3">Tạo ra định kỳ các giao dịch sẽ được tự động thêm trong tương lai</string>
     <string name="plan1">Tạo ngân sách cho từng nhóm hoặc cho cả ví</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

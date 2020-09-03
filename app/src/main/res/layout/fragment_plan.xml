@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="@dimen/_16sdp">
 
     <TextView
         android:layout_width="wrap_content"
