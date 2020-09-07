@@ -7,22 +7,16 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.qlct.mymoney.R;
 
-
 public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;
     private View view;
-
-    public HomeFragment() {
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -36,10 +30,15 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         iniViews();
+
+
+
     }
 
-    private void iniViews(){
-        recyclerView = view.findViewById(R.id.recycleView);
+    private void iniViews() {
+        Fragment homeDay = new HomeDayFragment();
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container2, homeDay).commit();
     }
 
 
