@@ -9,6 +9,7 @@ import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
 public class HomeDayFragment extends Fragment {
     private HorizontalCalendar horizontalCalendar;
     private TextView txt;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
