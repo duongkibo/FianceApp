@@ -30,18 +30,19 @@ public class HomeYearFragment extends Fragment {
         txt = rootView.findViewById(R.id.txt);
         /* start before 1 month from now */
         Calendar startDate = Calendar.getInstance();
-        startDate.add(Calendar.MONTH, -1);
+        startDate.add(Calendar.YEAR, -12);
 
         /* end after 1 month from now */
         Calendar endDate = Calendar.getInstance();
-        endDate.add(Calendar.MONTH, 1);
+        endDate.add(Calendar.YEAR, 12);
 
         horizontalCalendar = new HorizontalCalendar.Builder(rootView, R.id.calendarView)
+                .mode(HorizontalCalendar.Mode.MONTHS)
                 .range(startDate, endDate)
-                .datesNumberOnScreen(5)
+                .datesNumberOnScreen(6)
                 .configure()
-                .formatTopText("MMM")
-                .formatMiddleText("dd")
+                .formatTopText("YYY")
+                .formatMiddleText("MMM")
                 .formatBottomText("EEE")
                 .textSize(14f, 24f, 14f)
                 .showTopText(true)

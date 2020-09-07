@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,8 +27,10 @@ public class HomeFragment extends Fragment {
     private View view;
     private Toolbar toolbar;
     Fragment homeDay = new HomeDayFragment();
-    Fragment homeYear = new HomeYearFragment();
+
+
     RelativeLayout homeFragment;
+    FragmentManager fragmentManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,6 +46,7 @@ public class HomeFragment extends Fragment {
         iniViews();
         homeDayScreen();
 
+
     }
 
 
@@ -52,7 +56,23 @@ public class HomeFragment extends Fragment {
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                homeYearScreen();
+                 switch (item.getItemId())
+                 {
+                     case R.id.action_settings:
+                     {
+                         Fragment newFragment = new HomeDayFragment();
+                         FragmentActivity fragmentActivity = new FragmentActivity();
+                         fragmentManager = fragmentActivity.getSupportFragmentManager();
+                         final FragmentTransaction ft = getFragmentManager().beginTransaction();
+                         ft.replace(R.id.homwDayScreen, new HomeYearFragment(), "NewFragmentTag");
+                         ft.addToBackStack(null);
+                         ft.commit();
+// Replace whatever is in the fragment_container view with this fragment,
+// and add the transaction to the back stack if needed
+
+
+                     }
+                 }
                 return true;
             }
         });
@@ -66,37 +86,36 @@ public class HomeFragment extends Fragment {
 
     }
 
-    private void homeYearScreen() {
-        clearStack();
-        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container2, homeYear).commit();
+//    private void homeYearScreen() {
+//        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+//        transaction.replace(R.id.fragment_container2, homeYear).commit();
+//
+//    }
 
-    }
-
-    public void clearStack() {
-        /*int backStackEntry = getActivity().getSupportFragmentManager().getBackStackEntryCount();
-        if (backStackEntry > 0) {
-            for (int i = 0; i < backStackEntry; i++) {
-                getActivity().getSupportFragmentManager().popBackStackImmediate();
-            }
-        }
-
-        if (getActivity().getSupportFragmentManager().getFragments() != null && getActivity().getSupportFragmentManager().getFragments().size() > 0) {
-            for (int i = 0; i < getActivity().getSupportFragmentManager().getFragments().size(); i++) {
-                Fragment mFragment = getActivity().getSupportFragmentManager().getFragments().get(i);
-                if (mFragment != null) {
-                    getActivity().getSupportFragmentManager().beginTransaction().remove(mFragment).commit();
-                }
-            }
-        }*/
-
-        FragmentManager manager = getActivity().getSupportFragmentManager();
-        FragmentTransaction trans = manager.beginTransaction();
-        trans.remove(homeDay);
-        trans.commit();
-        manager.popBackStack();
-
-    }
+//    public void clearStack() {
+//        /*int backStackEntry = getActivity().getSupportFragmentManager().getBackStackEntryCount();
+//        if (backStackEntry > 0) {
+//            for (int i = 0; i < backStackEntry; i++) {
+//                getActivity().getSupportFragmentManager().popBackStackImmediate();
+//            }
+//        }
+//
+//        if (getActivity().getSupportFragmentManager().getFragments() != null && getActivity().getSupportFragmentManager().getFragments().size() > 0) {
+//            for (int i = 0; i < getActivity().getSupportFragmentManager().getFragments().size(); i++) {
+//                Fragment mFragment = getActivity().getSupportFragmentManager().getFragments().get(i);
+//                if (mFragment != null) {
+//                    getActivity().getSupportFragmentManager().beginTransaction().remove(mFragment).commit();
+//                }
+//            }
+//        }*/
+//
+//        FragmentManager manager = getActivity().getSupportFragmentManager();
+//        FragmentTransaction trans = manager.beginTransaction();
+//        trans.remove(homeDay);
+//        trans.commit();
+//        manager.popBackStack();
+//
+//    }
 
 
 }

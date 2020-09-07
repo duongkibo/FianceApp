@@ -1,6 +1,7 @@
 package com.qlct.mymoney;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -10,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -34,11 +36,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     Animation topAnimation;
     Animation bottomAnimation;
-
+    private Toolbar toolbar;
     ChipNavigationBar bottomNav;
     FragmentManager fragmentManager;
     FloatingActionButton btnAdd;
-
+    MenuItem menuItem;
     BlurLayout blurLayout;
 
     @Override
@@ -59,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bottomAnimation = AnimationUtils.loadAnimation(this, R.anim.bottom_animation);
 
         btnAdd.setOnClickListener(this);
+
 
     }
 
