@@ -58,7 +58,7 @@
                             android:drawableLeft="@drawable/ic_baseline_event_note_24"
                             android:fontFamily="@font/lato_light_3"
                             android:hint="Ghi chú"
-                            android:inputType="number"
+                            android:inputType="text"
                             android:textSize="@dimen/_14sdp" />
 
                     </com.google.android.material.textfield.TextInputLayout>
