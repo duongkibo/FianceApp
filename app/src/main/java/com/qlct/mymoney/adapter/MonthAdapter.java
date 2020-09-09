@@ -28,22 +28,14 @@ public class MonthAdapter extends RecyclerView.Adapter<MonthAdapter.myViewHoder>
     @NonNull
     @Override
     public myViewHoder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_month, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_year, parent, false);
         myViewHoder viewHoder = new myViewHoder(view);
         return viewHoder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull myViewHoder holder, int position) {
-        final Month month = months.get(position);
-        holder.txtYear.setText(month.getMonth());
 
-        holder.txtYear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(context, month.getMonth(), Toast.LENGTH_LONG).show();
-            }
-        });
     }
 
     @Override
@@ -53,11 +45,9 @@ public class MonthAdapter extends RecyclerView.Adapter<MonthAdapter.myViewHoder>
 
     class myViewHoder extends RecyclerView.ViewHolder {
 
-        private TextView txtYear;
-
         public myViewHoder(@NonNull View itemView) {
             super(itemView);
-            txtYear = itemView.findViewById(R.id.txtMonth);
+
         }
     }
 }

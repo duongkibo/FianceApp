@@ -34,15 +34,7 @@ public class YearAdapter extends RecyclerView.Adapter<YearAdapter.myViewHoder> {
 
     @Override
     public void onBindViewHolder(@NonNull myViewHoder holder, int position) {
-        final Year year = years.get(position);
-        holder.txtYear.setText(year.getYear());
 
-        holder.txtYear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(context, year.getYear(), Toast.LENGTH_LONG).show();
-            }
-        });
     }
 
 
@@ -53,11 +45,10 @@ public class YearAdapter extends RecyclerView.Adapter<YearAdapter.myViewHoder> {
 
     class myViewHoder extends RecyclerView.ViewHolder {
 
-        private TextView txtYear;
 
         public myViewHoder(@NonNull View itemView) {
             super(itemView);
-            txtYear = itemView.findViewById(R.id.txtYear);
+
         }
     }
 }

@@ -27,7 +27,6 @@ import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
 
 public class HomeYearFragment extends Fragment {
     private HorizontalCalendar horizontalCalendar;
-    private TextView txt;
 
 
     @Override
@@ -36,7 +35,6 @@ public class HomeYearFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_home_year, container, false);
 
-        txt = rootView.findViewById(R.id.txt);
         /* start before 1 month from now */
         Calendar startDate = Calendar.getInstance();
         startDate.add(Calendar.YEAR, 0);
@@ -63,7 +61,6 @@ public class HomeYearFragment extends Fragment {
         horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
             @Override
             public void onDateSelected(Calendar date, int position) {
-                txt.setText(String.valueOf(Calendar.MONTH));
                 Toast.makeText(getContext(), DateFormat.format("EEE, MMM d, yyyy", date) + " is selected!", Toast.LENGTH_SHORT).show();
             }
 
