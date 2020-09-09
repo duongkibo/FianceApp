@@ -61,6 +61,10 @@ public class HomeFragment extends Fragment {
                     case R.id.open_month:
                         homeMonthScreen();
                         break;
+
+                    case R.id.open_day:
+                        homeDayScreen();
+                        break;
                 }
                 return true;
             }
@@ -71,28 +75,29 @@ public class HomeFragment extends Fragment {
     private void homeDayScreen() {
 
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container2, homeDay).commit();
+        transaction.replace(R.id.fragment_container2, homeDay)
+                .addToBackStack(null).commit();
 
     }
 
     private void homeYearScreen() {
-        Fragment newFragment = new HomeDayFragment();
-        FragmentActivity fragmentActivity = new FragmentActivity();
-        fragmentManager = fragmentActivity.getSupportFragmentManager();
-        final FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.homwDayScreen, new HomeYearFragment(), "NewFragmentTag");
-        ft.addToBackStack(null);
-        ft.commit();
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container2, new HomeYearFragment())
+                .addToBackStack(null).commit();
     }
 
     private void homeMonthScreen() {
-        Fragment newFragment = new HomeDayFragment();
+        /*Fragment newFragment = new HomeDayFragment();
         FragmentActivity fragmentActivity = new FragmentActivity();
         fragmentManager = fragmentActivity.getSupportFragmentManager();
         final FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.homwDayScreen, new HomeMonthFragment(), "NewFragmentTag");
+        ft.replace(R.id.fragment_container2, new HomeMonthFragment(), "NewFragmentTag");
         ft.addToBackStack(null);
-        ft.commit();
+        ft.commit();*/
+
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container2, new HomeMonthFragment())
+                .addToBackStack(null).commit();
     }
 
 //    private void homeYearScreen() {

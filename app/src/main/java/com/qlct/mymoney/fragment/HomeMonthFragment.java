@@ -39,11 +39,11 @@ public class HomeMonthFragment extends Fragment {
 
         /* start before 1 month from now */
         Calendar startDate = Calendar.getInstance();
-        startDate.add(Calendar.MONTH, -1);
+        startDate.add(Calendar.MONTH, -12);
 
         /* end after 1 month from now */
         Calendar endDate = Calendar.getInstance();
-        endDate.add(Calendar.MONTH, 1);
+        endDate.add(Calendar.MONTH, 12);
 
         horizontalCalendar = new HorizontalCalendar.Builder(rootView, R.id.calendarView)
                 .mode(HorizontalCalendar.Mode.MONTHS)
@@ -51,7 +51,7 @@ public class HomeMonthFragment extends Fragment {
                 .datesNumberOnScreen(5)
                 .configure()
                 .formatTopText("MMM")
-                .formatMiddleText("MMM")
+                .formatMiddleText("MM")
                 .formatBottomText("yyyy")
                 .textSize(14f, 24f, 14f)
                 .showTopText(false)
