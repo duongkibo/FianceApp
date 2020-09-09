@@ -88,14 +88,10 @@ public final class HorizontalCalendar {
 
         if (mode == Mode.MONTHS) {
             mCalendarAdapter = new MonthsAdapter(this, startDate, endDate, disablePredicate, eventsPredicate);
-        } else {
+        } else if(mode == Mode.DAYS) {
             mCalendarAdapter = new DaysAdapter(this, startDate, endDate, disablePredicate, eventsPredicate);
-        }
-
-        if (mode == Mode.YEARS) {
+        } else  if (mode == Mode.YEARS) {
             mCalendarAdapter = new YearAdapter(this, startDate, endDate, disablePredicate, eventsPredicate);
-        } else {
-            mCalendarAdapter = new DaysAdapter(this, startDate, endDate, disablePredicate, eventsPredicate);
         }
 
         calendarView.setAdapter(mCalendarAdapter);
