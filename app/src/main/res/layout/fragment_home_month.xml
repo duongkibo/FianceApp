@@ -5,12 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context=".fragment.HomeYearFragment">
+    tools:context=".fragment.HomeMonthFragment">
 
-    <!--<com.google.android.material.appbar.AppBarLayout
-         android:id="@+id/appBar"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content">-->
 
 
     <devs.mulham.horizontalcalendar.HorizontalCalendarView
@@ -20,13 +16,13 @@
         android:background="@drawable/bottom_radius"
         app:textColorSelected="#FFFF" />
 
-    <!--</com.google.android.material.appbar.AppBarLayout>-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/_8sdp"
-        android:id="@+id/recyclerViewYear"
+        android:id="@+id/recyclerViewMonth"
         android:layout_below="@+id/calendarView"/>
+
 
 </RelativeLayout>

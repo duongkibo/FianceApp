@@ -2,8 +2,6 @@ package com.qlct.mymoney.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +17,6 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.qlct.mymoney.HomeYearFragment;
 import com.qlct.mymoney.R;
 
 public class HomeFragment extends Fragment {
@@ -56,23 +53,15 @@ public class HomeFragment extends Fragment {
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                 switch (item.getItemId())
-                 {
-                     case R.id.action_settings:
-                     {
-                         Fragment newFragment = new HomeDayFragment();
-                         FragmentActivity fragmentActivity = new FragmentActivity();
-                         fragmentManager = fragmentActivity.getSupportFragmentManager();
-                         final FragmentTransaction ft = getFragmentManager().beginTransaction();
-                         ft.replace(R.id.homwDayScreen, new HomeYearFragment(), "NewFragmentTag");
-                         ft.addToBackStack(null);
-                         ft.commit();
-// Replace whatever is in the fragment_container view with this fragment,
-// and add the transaction to the back stack if needed
+                switch (item.getItemId()) {
+                    case R.id.open_year:
+                        homeYearScreen();
+                        break;
 
-
-                     }
-                 }
+                    case R.id.open_month:
+                        homeMonthScreen();
+                        break;
+                }
                 return true;
             }
         });
@@ -84,6 +73,26 @@ public class HomeFragment extends Fragment {
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container2, homeDay).commit();
 
+    }
+
+    private void homeYearScreen() {
+        Fragment newFragment = new HomeDayFragment();
+        FragmentActivity fragmentActivity = new FragmentActivity();
+        fragmentManager = fragmentActivity.getSupportFragmentManager();
+        final FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.homwDayScreen, new HomeYearFragment(), "NewFragmentTag");
+        ft.addToBackStack(null);
+        ft.commit();
+    }
+
+    private void homeMonthScreen() {
+        Fragment newFragment = new HomeDayFragment();
+        FragmentActivity fragmentActivity = new FragmentActivity();
+        fragmentManager = fragmentActivity.getSupportFragmentManager();
+        final FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.homwDayScreen, new HomeMonthFragment(), "NewFragmentTag");
+        ft.addToBackStack(null);
+        ft.commit();
     }
 
 //    private void homeYearScreen() {

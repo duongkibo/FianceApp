@@ -2,8 +2,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/open_year"
         android:orderInCategory="100"
         android:title="Hiển thị theo năm"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/open_month"
+        android:orderInCategory="100"
+        android:title="Hiển thị theo tháng"
         app:showAsAction="never" />
 </menu>

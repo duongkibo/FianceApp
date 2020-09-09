@@ -1,9 +1,11 @@
-package com.qlct.mymoney;
+package com.qlct.mymoney.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
@@ -12,41 +14,50 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.qlct.mymoney.R;
+import com.qlct.mymoney.adapter.MonthAdapter;
+import com.qlct.mymoney.adapter.YearAdapter;
+import com.qlct.mymoney.model.Month;
+import com.qlct.mymoney.model.Year;
+
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import devs.mulham.horizontalcalendar.HorizontalCalendar;
 import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
 
-public class HomeYearFragment extends Fragment {
+public class HomeMonthFragment extends Fragment {
     private HorizontalCalendar horizontalCalendar;
     private TextView txt;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_home_year, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_home_month, container, false);
 
         txt = rootView.findViewById(R.id.txt);
         /* start before 1 month from now */
         Calendar startDate = Calendar.getInstance();
-        startDate.add(Calendar.YEAR, -12);
+        startDate.add(Calendar.MONTH, -1);
 
         /* end after 1 month from now */
         Calendar endDate = Calendar.getInstance();
-        endDate.add(Calendar.YEAR, 12);
+        endDate.add(Calendar.MONTH, 1);
 
         horizontalCalendar = new HorizontalCalendar.Builder(rootView, R.id.calendarView)
                 .mode(HorizontalCalendar.Mode.MONTHS)
                 .range(startDate, endDate)
-                .datesNumberOnScreen(6)
+                .datesNumberOnScreen(5)
                 .configure()
-                .formatTopText("YYY")
+                .formatTopText("MMM")
                 .formatMiddleText("MMM")
-                .formatBottomText("EEE")
+                .formatBottomText("yyyy")
                 .textSize(14f, 24f, 14f)
-                .showTopText(true)
-                .showBottomText(true)
+                .showTopText(false)
+                .showBottomText(false)
                 .textColor(Color.LTGRAY, Color.WHITE)
                 .end()
                 .build();
@@ -54,7 +65,7 @@ public class HomeYearFragment extends Fragment {
         horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
             @Override
             public void onDateSelected(Calendar date, int position) {
-                txt.setText(DateFormat.format("EEE, d/MMM/yyyy", date));
+                txt.setText(String.valueOf(Calendar.MONTH));
                 Toast.makeText(getContext(), DateFormat.format("EEE, MMM d, yyyy", date) + " is selected!", Toast.LENGTH_SHORT).show();
             }
 
@@ -62,5 +73,4 @@ public class HomeYearFragment extends Fragment {
 
         return rootView;
     }
-
 }

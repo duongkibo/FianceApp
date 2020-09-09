@@ -4,23 +4,28 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.qlct.mymoney.R;
+import com.qlct.mymoney.model.Year;
+import com.qlct.mymoney.adapter.YearAdapter;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import devs.mulham.horizontalcalendar.HorizontalCalendar;
 import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
 
-public class HomeDayFragment extends Fragment {
+public class HomeYearFragment extends Fragment {
     private HorizontalCalendar horizontalCalendar;
     private TextView txt;
 
@@ -29,27 +34,28 @@ public class HomeDayFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_home_day, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_home_year, container, false);
 
         txt = rootView.findViewById(R.id.txt);
         /* start before 1 month from now */
         Calendar startDate = Calendar.getInstance();
-        startDate.add(Calendar.MONTH, -2);
+        startDate.add(Calendar.YEAR, 0);
 
         /* end after 1 month from now */
         Calendar endDate = Calendar.getInstance();
-        endDate.add(Calendar.MONTH, 2);
+        endDate.add(Calendar.YEAR, 12);
 
         horizontalCalendar = new HorizontalCalendar.Builder(rootView, R.id.calendarView)
+                .mode(HorizontalCalendar.Mode.YEARS)
                 .range(startDate, endDate)
                 .datesNumberOnScreen(5)
                 .configure()
                 .formatTopText("MMM")
-                .formatMiddleText("dd")
+                .formatMiddleText("yyy")
                 .formatBottomText("EEE")
                 .textSize(14f, 24f, 14f)
-                .showTopText(true)
-                .showBottomText(true)
+                .showTopText(false)
+                .showBottomText(false)
                 .textColor(Color.LTGRAY, Color.WHITE)
                 .end()
                 .build();
@@ -65,5 +71,4 @@ public class HomeDayFragment extends Fragment {
 
         return rootView;
     }
-
 }
