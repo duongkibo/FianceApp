@@ -26,9 +26,6 @@ public class HomeFragment extends Fragment {
     Fragment homeDay = new HomeDayFragment();
 
 
-    RelativeLayout homeFragment;
-    FragmentManager fragmentManager;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container, false);
@@ -99,37 +96,6 @@ public class HomeFragment extends Fragment {
         transaction.replace(R.id.fragment_container2, new HomeMonthFragment())
                 .addToBackStack(null).commit();
     }
-
-//    private void homeYearScreen() {
-//        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-//        transaction.replace(R.id.fragment_container2, homeYear).commit();
-//
-//    }
-
-//    public void clearStack() {
-//        /*int backStackEntry = getActivity().getSupportFragmentManager().getBackStackEntryCount();
-//        if (backStackEntry > 0) {
-//            for (int i = 0; i < backStackEntry; i++) {
-//                getActivity().getSupportFragmentManager().popBackStackImmediate();
-//            }
-//        }
-//
-//        if (getActivity().getSupportFragmentManager().getFragments() != null && getActivity().getSupportFragmentManager().getFragments().size() > 0) {
-//            for (int i = 0; i < getActivity().getSupportFragmentManager().getFragments().size(); i++) {
-//                Fragment mFragment = getActivity().getSupportFragmentManager().getFragments().get(i);
-//                if (mFragment != null) {
-//                    getActivity().getSupportFragmentManager().beginTransaction().remove(mFragment).commit();
-//                }
-//            }
-//        }*/
-//
-//        FragmentManager manager = getActivity().getSupportFragmentManager();
-//        FragmentTransaction trans = manager.beginTransaction();
-//        trans.remove(homeDay);
-//        trans.commit();
-//        manager.popBackStack();
-//
-//    }
 
 
 }

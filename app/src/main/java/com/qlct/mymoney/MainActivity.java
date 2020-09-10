@@ -7,24 +7,19 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 import com.qlct.mymoney.fragment.AccountFragment;
 import com.qlct.mymoney.fragment.CreateFianceFragment;
-import com.qlct.mymoney.fragment.DiscoverFragment;
-import com.qlct.mymoney.fragment.ExpenseFragment;
+import com.qlct.mymoney.fragment.ReportFragment;
 import com.qlct.mymoney.fragment.HomeFragment;
-import com.qlct.mymoney.fragment.IncomeFragment;
 import com.qlct.mymoney.fragment.PlanFragment;
 
 import io.alterac.blurkit.BlurLayout;
@@ -84,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         fragment = new HomeFragment();
                         break;
                     case R.id.discover:
-                        fragment = new DiscoverFragment();
+                        fragment = new ReportFragment();
                         break;
                     case R.id.plan:
                         fragment = new PlanFragment();

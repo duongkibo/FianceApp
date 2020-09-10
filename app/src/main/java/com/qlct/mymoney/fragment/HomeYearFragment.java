@@ -49,7 +49,7 @@ public class HomeYearFragment extends Fragment {
                 .datesNumberOnScreen(5)
                 .configure()
                 .formatTopText("MMM")
-                .formatMiddleText("yyy")
+                .formatMiddleText("yyyy")
                 .formatBottomText("EEE")
                 .textSize(14f, 24f, 14f)
                 .showTopText(false)

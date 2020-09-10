@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cnb_unselectedColor="#fff">
+
+    <item
+        android:id="@+id/reportDay"
+        android:icon="@drawable/ic_expense_24"
+        android:title="Ngày"
+        app:cnb_backgroundColor="#1132EC"
+        app:cnb_iconColor="#fff"
+        app:cnb_textColor="#fff" />
+
+    <item
+        android:id="@+id/reportMonth"
+        android:icon="@drawable/ic_income_24"
+        android:title="Tháng"
+        app:cnb_backgroundColor="#1132EC"
+        app:cnb_iconColor="#fff"
+        app:cnb_textColor="#fff" />
+
+    <item
+        android:id="@+id/reportYear"
+        android:icon="@drawable/ic_income_24"
+        android:title="Năm"
+        app:cnb_backgroundColor="#1132EC"
+        app:cnb_iconColor="#fff"
+        app:cnb_textColor="#fff" />
+</menu>
