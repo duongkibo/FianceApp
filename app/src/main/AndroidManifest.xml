@@ -9,15 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".ui.AddGroupActivity"></activity>
         <activity
             android:name=".ViewsSildeActivity"
-            android:theme="@style/AppTheme.FullScreen">
-        </activity>
-
+            android:theme="@style/AppTheme.FullScreen"></activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".fragment.CreateFianceActivity"/>
-        <activity android:name=".fragment.IncomActivity"></activity>
+        <activity android:name=".fragment.CreateFianceActivity" />
+        <activity android:name=".fragment.IncomActivity" />
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -31,6 +31,7 @@ public class HomeFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_home, container, false);
         CollapsingToolbarLayout collapsingToolbar = view.findViewById(R.id.collapsing_toolbar);
         collapsingToolbar.setTitle("Total: 2,000,000$");
+
         return view;
     }
 

@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.qlct.mymoney.R;
+
 public class AddGroupActivity extends AppCompatActivity {
 
     @Override

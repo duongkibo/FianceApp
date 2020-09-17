@@ -1,13 +1,10 @@
-package com.mvvmsample;
+package com.qlct.mymoney;
 
 import android.app.Application;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 
-/**
- * Created by hirenpatel on 05/10/17.
- */
 
 public class MyApplication extends Application {
 

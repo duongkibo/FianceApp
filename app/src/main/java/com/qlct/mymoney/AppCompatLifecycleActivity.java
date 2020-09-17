@@ -1,8 +1,9 @@
-package com.mvvmsample;
+package com.qlct.mymoney;
 
-import android.arch.lifecycle.LifecycleRegistry;
-import android.arch.lifecycle.LifecycleRegistryOwner;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LifecycleRegistry;
+import androidx.lifecycle.LifecycleRegistryOwner;
 
 /**
  * Created by hirenpatel on 05/10/17.
