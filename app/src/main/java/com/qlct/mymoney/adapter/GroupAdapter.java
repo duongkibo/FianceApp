@@ -2,6 +2,7 @@ package com.qlct.mymoney.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +44,8 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
               @Override
               public void onClick(View view) {
                   Intent intent = new Intent("sendata");
-                   int id  = holder.imageView.getSourceLayoutResId();
+
+                   int id  = group.getImage();
 
                   intent.putExtra("sss",id);
                   intent.putExtra("nameGroup",holder.textView.getText().toString().trim());

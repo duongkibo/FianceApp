@@ -36,7 +36,7 @@ public class HomeDayAdapter extends RecyclerView.Adapter<HomeDayAdapter.HomeDayV
     public void onBindViewHolder(@NonNull HomeDayViewHolder holder, int position) {
         Expenditures expenditures = expendituresList.get(position);
 
-        holder.imageView.setBackgroundResource(expenditures.getImage());
+        holder.imageView.setImageResource(expenditures.getImage());
         holder.textView.setText(expenditures.getNameGroup());
 
     }
