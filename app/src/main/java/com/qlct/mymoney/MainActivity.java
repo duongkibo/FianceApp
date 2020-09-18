@@ -21,6 +21,7 @@ import com.qlct.mymoney.fragment.CreateFianceFragment;
 import com.qlct.mymoney.fragment.ReportFragment;
 import com.qlct.mymoney.fragment.HomeFragment;
 import com.qlct.mymoney.fragment.PlanFragment;
+import com.qlct.mymoney.model.DatabaseIntalizer;
 
 import io.alterac.blurkit.BlurLayout;
 
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initView();
         setBottomNavigationView();
         TestRealm.Setup(this.getApplicationContext());
+
     }
 
     private void initView() {

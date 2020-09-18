@@ -43,14 +43,14 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
               @Override
               public void onClick(View view) {
                   Intent intent = new Intent("sendata");
-                  int id = holder.imageView.getSourceLayoutResId();
+                   int id  = holder.imageView.getSourceLayoutResId();
 
                   intent.putExtra("sss",id);
-                  intent.putExtra("nameGroup",holder.textView.getText().toString());
+                  intent.putExtra("nameGroup",holder.textView.getText().toString().trim());
 
 
                  LocalBroadcastManager.getInstance(view.getContext()).sendBroadcast(intent);
-//                  Toast.makeText(view.getContext(),"Bạn đã chọn"+holder.textView.getText().toString()+id+"",Toast.LENGTH_LONG).show();
+                 Toast.makeText(view.getContext(),"Bạn đã chọn"+holder.textView.getText().toString()+id+"",Toast.LENGTH_LONG).show();
               }
           });
 

@@ -69,6 +69,7 @@ public class ExpenseFragment extends Fragment {
         edtCalendar =(TextView) view.findViewById(R.id.edtCalendar);
         init();
 
+
         edtMoney = (TextInputEditText)  view.findViewById(R.id.tp_money);
         edtNote = (TextInputEditText) view.findViewById(R.id.tp_note);
         recyclerView = (RecyclerView) view.findViewById(R.id.rc_group);
@@ -77,18 +78,7 @@ public class ExpenseFragment extends Fragment {
         recyclerView.setLayoutManager(gridLayoutManager);
         groupAdapter  = new GroupAdapter(getActivity(),groupList);
         recyclerView.setAdapter(groupAdapter);
-        BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                nameGroupss = intent.getStringExtra("nameGroup");
-                idImage = intent.getIntExtra("sss",10);
-                //Toast.makeText(getContext(),idImage, Toast.LENGTH_SHORT).show();
-                expenditures = new Expenditures(edtMoney.getText().toString(),edtNote.getText().toString(),idImage,nameGroupss,months,days,years);
-
-            }
-        };
-        LocalBroadcastManager.getInstance(getContext()).registerReceiver(broadcastReceiver,
-                new IntentFilter("sendata"));
+        getDataExpen();
         // add to db
         btnAddExp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,13 +89,34 @@ public class ExpenseFragment extends Fragment {
                     new AddExpendituresTask(expenditures).execute();
 
                 }
+                else
+                {
+                }
 
             }
         });
+
         addExpendituresViewModel = ViewModelProviders.of(ExpenseFragment.this).get(AddExpendituresViewModel.class);
 
 
         return view;
+    }
+    public  void getDataExpen()
+    {
+        BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                nameGroupss = intent.getStringExtra("nameGroup");
+                idImage = intent.getIntExtra("sss",10);
+                //Toast.makeText(getContext(),idImage, Toast.LENGTH_SHORT).show();
+                Log.d("iddd",idImage+"");
+                expenditures = new Expenditures(edtMoney.getText().toString(),edtNote.getText().toString(),idImage,nameGroupss,months,days,years);
+                expenditures.setImage(idImage);
+
+            }
+        };
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(broadcastReceiver,
+                new IntentFilter("sendata"));
     }
 
     @Override
@@ -142,10 +153,14 @@ public class ExpenseFragment extends Fragment {
                         month = month + 1;
                         String date = day + "/" + month + "/" + year;
                         edtCalendar.setText(date);
+                        years = year;
                         days = day;
                         months = month;
-                        years = year;
-                        Log.d("datexxxx",years+" "+months+" "+days);
+                        expenditures.setDay(days);
+                        expenditures.setMonth(months);
+                        expenditures.setYear(years);
+
+
 
 
                     }
@@ -154,7 +169,7 @@ public class ExpenseFragment extends Fragment {
             }
         });
 
-
+        Log.d("uess",years+months+days+"");
 
         groupList.add(new Group("Shopping",R.drawable.shopping));
         groupList.add(new Group("Food",R.drawable.food));
@@ -166,6 +181,7 @@ public class ExpenseFragment extends Fragment {
         groupList.add(new Group("Travel",R.drawable.travel));
         groupList.add(new Group("Bills",R.drawable.bills));
         groupList.add(new Group("Purchase",R.drawable.purchases));
+
 
 
     }
