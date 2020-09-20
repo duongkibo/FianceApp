@@ -15,11 +15,14 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.qlct.mymoney.R;
-import com.qlct.mymoney.adapter.HomeDayAdapter;
+import com.qlct.mymoney.adapter.ExpenseAdapter;
+import com.qlct.mymoney.adapter.IncomeAdapter;
 import com.qlct.mymoney.model.DatabaseIntalizer;
 import com.qlct.mymoney.model.Expenditures;
 import com.qlct.mymoney.model.ExpendituresDB;
+import com.qlct.mymoney.model.IncomeDitures;
 import com.qlct.mymoney.viewmodel.AddExpendituresViewModel;
+import com.qlct.mymoney.viewmodel.AddIncomeDituresViewModel;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -31,7 +34,9 @@ import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
 public class HomeDayFragment extends Fragment {
     private HorizontalCalendar horizontalCalendar;
     private RecyclerView rcExpend;
+    private RecyclerView rcIncome;
     private List<Expenditures> expenditures = new ArrayList<>();
+    private List<IncomeDitures> incomeDitures = new ArrayList<>();
 
 
     @Override
@@ -69,12 +74,23 @@ public class HomeDayFragment extends Fragment {
             }
 
         });
+
         rcExpend = (RecyclerView) rootView.findViewById(R.id.recyclerViewDay);
-        HomeDayAdapter homeDayAdapter = new HomeDayAdapter(expenditures);
+        rcIncome = rootView.findViewById(R.id.recyclerViewDay_1);
+
+        ExpenseAdapter expenseAdapter = new ExpenseAdapter(expenditures);
+        IncomeAdapter incomeAdapter = new IncomeAdapter(incomeDitures);
+
         rcExpend.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rcExpend.setAdapter(homeDayAdapter);
+        rcExpend.setAdapter(expenseAdapter);
+        rcIncome.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rcIncome.setAdapter(incomeAdapter);
+
         AddExpendituresViewModel viewModel = ViewModelProviders.of(this).get(AddExpendituresViewModel.class);
-        viewModel.getExpendiures().observe(getActivity(),homeDayAdapter::setExpendituresList);
+        viewModel.getExpendiures().observe(getActivity(), expenseAdapter::setExpendituresList);
+
+        AddIncomeDituresViewModel viewModel2 = ViewModelProviders.of(this).get(AddIncomeDituresViewModel.class);
+        viewModel2.getIncome().observe(getActivity(), incomeAdapter::setIncomeDituresList);
 
 
 

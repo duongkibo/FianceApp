@@ -8,8 +8,10 @@
     <ImageView
         android:id="@+id/img_splash"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/splash_money"
+        android:layout_height="250dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/img_splash_4"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

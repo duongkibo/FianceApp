@@ -1,79 +1,130 @@
 package com.qlct.mymoney.fragment;
 
 import android.app.DatePickerDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.qlct.mymoney.R;
+import com.qlct.mymoney.adapter.GroupAdapter;
+import com.qlct.mymoney.model.Expenditures;
+import com.qlct.mymoney.model.ExpendituresDB;
+import com.qlct.mymoney.model.Group;
+import com.qlct.mymoney.model.IncomeDitures;
+import com.qlct.mymoney.model.IncomeDituresDB;
+import com.qlct.mymoney.viewmodel.AddExpendituresViewModel;
+import com.qlct.mymoney.viewmodel.AddIncomeDituresViewModel;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link IncomeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class IncomeFragment extends Fragment {
-    private EditText edtCalendarIncome;
+    private TextView edtCalendarIncome;
     private View view;
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public IncomeFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment IncomeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-
-    public static IncomeFragment newInstance(String param1, String param2) {
-        IncomeFragment fragment = new IncomeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    private TextView edtCalendar;
+    private List<Group> groupList = new ArrayList<>();
+    private GroupAdapter groupAdapter;
+    private RecyclerView recyclerView;
+    private EditText edt_one, edt_two;
+    private String nameGroupss;
+    private int idImage;
+    private TextInputEditText edtMoney, edtNote;
+    private Button btnAddExp;
+    private AddIncomeDituresViewModel addIncomeDituresViewModel;
+    private int days, years, months;
+    private IncomeDitures incomeDitures;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_income, container, false);
-        edtCalendarIncome = view.findViewById(R.id.edtCalendarIncome);
+        edtCalendarIncome = view.findViewById(R.id.edtCalendar);
         init();
+
+
+        edtMoney = (TextInputEditText) view.findViewById(R.id.tp_money);
+        edtNote = (TextInputEditText) view.findViewById(R.id.tp_note);
+        recyclerView = (RecyclerView) view.findViewById(R.id.rc_group);
+        btnAddExp = (Button) view.findViewById(R.id.btn_add_expense);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 4, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(gridLayoutManager);
+        groupAdapter = new GroupAdapter(getActivity(), groupList);
+        recyclerView.setAdapter(groupAdapter);
+        getDataExpen();
+        // add to db
+        btnAddExp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("xxxxx", years + " " + months + " " + days);
+                if (incomeDitures != null) {
+                    new AddIncomeTask(incomeDitures).execute();
+                    getActivity().onBackPressed();
+                } else {
+                }
+
+            }
+        });
+
+        addIncomeDituresViewModel = ViewModelProviders.of(IncomeFragment.this).get(AddIncomeDituresViewModel.class);
+
+
         return view;
     }
 
-    private void init(){
+    public void getDataExpen() {
+        BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                nameGroupss = intent.getStringExtra("nameGroup");
+                idImage = intent.getIntExtra("sss", 10);
+                //Toast.makeText(getContext(),idImage, Toast.LENGTH_SHORT).show();
+                Log.d("iddd", idImage + "");
+                incomeDitures = new IncomeDitures(edtMoney.getText().toString(), edtNote.getText().toString(), idImage, nameGroupss, months, days, years);
+                incomeDitures.setImage(idImage);
+
+            }
+        };
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(broadcastReceiver,
+                new IntentFilter("sendata"));
+
+    }
+
+    private class AddIncomeTask extends AsyncTask<Void, Void, Void> {
+        IncomeDitures incomeDitures;
+
+        public AddIncomeTask(IncomeDitures incomeDitures) {
+            this.incomeDitures = incomeDitures;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            IncomeDituresDB.getIncomeDituresBD(getActivity().getApplication()).getIncomeDituresDao().insert(incomeDitures);
+            return null;
+        }
+    }
+
+
+    private void init() {
         Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
         final int month = calendar.get(Calendar.MONTH);
@@ -87,11 +138,25 @@ public class IncomeFragment extends Fragment {
                         month = month + 1;
                         String date = day + "/" + month + "/" + year;
                         edtCalendarIncome.setText(date);
+                        years = year;
+                        days = day;
+                        months = month;
+                        incomeDitures.setDay(days);
+                        incomeDitures.setMonth(months);
+                        incomeDitures.setYear(years);
                     }
                 }, year, month, day);
                 datePickerDialog.show();
             }
         });
+
+        Log.d("uess", years + months + days + "");
+
+        groupList.add(new Group("Lương", R.drawable.salary));
+        groupList.add(new Group("Tiền thưởng", R.drawable.award));
+        groupList.add(new Group("Bán hàng", R.drawable.purchases));
+        groupList.add(new Group("Khoản khác", R.drawable.dollar));
+
     }
 
 }

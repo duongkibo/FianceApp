@@ -1,11 +1,10 @@
 package com.qlct.mymoney.model;
 
-
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
-public class Expenditures {
+public class IncomeDitures {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String money;
@@ -16,7 +15,7 @@ public class Expenditures {
     private int day;
     private int year;
 
-    public Expenditures(String money, String note, int image, String nameGroup, int month, int day, int year) {
+    public IncomeDitures(String money, String note, int image, String nameGroup, int month, int day, int year) {
         this.money = money;
         this.note = note;
         this.image = image;
@@ -24,46 +23,6 @@ public class Expenditures {
         this.month = month;
         this.day = day;
         this.year = year;
-    }
-
-    public int getMonth() {
-        return month;
-    }
-
-    public void setMonth(int month) {
-        this.month = month;
-    }
-
-    public int getDay() {
-        return day;
-    }
-
-    public void setDay(int day) {
-        this.day = day;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
-    }
-
-    public int getImage() {
-        return image;
-    }
-
-    public void setImage(int image) {
-        this.image = image;
-    }
-
-    public String getNameGroup() {
-        return nameGroup;
-    }
-
-    public void setNameGroup(String nameGroup) {
-        this.nameGroup = nameGroup;
     }
 
     public int getId() {
@@ -90,5 +49,43 @@ public class Expenditures {
         this.note = note;
     }
 
+    public int getImage() {
+        return image;
+    }
 
+    public void setImage(int image) {
+        this.image = image;
+    }
+
+    public String getNameGroup() {
+        return nameGroup;
+    }
+
+    public void setNameGroup(String nameGroup) {
+        this.nameGroup = nameGroup;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public int getDay() {
+        return day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
 }

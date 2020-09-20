@@ -1,6 +1,6 @@
 package com.qlct.mymoney.adapter;
 
-import android.telephony.PhoneNumberFormattingTextWatcher;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +15,10 @@ import com.qlct.mymoney.model.Expenditures;
 
 import java.util.List;
 
-public class HomeDayAdapter extends RecyclerView.Adapter<HomeDayAdapter.HomeDayViewHolder> {
+public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.HomeDayViewHolder> {
     private List<Expenditures> expendituresList;
 
-    public HomeDayAdapter(List<Expenditures> expendituresList)
+    public ExpenseAdapter(List<Expenditures> expendituresList)
     {
         this.expendituresList =expendituresList;
     }
@@ -32,12 +32,15 @@ public class HomeDayAdapter extends RecyclerView.Adapter<HomeDayAdapter.HomeDayV
         return viewHolder;
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull HomeDayViewHolder holder, int position) {
         Expenditures expenditures = expendituresList.get(position);
 
         holder.imageView.setImageResource(expenditures.getImage());
         holder.textView.setText(expenditures.getNameGroup());
+        holder.cost.setTextColor(Color.RED);
+        holder.cost.setText(expenditures.getMoney() + " đ");
 
     }
     public void setExpendituresList(List<Expenditures> expendituresList)
@@ -54,11 +57,13 @@ public class HomeDayAdapter extends RecyclerView.Adapter<HomeDayAdapter.HomeDayV
     public  class HomeDayViewHolder extends RecyclerView.ViewHolder{
        ImageView imageView;
        TextView textView;
+       TextView cost;
        HomeDayViewHolder(View itemView)
        {
            super(itemView);
            imageView = itemView.findViewById(R.id.image_group_day);
            textView = itemView.findViewById(R.id.tv_name_group_day);
+           cost = itemView.findViewById(R.id.tv_cost);
 
        }
     }

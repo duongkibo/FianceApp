@@ -48,49 +48,44 @@ import java.util.logging.Logger;
 public class ExpenseFragment extends Fragment {
     private View view;
     private TextView edtCalendar;
-    private  List<Group> groupList = new ArrayList<>();
+    private List<Group> groupList = new ArrayList<>();
     private GroupAdapter groupAdapter;
-    private  RecyclerView recyclerView;
-    private EditText edt_one,edt_two;
-    private  String nameGroupss;
-    private  int idImage;
-    private  TextInputEditText edtMoney, edtNote;
+    private RecyclerView recyclerView;
+    private EditText edt_one, edt_two;
+    private String nameGroupss;
+    private int idImage;
+    private TextInputEditText edtMoney, edtNote;
     private Button btnAddExp;
     private AddExpendituresViewModel addExpendituresViewModel;
-    private  int days,years,months;
-    private Expenditures expenditures ;
-
-
+    private int days, years, months;
+    private Expenditures expenditures;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_expense, container, false);
-        edtCalendar =(TextView) view.findViewById(R.id.edtCalendar);
+        edtCalendar = (TextView) view.findViewById(R.id.edtCalendar);
         init();
 
 
-        edtMoney = (TextInputEditText)  view.findViewById(R.id.tp_money);
+        edtMoney = (TextInputEditText) view.findViewById(R.id.tp_money);
         edtNote = (TextInputEditText) view.findViewById(R.id.tp_note);
         recyclerView = (RecyclerView) view.findViewById(R.id.rc_group);
         btnAddExp = (Button) view.findViewById(R.id.btn_add_expense);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 5, LinearLayoutManager.VERTICAL,false);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 4, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(gridLayoutManager);
-        groupAdapter  = new GroupAdapter(getActivity(),groupList);
+        groupAdapter = new GroupAdapter(getActivity(), groupList);
         recyclerView.setAdapter(groupAdapter);
         getDataExpen();
         // add to db
         btnAddExp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("xxxxx",years+" "+months+" "+days);
-                if(expenditures!= null)
-                {
+                Log.d("xxxxx", years + " " + months + " " + days);
+                if (expenditures != null) {
                     new AddExpendituresTask(expenditures).execute();
-
-                }
-                else
-                {
+                    getActivity().onBackPressed();
+                } else {
                 }
 
             }
@@ -101,16 +96,16 @@ public class ExpenseFragment extends Fragment {
 
         return view;
     }
-    public  void getDataExpen()
-    {
+
+    public void getDataExpen() {
         BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 nameGroupss = intent.getStringExtra("nameGroup");
-                idImage = intent.getIntExtra("sss",10);
+                idImage = intent.getIntExtra("sss", 10);
                 //Toast.makeText(getContext(),idImage, Toast.LENGTH_SHORT).show();
-                Log.d("iddd",idImage+"");
-                expenditures = new Expenditures(edtMoney.getText().toString(),edtNote.getText().toString(),idImage,nameGroupss,months,days,years);
+                Log.d("iddd", idImage + "");
+                expenditures = new Expenditures(edtMoney.getText().toString(), edtNote.getText().toString(), idImage, nameGroupss, months, days, years);
                 expenditures.setImage(idImage);
 
             }
@@ -125,7 +120,7 @@ public class ExpenseFragment extends Fragment {
     }
 
     private class AddExpendituresTask extends AsyncTask<Void, Void, Void> {
-       Expenditures expenditures;
+        Expenditures expenditures;
 
         public AddExpendituresTask(Expenditures expenditures) {
             this.expenditures = expenditures;
@@ -138,7 +133,7 @@ public class ExpenseFragment extends Fragment {
         }
     }
 
-    private void init(){
+    private void init() {
         Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
         final int month = calendar.get(Calendar.MONTH);
@@ -160,28 +155,22 @@ public class ExpenseFragment extends Fragment {
                         expenditures.setMonth(months);
                         expenditures.setYear(years);
 
-
-
-
                     }
                 }, year, month, day);
                 datePickerDialog.show();
             }
         });
 
-        Log.d("uess",years+months+days+"");
+        Log.d("uess", years + months + days + "");
 
-        groupList.add(new Group("Shopping",R.drawable.shopping));
-        groupList.add(new Group("Food",R.drawable.food));
-        groupList.add(new Group("Entertaiment",R.drawable.entertainmence));
-        groupList.add(new Group("Education",R.drawable.education));
-        groupList.add(new Group("Residence",R.drawable.residence));
-        groupList.add(new Group("Salary",R.drawable.salary));
-        groupList.add(new Group("Transpostaion",R.drawable.transportation));
-        groupList.add(new Group("Travel",R.drawable.travel));
-        groupList.add(new Group("Bills",R.drawable.bills));
-        groupList.add(new Group("Purchase",R.drawable.purchases));
-
+        groupList.add(new Group("Mua sắm", R.drawable.shopping));
+        groupList.add(new Group("Nhà hàng", R.drawable.food));
+        groupList.add(new Group("Giải trí", R.drawable.entertainmence));
+        groupList.add(new Group("Giáo dục", R.drawable.education));
+        groupList.add(new Group("Gia đình", R.drawable.residence));
+        groupList.add(new Group("Phương tiện", R.drawable.transportation));
+        groupList.add(new Group("Du lịch", R.drawable.travel));
+        groupList.add(new Group("Hóa đơn", R.drawable.bills));
 
 
     }

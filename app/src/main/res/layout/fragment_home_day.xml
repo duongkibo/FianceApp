@@ -17,8 +17,8 @@
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="10dp"
         android:background="@drawable/bottom_radius"
+        android:elevation="10dp"
         app:textColorSelected="#FFFF" />
 
     <!--</com.google.android.material.appbar.AppBarLayout>-->
@@ -27,9 +27,9 @@
         android:id="@+id/constrain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="@dimen/_10sdp"
         android:layout_below="@id/calendarView"
         android:background="@drawable/bottom_radius_white"
+        android:elevation="@dimen/_10sdp"
         android:padding="@dimen/_8sdp"
         android:visibility="visible">
 
@@ -90,12 +90,34 @@
             app:layout_constraintTop_toBottomOf="@+id/baseline" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <TextView
+        android:id="@+id/txt_home_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/constrain"
+        android:text="Khoản chi" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewDay"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/constrain"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_home_1"
+        android:layout_marginTop="@dimen/_8sdp">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/txt_home_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/recyclerViewDay"
+        android:text="Khoản thu" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewDay_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_home_2"
         android:layout_marginTop="@dimen/_8sdp">
 
     </androidx.recyclerview.widget.RecyclerView>

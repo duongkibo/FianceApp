@@ -22,39 +22,41 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHolder> {
-    private  List<Group> groupList;
+    private List<Group> groupList;
     private LayoutInflater mInflater;
+
     public GroupAdapter(Context context, List<Group> groupList) {
         this.mInflater = LayoutInflater.from(context);
         this.groupList = groupList;
     }
+
     @NonNull
     @Override
     public GroupViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-       View view = mInflater.inflate(R.layout.item_group,parent,false);
-       return  new GroupViewHolder( view);
+        View view = mInflater.inflate(R.layout.item_group, parent, false);
+        return new GroupViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final GroupViewHolder holder, int position) {
-          Group group = groupList.get(position);
-          holder.textView.setText(group.getName());
-          holder.imageView.setImageResource(group.getImage());
-          holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View view) {
-                  Intent intent = new Intent("sendata");
+        final Group group = groupList.get(position);
+        holder.textView.setText(group.getName());
+        holder.imageView.setImageResource(group.getImage());
+        holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent("sendata");
 
-                   int id  = group.getImage();
+                int id = group.getImage();
 
-                  intent.putExtra("sss",id);
-                  intent.putExtra("nameGroup",holder.textView.getText().toString().trim());
+                intent.putExtra("sss", id);
+                intent.putExtra("nameGroup", holder.textView.getText().toString().trim());
 
 
-                 LocalBroadcastManager.getInstance(view.getContext()).sendBroadcast(intent);
-                 Toast.makeText(view.getContext(),"Bạn đã chọn"+holder.textView.getText().toString()+id+"",Toast.LENGTH_LONG).show();
-              }
-          });
+                LocalBroadcastManager.getInstance(view.getContext()).sendBroadcast(intent);
+                Toast.makeText(view.getContext(), "Bạn đã chọn" + holder.textView.getText().toString() + id + "", Toast.LENGTH_LONG).show();
+            }
+        });
 
     }
 
@@ -63,13 +65,12 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
         return groupList.size();
     }
 
-    public  static  class GroupViewHolder extends  RecyclerView.ViewHolder  {
+    public static class GroupViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
         TextView textView;
         ConstraintLayout constraintLayout;
 
-        GroupViewHolder(View itemview)
-        {
+        GroupViewHolder(View itemview) {
             super(itemview);
             imageView = itemView.findViewById(R.id.image_group);
             textView = itemview.findViewById(R.id.tv_name_group);

@@ -22,7 +22,6 @@ public class CreateFianceFragment extends Fragment {
 
     private View view;
     private ImageView imgClose;
-    private ImageView imgSave;
     private ChipNavigationBar topNav;
 
     @Override
@@ -40,7 +39,6 @@ public class CreateFianceFragment extends Fragment {
     private void initView() {
         topNav = view.findViewById(R.id.top_nav);
         imgClose = view.findViewById(R.id.imgClose);
-        imgSave = view.findViewById(R.id.imgSave);
 
         imgClose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,12 +48,6 @@ public class CreateFianceFragment extends Fragment {
             }
         });
 
-        imgSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
 }
 
     private void setTopNavigation() {
