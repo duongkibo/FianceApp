@@ -31,7 +31,6 @@ public class HomeFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_home, container, false);
         CollapsingToolbarLayout collapsingToolbar = view.findViewById(R.id.collapsing_toolbar);
         collapsingToolbar.setTitle("Total: 2,000,000$");
-
         return view;
     }
 
@@ -71,7 +70,6 @@ public class HomeFragment extends Fragment {
     }
 
     private void homeDayScreen() {
-
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container2, homeDay)
                 .addToBackStack(null).commit();

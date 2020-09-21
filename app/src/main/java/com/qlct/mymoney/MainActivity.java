@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnAdd = findViewById(R.id.btn_add);
       //  blurLayout = findViewById(R.id.blurLayout);
 
-        topAnimation = AnimationUtils.loadAnimation(this, R.anim.top_animation);
+         topAnimation = AnimationUtils.loadAnimation(this, R.anim.top_animation);
         bottomAnimation = AnimationUtils.loadAnimation(this, R.anim.bottom_animation);
 
         btnAdd.setOnClickListener(this);
@@ -106,7 +106,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void openCreateFianceFragment() {
-
         createFianceFragment = new CreateFianceFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.bottom_animation, R.anim.bottom_animation);
