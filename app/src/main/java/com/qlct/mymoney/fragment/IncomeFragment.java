@@ -86,8 +86,6 @@ public class IncomeFragment extends Fragment {
         });
 
         addIncomeDituresViewModel = ViewModelProviders.of(IncomeFragment.this).get(AddIncomeDituresViewModel.class);
-
-
         return view;
     }
 

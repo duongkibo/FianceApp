@@ -1,126 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/homwDayScreen"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.HomeDayFragment">
+    android:scrollbars="vertical">
 
-    <!--<com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBar"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/homwDayScreen"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">-->
+        android:layout_height="match_parent"
+        tools:context=".fragment.HomeDayFragment">
+
+        <!--<com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">-->
 
 
-    <devs.mulham.horizontalcalendar.HorizontalCalendarView
-        android:id="@+id/calendarView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bottom_radius"
-        android:elevation="10dp"
-        app:textColorSelected="#FFFF" />
+        <devs.mulham.horizontalcalendar.HorizontalCalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bottom_radius"
+            android:elevation="10dp"
+            app:textColorSelected="#FFFF" />
 
-    <!--</com.google.android.material.appbar.AppBarLayout>-->
+        <!--</com.google.android.material.appbar.AppBarLayout>-->
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constrain"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/calendarView"
-        android:background="@drawable/bottom_radius_white"
-        android:elevation="@dimen/_10sdp"
-        android:padding="@dimen/_8sdp"
-        android:visibility="visible">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constrain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/calendarView"
+            android:background="@drawable/bottom_radius_white"
+            android:elevation="@dimen/_10sdp"
+            android:padding="@dimen/_8sdp"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/txtIncome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:text="Tiền thu"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtExpense"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:text="Tiền chi"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtIncome" />
+
+            <TextView
+                android:id="@+id/txtCostIncoming"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1000000"
+                android:textColor="@color/primary_blue"
+                app:layout_constraintBaseline_toBaselineOf="@+id/txtIncome"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtCostExpense"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="65000"
+                android:textColor="@color/red"
+                app:layout_constraintBaseline_toBaselineOf="@+id/txtExpense"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/baseline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="______________"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtCostExpense" />
+
+            <TextView
+                android:id="@+id/totalCost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tổng"
+                android:textColor="@android:color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/baseline" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/txtIncome"
+            android:id="@+id/txt_home_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:text="Tiền thu"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_below="@+id/constrain"
+            android:text="Khoản chi" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewDay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_home_1"
+            android:layout_marginTop="@dimen/_8sdp">
+
+        </androidx.recyclerview.widget.RecyclerView>
 
         <TextView
-            android:id="@+id/txtExpense"
+            android:id="@+id/txt_home_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:text="Tiền chi"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtIncome" />
+            android:layout_below="@+id/recyclerViewDay"
+            android:text="Khoản thu" />
 
-        <TextView
-            android:id="@+id/txtCostIncoming"
-            android:layout_width="wrap_content"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewDay_1"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="1000000"
-            android:textColor="@color/primary_blue"
-            app:layout_constraintBaseline_toBaselineOf="@+id/txtIncome"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_below="@id/txt_home_2"
+            android:layout_marginTop="@dimen/_8sdp">
 
-        <TextView
-            android:id="@+id/txtCostExpense"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="65000"
-            android:textColor="@color/red"
-            app:layout_constraintBaseline_toBaselineOf="@+id/txtExpense"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        </androidx.recyclerview.widget.RecyclerView>
 
-        <TextView
-            android:id="@+id/baseline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="______________"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txtCostExpense" />
+    </RelativeLayout>
 
-        <TextView
-            android:id="@+id/totalCost"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tổng"
-            android:textColor="@android:color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/baseline" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/txt_home_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/constrain"
-        android:text="Khoản chi" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewDay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txt_home_1"
-        android:layout_marginTop="@dimen/_8sdp">
-
-    </androidx.recyclerview.widget.RecyclerView>
-
-    <TextView
-        android:id="@+id/txt_home_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/recyclerViewDay"
-        android:text="Khoản thu" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewDay_1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txt_home_2"
-        android:layout_marginTop="@dimen/_8sdp">
-
-    </androidx.recyclerview.widget.RecyclerView>
-
-
-</RelativeLayout>
+</androidx.core.widget.NestedScrollView>
