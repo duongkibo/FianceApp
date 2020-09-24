@@ -1,6 +1,7 @@
 package com.qlct.mymoney.model;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -23,6 +24,14 @@ public interface ExpendituresDao {
     @Query("SELECT COUNT(*) FROM Expenditures")
     int rowCount();
 
-    @Query("SELECT* FROM Expenditures  ")
+    @Query("SELECT* FROM Expenditures")
     LiveData<List<Expenditures>> getAllItems();
+
+    @Query("SELECT * FROM expenditures WHERE day=:days ")
+    LiveData<List<Expenditures>> getItemDays(int days);
+    @Query("SELECT * FROM expenditures WHERE month=:months ")
+    LiveData<List<Expenditures>> getItemMonths(int months);
+    @Query("SELECT * FROM expenditures WHERE year=:years ")
+    LiveData<List<Expenditures>> getItemYears(int years);
+
 }

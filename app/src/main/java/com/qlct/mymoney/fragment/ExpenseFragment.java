@@ -149,7 +149,7 @@ public class ExpenseFragment extends Fragment {
                         String date = day + "/" + month + "/" + year;
                         edtCalendar.setText(date);
                         years = year;
-                        days = day;
+                        days =day;
                         months = month;
                         expenditures.setDay(days);
                         expenditures.setMonth(months);

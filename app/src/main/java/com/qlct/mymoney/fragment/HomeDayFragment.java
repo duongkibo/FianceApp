@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +18,12 @@ import android.widget.Toast;
 import com.qlct.mymoney.R;
 import com.qlct.mymoney.adapter.ExpenseAdapter;
 import com.qlct.mymoney.adapter.IncomeAdapter;
+import com.qlct.mymoney.model.DataBaseIntalizerIncome;
 import com.qlct.mymoney.model.DatabaseIntalizer;
 import com.qlct.mymoney.model.Expenditures;
 import com.qlct.mymoney.model.ExpendituresDB;
 import com.qlct.mymoney.model.IncomeDitures;
+import com.qlct.mymoney.model.IncomeDituresDB;
 import com.qlct.mymoney.viewmodel.AddExpendituresViewModel;
 import com.qlct.mymoney.viewmodel.AddIncomeDituresViewModel;
 
@@ -37,6 +40,7 @@ public class HomeDayFragment extends Fragment {
     private RecyclerView rcIncome;
     private List<Expenditures> expenditures = new ArrayList<>();
     private List<IncomeDitures> incomeDitures = new ArrayList<>();
+    ExpenseAdapter expenseAdapter = new ExpenseAdapter(expenditures);
 
 
     @Override
@@ -45,6 +49,7 @@ public class HomeDayFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_home_day, container, false);
         DatabaseIntalizer.populateAsync(ExpendituresDB.getExpendituresDB(getContext()));
+        DataBaseIntalizerIncome.populateAsync(IncomeDituresDB.getIncomeDituresBD(getContext()));
         /* start before 1 month from now */
         Calendar startDate = Calendar.getInstance();
         startDate.add(Calendar.MONTH, -2);
@@ -71,23 +76,32 @@ public class HomeDayFragment extends Fragment {
             @Override
             public void onDateSelected(Calendar date, int position) {
                 Toast.makeText(getContext(), DateFormat.format("EEE, MMM d, yyyy", date) + " is selected!", Toast.LENGTH_SHORT).show();
+                 int day = Integer.valueOf(DateFormat.format("d",date).toString().trim());
+                 rcExpend = (RecyclerView) rootView.findViewById(R.id.recyclerViewDay);
+                 rcExpend.setLayoutManager(new LinearLayoutManager(getActivity()));
+                 rcExpend.setAdapter(expenseAdapter);
+
+                 AddExpendituresViewModel viewModel = ViewModelProviders.of(HomeDayFragment.this).get(AddExpendituresViewModel.class);
+                 viewModel.getExpanddituresDay(day).observe(getActivity(),expenseAdapter::setExpendituresList);
+
+
             }
+
 
         });
 
-        rcExpend = (RecyclerView) rootView.findViewById(R.id.recyclerViewDay);
+
+
+
         rcIncome = rootView.findViewById(R.id.recyclerViewDay_1);
 
-        ExpenseAdapter expenseAdapter = new ExpenseAdapter(expenditures);
+
         IncomeAdapter incomeAdapter = new IncomeAdapter(incomeDitures);
 
-        rcExpend.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rcExpend.setAdapter(expenseAdapter);
         rcIncome.setLayoutManager(new LinearLayoutManager(getActivity()));
         rcIncome.setAdapter(incomeAdapter);
 
-        AddExpendituresViewModel viewModel = ViewModelProviders.of(this).get(AddExpendituresViewModel.class);
-        viewModel.getExpendiures().observe(getActivity(), expenseAdapter::setExpendituresList);
+
 
         AddIncomeDituresViewModel viewModel2 = ViewModelProviders.of(this).get(AddIncomeDituresViewModel.class);
         viewModel2.getIncome().observe(getActivity(), incomeAdapter::setIncomeDituresList);
