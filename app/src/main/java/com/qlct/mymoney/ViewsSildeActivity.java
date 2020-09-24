@@ -2,6 +2,8 @@ package com.qlct.mymoney;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -15,6 +17,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.qlct.mymoney.databinding.ActivityViewsSildeBinding;
+import com.qlct.mymoney.model.DataBaseIntalizerUser;
+import com.qlct.mymoney.model.UserDitures;
+import com.qlct.mymoney.model.UserDituresDB;
+import com.qlct.mymoney.viewmodel.AddUserDituresViewModel;
 
 public class ViewsSildeActivity extends AppCompatActivity {
 
@@ -28,7 +34,7 @@ public class ViewsSildeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+        /*boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
                 .getBoolean("isfirstrun", true);
 
         if (isFirstRun) {
@@ -37,11 +43,23 @@ public class ViewsSildeActivity extends AppCompatActivity {
                     .putBoolean("isfirstrun", false).commit();
         } else {
             launchHomeScreen();
-        }
+        }*/
 
-        binding = ActivityViewsSildeBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-        initViews();
+        DataBaseIntalizerUser.populateAsync(UserDituresDB.getUserDituresDB(getApplicationContext()));
+        AddUserDituresViewModel viewModel = ViewModelProviders.of(ViewsSildeActivity.this).get(AddUserDituresViewModel.class);
+        viewModel.getUserDitures().observe(ViewsSildeActivity.this, new Observer<UserDitures>() {
+            @Override
+            public void onChanged(UserDitures userDitures) {
+                if (userDitures == null) {
+                    binding = ActivityViewsSildeBinding.inflate(getLayoutInflater());
+                    setContentView(binding.getRoot());
+                    initViews();
+                }
+            }
+
+        });
+
+
     }
 
     private void initViews() {
@@ -90,7 +108,7 @@ public class ViewsSildeActivity extends AppCompatActivity {
         finish();
     }
 
-    private void openInforUserScreen(){
+    private void openInforUserScreen() {
         Intent intent = new Intent(this, CreateUserActivity.class);
         startActivity(intent);
         finish();

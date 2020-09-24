@@ -9,9 +9,17 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+
+import com.qlct.mymoney.model.DataBaseIntalizerUser;
+import com.qlct.mymoney.model.UserDitures;
+import com.qlct.mymoney.model.UserDituresDB;
+import com.qlct.mymoney.viewmodel.AddUserDituresViewModel;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -28,6 +36,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
+
         initview();
 
 
@@ -43,12 +52,29 @@ public class SplashActivity extends AppCompatActivity {
         img_splash.setAnimation(topAnimation);
         txt_splash.setAnimation(bottomAnimation);
 
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashActivity.this, ViewsSildeActivity.class);
-                startActivity(intent);
-                finish();
+                DataBaseIntalizerUser.populateAsync(UserDituresDB.getUserDituresDB(getApplicationContext()));
+                AddUserDituresViewModel viewModel = ViewModelProviders.of(SplashActivity.this).get(AddUserDituresViewModel.class);
+                viewModel.getUserDitures().observe(SplashActivity.this, new Observer<UserDitures>() {
+                    @Override
+                    public void onChanged(UserDitures userDitures) {
+                        if (userDitures == null) {
+                            Intent intent = new Intent(SplashActivity.this, ViewsSildeActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Intent intent = new Intent(SplashActivity.this, PinPasswordActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }
+
+                });
+
+
             }
         }, SPLASH_SCREEN);
 

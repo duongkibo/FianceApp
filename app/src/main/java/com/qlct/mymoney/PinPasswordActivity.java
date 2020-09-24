@@ -31,7 +31,6 @@ public class PinPasswordActivity extends AppCompatActivity {
     private int strPin = 0;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,9 +44,8 @@ public class PinPasswordActivity extends AppCompatActivity {
         viewModel.getUserDitures().observe(this, new Observer<UserDitures>() {
             @Override
             public void onChanged(UserDitures userDitures) {
-                if(userDitures !=null)
-                {
-                     strPin = Integer.parseInt(userDitures.getPassword());
+                if (userDitures != null) {
+                    strPin = Integer.parseInt(userDitures.getPassword());
                     Toast.makeText(getApplicationContext(), String.valueOf(strPin), Toast.LENGTH_SHORT).show();
                     Toast.makeText(getApplicationContext(), String.valueOf(userDitures.getWallet()), Toast.LENGTH_SHORT).show();
                 }
@@ -55,9 +53,8 @@ public class PinPasswordActivity extends AppCompatActivity {
 
         });
 
-
-       InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-       inputMethodManager.showSoftInput(pinEntry, InputMethodManager.SHOW_IMPLICIT);
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.showSoftInput(pinEntry, InputMethodManager.SHOW_IMPLICIT);
         if (pinEntry != null) {
             pinEntry.setAnimateText(true);
             pinEntry.setOnPinEnteredListener(new PinEntryEditText.OnPinEnteredListener() {
