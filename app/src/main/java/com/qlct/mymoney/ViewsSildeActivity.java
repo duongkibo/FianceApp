@@ -58,7 +58,7 @@ public class ViewsSildeActivity extends AppCompatActivity {
         binding.btnSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                launchHomeScreen();
+                openInforUserScreen();
             }
         });
 
