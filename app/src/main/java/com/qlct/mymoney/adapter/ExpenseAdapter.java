@@ -20,7 +20,7 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.HomeDayV
 
     public ExpenseAdapter(List<Expenditures> expendituresList)
     {
-        this.expendituresList =expendituresList;
+        this.expendituresList = expendituresList;
     }
     @NonNull
     @Override

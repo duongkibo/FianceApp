@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -53,9 +54,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         createFianceScreen = findViewById(R.id.createFianceScreen);
         bottomNav = findViewById(R.id.bottom_nav);
         btnAdd = findViewById(R.id.btn_add);
-      //  blurLayout = findViewById(R.id.blurLayout);
+        //  blurLayout = findViewById(R.id.blurLayout);
 
-         topAnimation = AnimationUtils.loadAnimation(this, R.anim.top_animation);
+        topAnimation = AnimationUtils.loadAnimation(this, R.anim.top_animation);
         bottomAnimation = AnimationUtils.loadAnimation(this, R.anim.bottom_animation);
 
         btnAdd.setOnClickListener(this);
@@ -112,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fragmentTransaction.replace(android.R.id.content, createFianceFragment)
                 .addToBackStack(null)
                 .commit();
+
     }
 
     @Override

@@ -48,8 +48,10 @@ public class HomeDayFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_home_day, container, false);
+
         DatabaseIntalizer.populateAsync(ExpendituresDB.getExpendituresDB(getContext()));
         DataBaseIntalizerIncome.populateAsync(IncomeDituresDB.getIncomeDituresBD(getContext()));
+
         /* start before 1 month from now */
         Calendar startDate = Calendar.getInstance();
         startDate.add(Calendar.MONTH, -2);
@@ -76,21 +78,19 @@ public class HomeDayFragment extends Fragment {
             @Override
             public void onDateSelected(Calendar date, int position) {
                 Toast.makeText(getContext(), DateFormat.format("EEE, MMM d, yyyy", date) + " is selected!", Toast.LENGTH_SHORT).show();
-                 int day = Integer.valueOf(DateFormat.format("d",date).toString().trim());
-                 rcExpend = (RecyclerView) rootView.findViewById(R.id.recyclerViewDay);
-                 rcExpend.setLayoutManager(new LinearLayoutManager(getActivity()));
-                 rcExpend.setAdapter(expenseAdapter);
+                int day = Integer.valueOf(DateFormat.format("d", date).toString().trim());
+                rcExpend = (RecyclerView) rootView.findViewById(R.id.recyclerViewDay);
+                rcExpend.setLayoutManager(new LinearLayoutManager(getActivity()));
+                rcExpend.setAdapter(expenseAdapter);
 
-                 AddExpendituresViewModel viewModel = ViewModelProviders.of(HomeDayFragment.this).get(AddExpendituresViewModel.class);
-                 viewModel.getExpanddituresDay(day).observe(getActivity(),expenseAdapter::setExpendituresList);
+                AddExpendituresViewModel viewModel = ViewModelProviders.of(HomeDayFragment.this).get(AddExpendituresViewModel.class);
+                viewModel.getExpanddituresDay(day).observe(getActivity(), expenseAdapter::setExpendituresList);
 
 
             }
 
 
         });
-
-
 
 
         rcIncome = rootView.findViewById(R.id.recyclerViewDay_1);
@@ -102,11 +102,21 @@ public class HomeDayFragment extends Fragment {
         rcIncome.setAdapter(incomeAdapter);
 
 
-
         AddIncomeDituresViewModel viewModel2 = ViewModelProviders.of(this).get(AddIncomeDituresViewModel.class);
         viewModel2.getIncome().observe(getActivity(), incomeAdapter::setIncomeDituresList);
-
-
+        /*viewModel2.getIncome().observe(getActivity(), new Observer<List<IncomeDitures>>() {
+            @Override
+            public void onChanged(List<IncomeDitures> incomeDituresList) {
+                if(incomeDituresList!=null)
+                {
+                    for (int i=0;i<incomeDituresList.size();i++)
+                    {
+                        IncomeDitures incomeDitures = incomeDituresList.get(i);
+                        incomeDitures.getDay();
+                    }
+                }
+            }
+        });*/
 
         return rootView;
     }

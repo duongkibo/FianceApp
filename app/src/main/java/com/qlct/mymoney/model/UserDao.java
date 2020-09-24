@@ -24,5 +24,5 @@ public interface UserDao {
     int rowCount();
 
     @Query("SELECT * FROM UserDitures")
-    LiveData<List<UserDitures>> getAll();
+    LiveData<UserDitures> getAll();
 }

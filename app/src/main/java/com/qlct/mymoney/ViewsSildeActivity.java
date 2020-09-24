@@ -72,7 +72,7 @@ public class ViewsSildeActivity extends AppCompatActivity {
                     // move to next screen
                     binding.viewPager.setCurrentItem(current);
                 } else {
-                    launchHomeScreen();
+                    openInforUserScreen();
                 }
             }
         });
@@ -85,7 +85,13 @@ public class ViewsSildeActivity extends AppCompatActivity {
     }
 
     private void launchHomeScreen() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, PinPasswordActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void openInforUserScreen(){
+        Intent intent = new Intent(this, CreateUserActivity.class);
         startActivity(intent);
         finish();
     }

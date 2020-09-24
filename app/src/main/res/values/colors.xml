@@ -20,6 +20,7 @@
     <color name="dot_dark_screen4">#ccff</color>
     <color name="title">#0D1F3C</color>
     <color name="title_expense">#CCDAF6</color>
+    <color name="gray_edittext">#99A0B0</color>
     <color name="category_word">#485068</color>
 
     <!-- dots active colors -->

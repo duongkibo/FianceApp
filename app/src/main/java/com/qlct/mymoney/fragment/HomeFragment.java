@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,14 +15,21 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.qlct.mymoney.R;
+import com.qlct.mymoney.model.DataBaseIntalizerUser;
+import com.qlct.mymoney.model.UserDitures;
+import com.qlct.mymoney.model.UserDituresDB;
+import com.qlct.mymoney.viewmodel.AddUserDituresViewModel;
 
 public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;
     private View view;
+    private String wallet;
     private Toolbar toolbar;
     Fragment homeDay = new HomeDayFragment();
 
@@ -29,8 +37,22 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container, false);
-        CollapsingToolbarLayout collapsingToolbar = view.findViewById(R.id.collapsing_toolbar);
-        collapsingToolbar.setTitle("Total: 2,000,000$");
+        DataBaseIntalizerUser.populateAsync(UserDituresDB.getUserDituresDB(getContext()));
+
+        AddUserDituresViewModel viewModel = ViewModelProviders.of(this).get(AddUserDituresViewModel.class);
+        // viewModel2.getIncome().observe(getActivity(), incomeAdapter::setIncomeDituresList);
+        viewModel.getUserDitures().observe(getActivity(), new Observer<UserDitures>() {
+            @Override
+            public void onChanged(UserDitures userDitures) {
+                if (userDitures != null) {
+                    CollapsingToolbarLayout collapsingToolbar = view.findViewById(R.id.collapsing_toolbar);
+                    collapsingToolbar.setTitle("Ví: " + String.valueOf(userDitures.getWallet()) + " đ");
+                }
+            }
+
+        });
+
+
         return view;
     }
 
