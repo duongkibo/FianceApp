@@ -39,7 +39,7 @@ public class CreateInforFragment extends Fragment {
     private void initView() {
         btnRegister = view.findViewById(R.id.btnRegister);
         edtFirtname = view.findViewById(R.id.edtFirtname);
-        edtPin = view.findViewById(R.id.edtpin);
+        edtPin = view.findViewById(R.id.edtPin);
         editPinAgain = view.findViewById(R.id.edtPinAgain);
 
 

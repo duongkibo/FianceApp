@@ -44,8 +44,8 @@ public class NotificationReceiver extends BroadcastReceiver {
         }
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_baseline_emoji_emotions_24)
-                .setContentTitle("Title of notification")
-                .setContentText("Sub text of notification")
+                .setContentTitle("My Money")
+                .setContentText("Bạn đã sẵn sàng để cập nhật giao dịch hôm nay chưa?")
                 .setAutoCancel(true)
                 .setSound(defaultSound)
                 .setContentIntent(pendingIntent)

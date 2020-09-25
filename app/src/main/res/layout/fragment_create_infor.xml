@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.CreateInforFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,10 +28,10 @@
             android:text="Chào mừng tới My Money"
             android:textColor="@color/primary_blue"
             android:textSize="24sp"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.111"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tlFistName"
@@ -58,51 +58,106 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tlpass"
+        <!--  <com.google.android.material.textfield.TextInputLayout
+              android:id="@+id/tlpass"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="16dp"
+              android:layout_marginTop="16dp"
+              android:layout_marginEnd="16dp"
+              app:layout_constraintTop_toBottomOf="@+id/tlFistName">
+
+              <EditText
+                  android:id="@+id/edtpin"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:backgroundTint="@color/gray_edittext"
+                  android:ems="10"
+                  android:hint="Mã pin"
+                  android:inputType="numberDecimal"
+                  android:paddingLeft="5dp"
+                  android:textColorHint="#99A0B0" />
+
+
+          </com.google.android.material.textfield.TextInputLayout>
+
+          <com.google.android.material.textfield.TextInputLayout
+              android:id="@+id/tlAdress"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="16dp"
+              android:layout_marginTop="16dp"
+              android:layout_marginEnd="16dp"
+              app:layout_constraintTop_toBottomOf="@+id/tlpass">
+
+              <EditText
+                  android:id="@+id/edtPinAgain"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:backgroundTint="@color/gray_edittext"
+                  android:ems="10"
+                  android:hint="Nhập lại mã pin"
+                  android:inputType="numberDecimal"
+                  android:textColorHint="#99A0B0" />
+
+          </com.google.android.material.textfield.TextInputLayout>-->
+        <TextView
+            android:id="@+id/txtTextView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:text="Nhập mã pin bảo mật"
+            android:textColor="@color/primary_blue"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tlFistName" />
+
+        <com.alimuzaffar.lib.pin.PinEntryEditText
+            android:id="@+id/edtPin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/tlFistName">
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_16sdp"
+            android:background="@null"
+            android:cursorVisible="false"
+            android:digits="1234567890"
+            android:inputType="numberPassword"
+            android:maxLength="6"
+            android:textIsSelectable="false"
+            android:textSize="20sp"
+            android:visibility="visible"
+            app:layout_constraintTop_toBottomOf="@id/txtTextView2"
+            app:pinLineColors="@color/pin_line_colors" />
 
-            <EditText
-                android:id="@+id/edtpin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/gray_edittext"
-                android:ems="10"
-                android:hint="Mã pin"
-                android:inputType="numberDecimal"
-                android:paddingLeft="5dp"
-                android:textColorHint="#99A0B0" />
+        <TextView
+            android:id="@+id/txtTextView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:text="Nhập lại mã pin"
+            android:textColor="@color/primary_blue"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edtPin" />
 
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tlAdress"
+        <com.alimuzaffar.lib.pin.PinEntryEditText
+            android:id="@+id/edtPinAgain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/tlpass">
-
-            <EditText
-                android:id="@+id/edtPinAgain"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/gray_edittext"
-                android:ems="10"
-                android:hint="Nhập lại mã pin"
-                android:inputType="numberDecimal"
-                android:textColorHint="#99A0B0" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_16sdp"
+            android:background="@null"
+            android:cursorVisible="false"
+            android:digits="1234567890"
+            android:inputType="numberPassword"
+            android:maxLength="6"
+            android:textIsSelectable="false"
+            android:textSize="20sp"
+            android:visibility="visible"
+            app:layout_constraintTop_toBottomOf="@id/txtTextView3"
+            app:pinLineColors="@color/pin_line_colors" />
 
 
         <Button
@@ -119,7 +174,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.854"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tlAdress"
+            app:layout_constraintTop_toBottomOf="@+id/edtPinAgain"
             app:layout_constraintVertical_bias="0.781" />
 
 

@@ -13,16 +13,24 @@ import android.view.animation.AnimationUtils;
 import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.qlct.mymoney.R;
 import com.qlct.mymoney.adapter.NotificationReceiver;
+import com.qlct.mymoney.model.DataBaseIntalizerUser;
+import com.qlct.mymoney.model.UserDitures;
+import com.qlct.mymoney.model.UserDituresDB;
 import com.qlct.mymoney.ui.AddGroupActivity;
+import com.qlct.mymoney.viewmodel.AddUserDituresViewModel;
 
 import java.util.Calendar;
 
@@ -34,14 +42,10 @@ public class AccountFragment extends Fragment {
     private RelativeLayout rlSettings;
     private Animation bottomAnimation;
     private Context context;
+    private TextView userName;
     private View view;
     private FragmentManager fragmentManager;
     private Switch btnSetNotification;
-
-    public AccountFragment() {
-        // Required empty public constructor
-    }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,6 +66,22 @@ public class AccountFragment extends Fragment {
         fragmentManager = getChildFragmentManager();
         openNotification();
 
+        userName = view.findViewById(R.id.username);
+
+        DataBaseIntalizerUser.populateAsync(UserDituresDB.getUserDituresDB(getContext()));
+
+        AddUserDituresViewModel viewModel = ViewModelProviders.of(this).get(AddUserDituresViewModel.class);
+        // viewModel2.getIncome().observe(getActivity(), incomeAdapter::setIncomeDituresList);
+        viewModel.getUserDitures().observe(getActivity(), new Observer<UserDitures>() {
+            @Override
+            public void onChanged(UserDitures userDitures) {
+                if (userDitures != null) {
+                    userName.setText(userDitures.getUsername());
+                }
+            }
+
+        });
+
     }
 
     private void openNotification() {
@@ -69,17 +89,17 @@ public class AccountFragment extends Fragment {
         btnSetNotification.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
+                if (isChecked) {
                     Calendar calendar = Calendar.getInstance();
-                    calendar.set(Calendar.HOUR_OF_DAY, 9);
-                    calendar.set(Calendar.MINUTE, 50);
+                    calendar.set(Calendar.HOUR_OF_DAY, 8);
+                    calendar.set(Calendar.MINUTE, 0);
                     calendar.set(Calendar.SECOND, 0);
                     Intent notifyIntent = new Intent(getContext(), NotificationReceiver.class);
                     notifyIntent.setFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                    PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(),0,notifyIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                     AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
-                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,  calendar.getTimeInMillis(),1000 * 60 * 60 * 24, pendingIntent);
-                }else {
+                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 * 60 * 24, pendingIntent);
+                } else {
 
                 }
             }
