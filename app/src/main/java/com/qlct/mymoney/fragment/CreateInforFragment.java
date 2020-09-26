@@ -42,7 +42,6 @@ public class CreateInforFragment extends Fragment {
         edtPin = view.findViewById(R.id.edtPin);
         editPinAgain = view.findViewById(R.id.edtPinAgain);
 
-
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

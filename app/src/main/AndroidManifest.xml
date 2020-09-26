@@ -9,15 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ProfileActivity"></activity>
         <activity android:name=".CreateUserActivity" />
         <activity android:name=".PinPasswordActivity" />
         <activity android:name=".ui.AddGroupActivity" />
-
         <activity
             android:name=".ViewsSildeActivity"
             android:theme="@style/AppTheme.FullScreen" />
         <activity android:name=".MainActivity" />
-
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -24,7 +24,7 @@ public class DataBaseIntalizerUser {
         protected Void doInBackground(Void... voids) {
             if (userDituresDB.getUserDituresDao().rowCount() == 0){
                 List<UserDitures> userDitures = new ArrayList<>();
-                userDitures.add(new UserDitures("Toan", 1666666, "123456789"));
+                userDitures.add(new UserDitures("Toan", 1666666, "123456"));
             }
             return null;
         }

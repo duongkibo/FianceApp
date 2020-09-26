@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ProfileActivity">
+
+    <RelativeLayout
+        android:id="@+id/rlProfile_avatar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_150sdp"
+        android:background="@drawable/bottom_radius"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imgprofile_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:src="@drawable/ic__close_white_24" />
+
+        <ImageView
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_70sdp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_account_circle_24" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:text="Tên"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/_14sdp" />
+
+    <EditText
+        android:id="@+id/edtChange_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginEnd="@dimen/_16sdp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:text="Thay đổi mã pin"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/_14sdp" />
+
+    <!--<TextView
+        android:layout_marginTop="@dimen/_8sdp"
+        android:id="@+id/txtTextView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:text="Nhập mã pin hiện tại"
+        android:textColor="@color/primary_blue"
+        android:textSize="@dimen/_10sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tlFistName" />
+
+    <com.alimuzaffar.lib.pin.PinEntryEditText
+        android:id="@+id/edtPin_old"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
+        android:background="@null"
+        android:cursorVisible="false"
+        android:digits="1234567890"
+        android:inputType="numberPassword"
+        android:maxLength="6"
+        android:textIsSelectable="false"
+        android:textSize="20sp"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@id/txtTextView2"
+        app:pinLineColors="@color/pin_line_colors" />-->
+
+    <TextView
+        android:layout_marginTop="@dimen/_10sdp"
+        android:id="@+id/txtTextView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:text="Nhập mã pin mới"
+        android:textColor="@color/primary_blue"
+        android:textSize="@dimen/_10sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edtPin" />
+
+    <com.alimuzaffar.lib.pin.PinEntryEditText
+        android:id="@+id/edtPin_new"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
+        android:background="@null"
+        android:cursorVisible="false"
+        android:digits="1234567890"
+        android:inputType="numberPassword"
+        android:maxLength="6"
+        android:textIsSelectable="false"
+        android:textSize="20sp"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@id/txtTextView3"
+        app:pinLineColors="@color/pin_line_colors" />
+
+   <!-- <TextView
+        android:id="@+id/txtTextView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:text="Nhập lại mã pin mới"
+        android:textColor="@color/primary_blue"
+        android:textSize="@dimen/_10sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edtPin" />
+
+    <com.alimuzaffar.lib.pin.PinEntryEditText
+        android:id="@+id/edtPin_new_again"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
+        android:background="@null"
+        android:cursorVisible="false"
+        android:digits="1234567890"
+        android:inputType="numberPassword"
+        android:maxLength="6"
+        android:textIsSelectable="false"
+        android:textSize="20sp"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@id/txtTextView3"
+        app:pinLineColors="@color/pin_line_colors" />-->
+
+    <Button
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="wrap_content"
+        android:text="Lưu"
+        android:background="@drawable/background_radius"
+        android:textColor="@android:color/white"
+        android:textAllCaps="false"
+        android:id="@+id/btnSave"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_50sdp"/>
+
+
+</LinearLayout>

@@ -24,6 +24,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.qlct.mymoney.ProfileActivity;
 import com.qlct.mymoney.R;
 import com.qlct.mymoney.adapter.NotificationReceiver;
 import com.qlct.mymoney.model.DataBaseIntalizerUser;
@@ -42,6 +43,7 @@ public class AccountFragment extends Fragment {
     private RelativeLayout rlSettings;
     private Animation bottomAnimation;
     private Context context;
+    private RelativeLayout rlAccount_profile;
     private TextView userName;
     private View view;
     private FragmentManager fragmentManager;
@@ -67,9 +69,16 @@ public class AccountFragment extends Fragment {
         openNotification();
 
         userName = view.findViewById(R.id.username);
+        rlAccount_profile = view.findViewById(R.id.rlAccount_profile);
+        rlAccount_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
 
         DataBaseIntalizerUser.populateAsync(UserDituresDB.getUserDituresDB(getContext()));
-
         AddUserDituresViewModel viewModel = ViewModelProviders.of(this).get(AddUserDituresViewModel.class);
         // viewModel2.getIncome().observe(getActivity(), incomeAdapter::setIncomeDituresList);
         viewModel.getUserDitures().observe(getActivity(), new Observer<UserDitures>() {

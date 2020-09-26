@@ -17,6 +17,9 @@ public class UserDitures {
         this.password = password;
     }
 
+    public UserDitures() {
+    }
+
     public int getId() {
         return id;
     }

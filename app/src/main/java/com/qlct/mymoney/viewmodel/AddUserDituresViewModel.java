@@ -1,10 +1,12 @@
 package com.qlct.mymoney.viewmodel;
 
 import android.app.Application;
+import android.os.AsyncTask;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.qlct.mymoney.model.UserDao;
 import com.qlct.mymoney.model.UserDitures;
 import com.qlct.mymoney.model.UserDituresDB;
 
@@ -25,7 +27,13 @@ public class AddUserDituresViewModel extends AndroidViewModel {
         userDituresDB.getUserDituresDao().insert(userDitures);
     }
 
+    public void upDate(UserDitures userDitures){
+        userDituresDB.updateUserDituresDB(userDitures);
+    }
+
     public LiveData<UserDitures> getUserDitures(){
         return users;
     }
+
+
 }

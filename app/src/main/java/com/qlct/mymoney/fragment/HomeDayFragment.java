@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.qlct.mymoney.R;
@@ -35,6 +37,10 @@ import devs.mulham.horizontalcalendar.HorizontalCalendar;
 import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
 
 public class HomeDayFragment extends Fragment {
+    private TextView txtCostExpense;
+    private TextView txtCostIncome;
+    private TextView totalCost;
+
     private HorizontalCalendar horizontalCalendar;
     private RecyclerView rcExpend;
     private RecyclerView rcIncome;
@@ -48,6 +54,9 @@ public class HomeDayFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_home_day, container, false);
+
+        txtCostExpense = rootView.findViewById(R.id.txtCostExpense);
+        txtCostIncome = rootView.findViewById(R.id.txtCostIncoming);
 
         DatabaseIntalizer.populateAsync(ExpendituresDB.getExpendituresDB(getContext()));
         DataBaseIntalizerIncome.populateAsync(IncomeDituresDB.getIncomeDituresBD(getContext()));
@@ -85,7 +94,18 @@ public class HomeDayFragment extends Fragment {
 
                 AddExpendituresViewModel viewModel = ViewModelProviders.of(HomeDayFragment.this).get(AddExpendituresViewModel.class);
                 viewModel.getExpanddituresDay(day).observe(getActivity(), expenseAdapter::setExpendituresList);
+               /* viewModel.getExpanddituresDay(day).observe(getActivity(), new Observer<List<Expenditures>>() {
+                    @Override
+                    public void onChanged(List<Expenditures> expendituresList) {
+                        if (expendituresList != null) {
+                            for (int i = 0; i < expendituresList.size(); i++) {
+                                Expenditures expenditures = expendituresList.get(i);
+                                txtCostExpense.setText(expenditures.getMoney());
+                            }
+                        }
+                    }
 
+                });*/
 
             }
 

@@ -35,15 +35,6 @@
                     android:textSize="24sp">
 
                 </TextView>
-                <!--
-                                <ImageView
-                                    android:layout_width="18dp"
-                                    android:layout_height="18dp"
-                                    android:layout_alignParentRight="true"
-                                    android:layout_centerVertical="true"
-                                    android:src="@drawable/menu">
-
-                                </ImageView>-->
             </RelativeLayout>
 
             <RelativeLayout
@@ -68,7 +59,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="30dp"
+                    android:layout_marginStart="25dp"
                     android:layout_marginTop="18dp"
                     android:layout_toRightOf="@+id/profile"
                     android:fontFamily="@font/lato_regular_2"
@@ -277,7 +268,7 @@
                     android:src="@drawable/settings">
 
                 </ImageView>
-
+-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -300,6 +291,8 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
+                android:layout_marginBottom="@dimen/_30sdp"
+                android:id="@+id/rlAccount_profile"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="34dp">
 
@@ -317,7 +310,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="16dp"
                     android:layout_toRightOf="@id/icon_sh"
-                    android:text="Bảo mật "
+                    android:text="Hồ sơ"
                     android:textColor="#202020"
                     android:textSize="20dp">
 
