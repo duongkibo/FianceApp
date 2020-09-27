@@ -12,7 +12,6 @@ import com.qlct.mymoney.viewmodel.AddUserDituresViewModel;
 @Database(entities = {UserDitures.class}, version = 1)
 public abstract class UserDituresDB extends RoomDatabase {
     public static UserDituresDB userDitures;
-    private UserDao userDao;
 
     public static UserDituresDB getUserDituresDB(Context context) {
         if (userDitures == null) {
@@ -21,9 +20,6 @@ public abstract class UserDituresDB extends RoomDatabase {
         return userDitures;
     }
 
-    public void updateUserDituresDB(UserDitures userDitures){
-        new UpdateAsyncTask(userDao).execute(userDitures);
-    }
 
     public abstract UserDao getUserDituresDao();
 
@@ -31,17 +27,4 @@ public abstract class UserDituresDB extends RoomDatabase {
         userDitures = null;
     }
 
-    private static class UpdateAsyncTask extends AsyncTask<UserDitures, Void, Void> {
-        private UserDao userDao;
-
-        private UpdateAsyncTask(UserDao userDao){
-            this.userDao = userDao;
-        }
-
-        @Override
-        protected Void doInBackground(UserDitures... userDitures) {
-            userDao.update(userDitures);
-            return null;
-        }
-    }
 }

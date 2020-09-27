@@ -28,7 +28,7 @@ public class AddUserDituresViewModel extends AndroidViewModel {
     }
 
     public void upDate(UserDitures userDitures){
-        userDituresDB.updateUserDituresDB(userDitures);
+        userDituresDB.getUserDituresDao().update(userDitures);
     }
 
     public LiveData<UserDitures> getUserDitures(){
