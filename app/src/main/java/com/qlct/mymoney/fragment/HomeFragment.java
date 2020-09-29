@@ -26,6 +26,8 @@ import com.qlct.mymoney.model.UserDitures;
 import com.qlct.mymoney.model.UserDituresDB;
 import com.qlct.mymoney.viewmodel.AddUserDituresViewModel;
 
+import java.text.DecimalFormat;
+
 public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;
     private View view;
@@ -38,7 +40,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container, false);
         DataBaseIntalizerUser.populateAsync(UserDituresDB.getUserDituresDB(getContext()));
-
+        DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         AddUserDituresViewModel viewModel = ViewModelProviders.of(this).get(AddUserDituresViewModel.class);
         // viewModel2.getIncome().observe(getActivity(), incomeAdapter::setIncomeDituresList);
         viewModel.getUserDitures().observe(getActivity(), new Observer<UserDitures>() {
@@ -46,7 +48,7 @@ public class HomeFragment extends Fragment {
             public void onChanged(UserDitures userDitures) {
                 if (userDitures != null) {
                     CollapsingToolbarLayout collapsingToolbar = view.findViewById(R.id.collapsing_toolbar);
-                    collapsingToolbar.setTitle("Ví: " + String.valueOf(userDitures.getWallet()) + " đ");
+                    collapsingToolbar.setTitle("Ví: " + String.valueOf(decimalFormat.format(userDitures.getWallet())) + " ₫");
                 }
             }
 
