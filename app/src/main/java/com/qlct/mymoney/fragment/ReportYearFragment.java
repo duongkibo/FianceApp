@@ -1,5 +1,6 @@
 package com.qlct.mymoney.fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -25,6 +26,15 @@ import com.anychart.enums.Anchor;
 import com.anychart.enums.HoverMode;
 import com.anychart.enums.Position;
 import com.anychart.enums.TooltipPositionMode;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.qlct.mymoney.R;
 
 import java.util.ArrayList;
@@ -32,7 +42,8 @@ import java.util.List;
 
 public class ReportYearFragment extends Fragment {
     private View view;
-
+    private BarChart barChart;
+    private PieChart pieChartOne, pieChartTwo;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -52,7 +63,7 @@ public class ReportYearFragment extends Fragment {
     }
 
     private void creatChart() {
-        final AnyChartView anyChartView = view.findViewById(R.id.any_chart_view_expense);
+        /*final AnyChartView anyChartView = view.findViewById(R.id.any_chart_view_expense);
         APIlib.getInstance().setActiveAnyChartView(anyChartView);
 
         final Pie pie = AnyChart.pie();
@@ -145,9 +156,63 @@ public class ReportYearFragment extends Fragment {
         cartesian.xAxis(0).title("Tháng");
         // cartesian.yAxis(0).title("Revenue");
 
-        anyChartView2.setChart(cartesian);
+        anyChartView2.setChart(cartesian);*/
 
+        barChart = view.findViewById(R.id.barChart);
+        ArrayList<BarEntry> barEntries = new ArrayList<>();
+        barEntries.add(new BarEntry(2017, 723));
+        barEntries.add(new BarEntry(2018, 821));
+        barEntries.add(new BarEntry(2019, 618));
+        barEntries.add(new BarEntry(2020, 589));
+        barEntries.add(new BarEntry(2021, 0));
 
+        BarDataSet barDataSet = new BarDataSet(barEntries, "BarChart");
+        barDataSet.setValueTextColor(Color.BLACK);
+        barDataSet.setValueTextSize(16f);
+        barDataSet.setColor(Color.GREEN);
+
+        BarData barData = new BarData(barDataSet);
+        barChart.setFitBars(true);
+        barChart.setData(barData);
+        barChart.getDescription().setText("ABCCCC");
+        barChart.animateY(2000);
+
+        //-----------------------------------------------------------------------
+
+        pieChartOne = view.findViewById(R.id.pieChartOne);
+        ArrayList<PieEntry> pieEntries = new ArrayList<>();
+        pieEntries.add(new PieEntry(500000, "Mua sắm"));
+        pieEntries.add(new PieEntry(300000, "Nhà Hàng"));
+        pieEntries.add(new PieEntry(200000, "Giải trí"));
+        pieEntries.add(new PieEntry(521000, "Giáo dục"));
+        pieEntries.add(new PieEntry(249000, "Phương tiện"));
+
+        PieDataSet pieDataSet = new PieDataSet(pieEntries, "Khoản Thu");
+        pieDataSet.setValueTextColor(Color.BLACK);
+        pieDataSet.setValueTextSize(10f);
+        pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+
+        PieData pieData = new PieData(pieDataSet);
+        pieChartOne.setData(pieData);
+        pieChartOne.animate();
+
+        //--------------------------------------------------------------------------
+
+        pieChartTwo = view.findViewById(R.id.pieChartTwo);
+        ArrayList<PieEntry> pieEntriess = new ArrayList<>();
+        pieEntriess.add(new PieEntry(2000000, "Lương"));
+        pieEntriess.add(new PieEntry(1000000, "Tiền thưởng"));
+        pieEntriess.add(new PieEntry(2500000, "Bán hàng"));
+        pieEntriess.add(new PieEntry(800000, "Khoản khác"));
+
+        PieDataSet pieDataSett = new PieDataSet(pieEntriess, "Khoản Chi");
+        pieDataSett.setValueTextColor(Color.BLACK);
+        pieDataSett.setValueTextSize(10f);
+        pieDataSett.setColors(ColorTemplate.COLORFUL_COLORS);
+
+        PieData pieDataa = new PieData(pieDataSett);
+        pieChartTwo.setData(pieDataa);
+        pieChartTwo.animate();
     }
 
 }

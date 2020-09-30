@@ -22,7 +22,8 @@
     <color name="title_expense">#CCDAF6</color>
     <color name="gray_edittext">#99A0B0</color>
     <color name="category_word">#485068</color>
-
+    <color name="grayyyy">#FAF6F6</color>
+    <color name="grayyyyText">#BCB7B7</color>
     <!-- dots active colors -->
     <color name="dot_light_screen1">#347AF0</color>
     <color name="dot_light_screen2">#347AF0</color>

@@ -118,59 +118,15 @@ public class ReportDayFragment extends Fragment {
         anyChartView2.setProgressBar(progressBar);
         APIlib.getInstance().setActiveAnyChartView(anyChartView2);
 
-        /*Cartesian cartesian = AnyChart.column();
-
-        List<DataEntry> data2 = new ArrayList<>();
-        data2.add(new ValueDataEntry("1", 351540));
-        data2.add(new ValueDataEntry("2", 941910));
-        data2.add(new ValueDataEntry("3", 102610));
-        data2.add(new ValueDataEntry("4", 110430));
-        data2.add(new ValueDataEntry("5", 1280100));
-        data2.add(new ValueDataEntry("6", 143760));
-        data2.add(new ValueDataEntry("7", 1706170));
-        data2.add(new ValueDataEntry("8", 213210));
-        data2.add(new ValueDataEntry("9", 2492980));
-        data2.add(new ValueDataEntry("10", 2292980));
-        data2.add(new ValueDataEntry("11", 259980));
-        data2.add(new ValueDataEntry("12", 24080));
-
-        Column column = cartesian.column(data2);
-
-        column.tooltip()
-                .titleFormat("{%X}")
-                .position(Position.CENTER_BOTTOM)
-                .anchor(Anchor.CENTER_BOTTOM)
-                .offsetX(0d)
-                .offsetY(5d)
-                .format("đ{%Value}{groupsSeparator: }");
-
-        cartesian.title("");
-
-        cartesian.yScale().minimum(0d);
-
-        cartesian.yAxis(0).labels().format("đ{%Value}{groupsSeparator: }");
-
-        cartesian.tooltip().positionMode(TooltipPositionMode.POINT);
-        cartesian.interactivity().hoverMode(HoverMode.BY_X);
-
-        cartesian.xAxis(0).title("Tháng");
-        // cartesian.yAxis(0).title("Revenue");
-
-        anyChartView2.setChart(cartesian);*/
 
         Cartesian cartesian = AnyChart.cartesian();
-
         cartesian.animation(true);
-
         cartesian.title("Combination of Stacked Column and Line Chart (Dual Y-Axis)");
-
         cartesian.yScale().stackMode(ScaleStackMode.VALUE);
-
         Linear scalesLinear = Linear.instantiate();
         scalesLinear.minimum(0d);
         scalesLinear.maximum(100d);
         scalesLinear.ticks("{ interval: 20 }");
-
         com.anychart.core.axes.Linear extraYAxis = cartesian.yAxis(1d);
         extraYAxis.orientation(Orientation.RIGHT)
                 .scale(scalesLinear);
