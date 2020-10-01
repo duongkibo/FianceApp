@@ -23,7 +23,13 @@ public interface IncomeDituresDao {
     @Query("SELECT COUNT(*) FROM IncomeDitures")
     int rowCount();
 
-    @Query("SELECT* FROM IncomeDitures  ")
+    @Query("SELECT* FROM IncomeDitures")
     LiveData<List<IncomeDitures>> getAllItems();
+    @Query("SELECT * FROM IncomeDitures WHERE day=:days ")
+    LiveData<List<IncomeDitures>> getItemDays(int days);
+    @Query("SELECT * FROM IncomeDitures WHERE month=:months ")
+    LiveData<List<IncomeDitures>> getItemMonths(int months);
+    @Query("SELECT * FROM IncomeDitures WHERE year=:years ")
+    LiveData<List<IncomeDitures>> getItemYears(int years);
 }
 

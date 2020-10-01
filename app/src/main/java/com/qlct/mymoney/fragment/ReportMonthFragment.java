@@ -182,7 +182,7 @@ public class ReportMonthFragment extends Fragment {
         BarData barData = new BarData(barDataSet);
         barChart.setFitBars(true);
         barChart.setData(barData);
-        barChart.getDescription().setText("ABCCCC");
+        barChart.getDescription().setText("Thống kê");
         barChart.animateY(2000);
 
         //-----------------------------------------------------------------------
@@ -196,13 +196,14 @@ public class ReportMonthFragment extends Fragment {
         pieEntries.add(new PieEntry(249000, "Phương tiện"));
 
         PieDataSet pieDataSet = new PieDataSet(pieEntries, "Khoản Thu");
-        pieDataSet.setValueTextColor(Color.BLACK);
-        pieDataSet.setValueTextSize(10f);
+        pieDataSet.setValueTextColor(Color.WHITE);
+        pieDataSet.setValueTextSize(8f);
         pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
 
         PieData pieData = new PieData(pieDataSet);
         pieChartOne.setData(pieData);
         pieChartOne.animate();
+        pieChartOne.setEntryLabelTextSize(8f);
 
         //--------------------------------------------------------------------------
 
@@ -214,13 +215,14 @@ public class ReportMonthFragment extends Fragment {
         pieEntriess.add(new PieEntry(800000, "Khoản khác"));
 
         PieDataSet pieDataSett = new PieDataSet(pieEntriess, "Khoản Chi");
-        pieDataSett.setValueTextColor(Color.BLACK);
-        pieDataSett.setValueTextSize(10f);
+        pieDataSett.setValueTextColor(Color.WHITE);
+        pieDataSett.setValueTextSize(8f);
         pieDataSett.setColors(ColorTemplate.COLORFUL_COLORS);
 
         PieData pieDataa = new PieData(pieDataSett);
         pieChartTwo.setData(pieDataa);
         pieChartTwo.animate();
+        pieChartTwo.setEntryLabelTextSize(8f);
 
     }
 

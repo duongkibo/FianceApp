@@ -94,6 +94,16 @@ public class HomeDayFragment extends Fragment {
 
                 AddExpendituresViewModel viewModel = ViewModelProviders.of(HomeDayFragment.this).get(AddExpendituresViewModel.class);
                 viewModel.getExpanddituresDay(day).observe(getActivity(), expenseAdapter::setExpendituresList);
+
+                rcIncome = rootView.findViewById(R.id.recyclerViewDay_1);
+
+                IncomeAdapter incomeAdapter = new IncomeAdapter(incomeDitures);
+                rcIncome.setLayoutManager(new LinearLayoutManager(getActivity()));
+                rcIncome.setAdapter(incomeAdapter);
+
+
+                AddIncomeDituresViewModel viewModel2 = ViewModelProviders.of(HomeDayFragment.this).get(AddIncomeDituresViewModel.class);
+                viewModel2.getIncomeDituresDay(day).observe(getActivity(), incomeAdapter::setIncomeDituresList);
                /* viewModel.getExpanddituresDay(day).observe(getActivity(), new Observer<List<Expenditures>>() {
                     @Override
                     public void onChanged(List<Expenditures> expendituresList) {
