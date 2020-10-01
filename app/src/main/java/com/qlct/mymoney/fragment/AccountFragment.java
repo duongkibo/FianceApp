@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,8 +74,22 @@ public class AccountFragment extends Fragment {
         rlAccount_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), ProfileActivity.class);
-                startActivity(intent);
+                AddUserDituresViewModel viewModels = ViewModelProviders.of(AccountFragment.this).get(AddUserDituresViewModel.class);
+                   viewModels.getUserDitures().observe(getActivity(), new Observer<UserDitures>() {
+                       @Override
+                       public void onChanged(UserDitures userDitures) {
+                           if (userDitures != null) {
+
+                               Intent intent = new Intent(getContext(), ProfileActivity.class);
+                            intent.putExtra("xxx",userDitures.getId());
+                               Log.d("ssss", userDitures.getId()+"");
+                               startActivity(intent);
+
+
+                           }
+                       }
+                   });
+
             }
         });
 
@@ -85,7 +100,10 @@ public class AccountFragment extends Fragment {
             @Override
             public void onChanged(UserDitures userDitures) {
                 if (userDitures != null) {
+
                     userName.setText(userDitures.getUsername());
+
+
                 }
             }
 

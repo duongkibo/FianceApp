@@ -40,14 +40,14 @@ public class PinPasswordActivity extends AppCompatActivity {
         DataBaseIntalizerUser.populateAsync(UserDituresDB.getUserDituresDB(getApplicationContext()));
 
         AddUserDituresViewModel viewModel = ViewModelProviders.of(this).get(AddUserDituresViewModel.class);
-        // viewModel2.getIncome().observe(getActivity(), incomeAdapter::setIncomeDituresList);
+       //  viewMode.getIncome().observe(getActivity(), incomeAdapter::setIncomeDituresList);
         viewModel.getUserDitures().observe(this, new Observer<UserDitures>() {
             @Override
             public void onChanged(UserDitures userDitures) {
                 if (userDitures != null) {
                     strPin = Integer.parseInt(userDitures.getPassword());
-                    Toast.makeText(getApplicationContext(), String.valueOf(strPin), Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getApplicationContext(), String.valueOf(userDitures.getWallet()), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), String.valueOf(strPin), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), String.valueOf(userDitures.getWallet()), Toast.LENGTH_SHORT).show();
                 }
             }
 

@@ -5,8 +5,10 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,16 +34,19 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private AddUserDituresViewModel addUserDituresViewModel;
 
     private int pinOld = 0;
+    private int id = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
-        initView();
+        Intent intent = getIntent();
+        int id = intent.getIntExtra("xxx",2);
+        Log.d("sssss",id+"");
+        initView(id);
     }
 
-    private void initView() {
+    private void initView(int id) {
         imgProfileClose = findViewById(R.id.imgprofile_close);
         edtChangeName = findViewById(R.id.edtChange_name);
         // oldPinEntry = findViewById(R.id.edtPin_old);
@@ -59,7 +64,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onChanged(UserDitures userDitures) {
                 if (userDitures != null) {
-                    pinOld = Integer.parseInt(userDitures.getPassword());
+                    pinOld = Integer.valueOf(userDitures.getPassword());
                     edtChangeName.setText(userDitures.getUsername());
                     Toast.makeText(getApplicationContext(), String.valueOf(pinOld), Toast.LENGTH_SHORT).show();
 
@@ -75,12 +80,14 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         });
 
 
-        String name = edtChangeName.getText().toString();
-        String password = String.valueOf(newPinEntry.getText());
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String name = edtChangeName.getText().toString();
+                String password = String.valueOf(newPinEntry.getText());
+                Log.d("passxx",password);
                 UserDitures userDitures = new UserDitures(name, 4642213, password);
+                  userDitures.setId(id);
                 new updateUserAsyncTask(userDitures).execute();
                 Toast.makeText(getApplicationContext(), "change...", Toast.LENGTH_SHORT).show();
 
