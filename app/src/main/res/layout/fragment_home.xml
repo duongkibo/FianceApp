@@ -28,8 +28,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="170dp"
                     android:background="@color/colorPrimaryDark"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/unnamed"
+                    android:src="@drawable/walletsss"
                     app:layout_collapseMode="parallax" />
 
             </FrameLayout>
