@@ -102,11 +102,13 @@ public class ReportDayFragment extends Fragment {
         barChartDay.getXAxis().setAxisMinimum(1);
         barChartDay.setDrawBarShadow(false);
         barChartDay.setDrawValueAboveBar(true);
-        barChartDay.getDescription().setEnabled(false);
         barChartDay.setMaxVisibleValueCount(60);
+        barChartDay.getDescription().setEnabled(false);
         barChartDay.setPinchZoom(false);
         barChartDay.setDrawGridBackground(false);
         barChartDay.animateY(2000);
+
+
         pieChartOnes = view.findViewById(R.id.pieChart_one);
         ArrayList<PieEntry> pieEntriess = new ArrayList<>();
         pieEntriess.add(new PieEntry(500000, "Mua sắm"));

@@ -34,6 +34,7 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.LargeValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.qlct.mymoney.R;
 
@@ -160,21 +161,23 @@ public class ReportYearFragment extends Fragment {
 
         barChart = view.findViewById(R.id.barChart);
         ArrayList<BarEntry> barEntries = new ArrayList<>();
-        barEntries.add(new BarEntry(2017, 723));
-        barEntries.add(new BarEntry(2018, 821));
-        barEntries.add(new BarEntry(2019, 618));
-        barEntries.add(new BarEntry(2020, 589));
+        barEntries.add(new BarEntry(2017, 7230000));
+        barEntries.add(new BarEntry(2018, 8211000));
+        barEntries.add(new BarEntry(2019, 6180000));
+        barEntries.add(new BarEntry(2020, 5890000));
         barEntries.add(new BarEntry(2021, 0));
 
-        BarDataSet barDataSet = new BarDataSet(barEntries, "BarChart");
+        BarDataSet barDataSet = new BarDataSet(barEntries, "Khoản chi tiêu");
         barDataSet.setValueTextColor(Color.BLACK);
         barDataSet.setValueTextSize(16f);
         barDataSet.setColor(Color.GREEN);
+        barDataSet.setValueFormatter(new LargeValueFormatter());
+        barDataSet.setValueTextSize(10f);
 
         BarData barData = new BarData(barDataSet);
         barChart.setFitBars(true);
         barChart.setData(barData);
-        barChart.getDescription().setText("ABCCCC");
+        barChart.getDescription().setText("Thống kê");
         barChart.animateY(2000);
 
         //-----------------------------------------------------------------------
@@ -188,14 +191,16 @@ public class ReportYearFragment extends Fragment {
         pieEntries.add(new PieEntry(249000, "Phương tiện"));
 
         PieDataSet pieDataSet = new PieDataSet(pieEntries, "Khoản Thu");
-        pieDataSet.setValueTextColor(Color.BLACK);
-        pieDataSet.setValueTextSize(10f);
+        pieDataSet.setValueTextColor(Color.WHITE);
+        pieDataSet.setValueTextSize(8f);
         pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
 
         PieData pieData = new PieData(pieDataSet);
         pieChartOne.setData(pieData);
         pieChartOne.animate();
-
+        pieChartOne.setCenterText("Khoản chi");
+        pieChartOne.getDescription().setEnabled(false);
+        pieChartOne.setEntryLabelTextSize(8f);
         //--------------------------------------------------------------------------
 
         pieChartTwo = view.findViewById(R.id.pieChartTwo);
@@ -206,13 +211,16 @@ public class ReportYearFragment extends Fragment {
         pieEntriess.add(new PieEntry(800000, "Khoản khác"));
 
         PieDataSet pieDataSett = new PieDataSet(pieEntriess, "Khoản Chi");
-        pieDataSett.setValueTextColor(Color.BLACK);
-        pieDataSett.setValueTextSize(10f);
+        pieDataSett.setValueTextColor(Color.WHITE);
+        pieDataSett.setValueTextSize(8f);
         pieDataSett.setColors(ColorTemplate.COLORFUL_COLORS);
 
         PieData pieDataa = new PieData(pieDataSett);
         pieChartTwo.setData(pieDataa);
         pieChartTwo.animate();
+        pieChartTwo.setCenterText("Khoản thu");
+        pieChartOne.setEntryLabelTextSize(8f);
+        pieChartTwo.getDescription().setEnabled(false);
     }
 
 }
