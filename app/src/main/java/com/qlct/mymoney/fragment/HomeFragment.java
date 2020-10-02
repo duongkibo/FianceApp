@@ -28,7 +28,7 @@ import com.qlct.mymoney.viewmodel.AddUserDituresViewModel;
 
 import java.text.DecimalFormat;
 
-public class HomeFragment extends Fragment {
+public class  HomeFragment extends Fragment {
     private RecyclerView recyclerView;
     private View view;
     private String wallet;

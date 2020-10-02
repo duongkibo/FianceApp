@@ -40,7 +40,7 @@ public class PinPasswordActivity extends AppCompatActivity {
         DataBaseIntalizerUser.populateAsync(UserDituresDB.getUserDituresDB(getApplicationContext()));
 
         AddUserDituresViewModel viewModel = ViewModelProviders.of(this).get(AddUserDituresViewModel.class);
-       //  viewMode.getIncome().observe(getActivity(), incomeAdapter::setIncomeDituresList);
+        //  viewMode.getIncome().observe(getActivity(), incomeAdapter::setIncomeDituresList);
         viewModel.getUserDitures().observe(this, new Observer<UserDitures>() {
             @Override
             public void onChanged(UserDitures userDitures) {

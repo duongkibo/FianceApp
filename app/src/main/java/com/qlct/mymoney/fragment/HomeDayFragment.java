@@ -40,6 +40,8 @@ public class HomeDayFragment extends Fragment {
     private TextView txtCostExpense;
     private TextView txtCostIncome;
     private TextView totalCost;
+    private TextView txt_cost_expense;
+    private TextView txt_cost_income;
 
     private HorizontalCalendar horizontalCalendar;
     private RecyclerView rcExpend;
@@ -55,8 +57,10 @@ public class HomeDayFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_home_day, container, false);
 
+/*
         txtCostExpense = rootView.findViewById(R.id.txtCostExpense);
         txtCostIncome = rootView.findViewById(R.id.txtCostIncoming);
+*/
 
         DatabaseIntalizer.populateAsync(ExpendituresDB.getExpendituresDB(getContext()));
         DataBaseIntalizerIncome.populateAsync(IncomeDituresDB.getIncomeDituresBD(getContext()));

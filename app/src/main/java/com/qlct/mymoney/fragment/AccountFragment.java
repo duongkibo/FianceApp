@@ -75,20 +75,20 @@ public class AccountFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 AddUserDituresViewModel viewModels = ViewModelProviders.of(AccountFragment.this).get(AddUserDituresViewModel.class);
-                   viewModels.getUserDitures().observe(getActivity(), new Observer<UserDitures>() {
-                       @Override
-                       public void onChanged(UserDitures userDitures) {
-                           if (userDitures != null) {
+                viewModels.getUserDitures().observe(getActivity(), new Observer<UserDitures>() {
+                    @Override
+                    public void onChanged(UserDitures userDitures) {
+                        if (userDitures != null) {
 
-                               Intent intent = new Intent(getContext(), ProfileActivity.class);
+                            Intent intent = new Intent(getContext(), ProfileActivity.class);
                             intent.putExtra("xxx",userDitures.getId());
-                               Log.d("ssss", userDitures.getId()+"");
-                               startActivity(intent);
+                            Log.d("ssss", userDitures.getId()+"");
+                            startActivity(intent);
 
 
-                           }
-                       }
-                   });
+                        }
+                    }
+                });
 
             }
         });

@@ -43,7 +43,7 @@ public class NotificationReceiver extends BroadcastReceiver {
             notificationManager.createNotificationChannel(notificationChannel);
         }
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
-                .setSmallIcon(R.drawable.img_splash_4)
+                .setSmallIcon(R.drawable.wallet)
                 .setContentTitle("My Money")
                 .setContentText("Bạn đã sẵn sàng để cập nhật giao dịch hôm nay chưa?")
                 .setAutoCancel(true)

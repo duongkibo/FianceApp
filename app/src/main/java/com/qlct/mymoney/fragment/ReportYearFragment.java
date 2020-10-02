@@ -44,6 +44,7 @@ public class ReportYearFragment extends Fragment {
     private View view;
     private BarChart barChart;
     private PieChart pieChartOne, pieChartTwo;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -166,15 +167,16 @@ public class ReportYearFragment extends Fragment {
         barEntries.add(new BarEntry(2020, 589));
         barEntries.add(new BarEntry(2021, 0));
 
-        BarDataSet barDataSet = new BarDataSet(barEntries, "BarChart");
+        BarDataSet barDataSet = new BarDataSet(barEntries, "Tổng tiền");
         barDataSet.setValueTextColor(Color.BLACK);
         barDataSet.setValueTextSize(16f);
-        barDataSet.setColor(Color.GREEN);
+        barDataSet.setColor(Color.parseColor("#347AF0"));
+
 
         BarData barData = new BarData(barDataSet);
         barChart.setFitBars(true);
         barChart.setData(barData);
-        barChart.getDescription().setText("ABCCCC");
+        barChart.getDescription().setText("Thống kê");
         barChart.animateY(2000);
 
         //-----------------------------------------------------------------------

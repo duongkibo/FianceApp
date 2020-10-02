@@ -174,10 +174,10 @@ public class ReportMonthFragment extends Fragment {
         barEntries.add(new BarEntry(11, 589));
         barEntries.add(new BarEntry(12, 697));
 
-        BarDataSet barDataSet = new BarDataSet(barEntries, "BarChart");
+        BarDataSet barDataSet = new BarDataSet(barEntries, "tổng tiền");
         barDataSet.setValueTextColor(Color.BLACK);
         barDataSet.setValueTextSize(16f);
-        barDataSet.setColor(Color.GREEN);
+        barDataSet.setColor(Color.parseColor("#347AF0"));
 
         BarData barData = new BarData(barDataSet);
         barChart.setFitBars(true);
@@ -204,6 +204,7 @@ public class ReportMonthFragment extends Fragment {
         pieChartOne.setData(pieData);
         pieChartOne.animate();
         pieChartOne.setEntryLabelTextSize(8f);
+        pieChartOne.getDescription().setEnabled(false);
 
         //--------------------------------------------------------------------------
 
@@ -223,6 +224,7 @@ public class ReportMonthFragment extends Fragment {
         pieChartTwo.setData(pieDataa);
         pieChartTwo.animate();
         pieChartTwo.setEntryLabelTextSize(8f);
+        pieChartTwo.getDescription().setEnabled(false);
 
     }
 

@@ -87,7 +87,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 String password = String.valueOf(newPinEntry.getText());
                 Log.d("passxx",password);
                 UserDitures userDitures = new UserDitures(name, 4642213, password);
-                  userDitures.setId(id);
+                userDitures.setId(id);
                 new updateUserAsyncTask(userDitures).execute();
                 Toast.makeText(getApplicationContext(), "change...", Toast.LENGTH_SHORT).show();
 
