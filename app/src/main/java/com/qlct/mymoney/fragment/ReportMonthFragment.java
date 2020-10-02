@@ -34,6 +34,7 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.LargeValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.qlct.mymoney.R;
 
@@ -174,7 +175,8 @@ public class ReportMonthFragment extends Fragment {
         barEntries.add(new BarEntry(11, 589));
         barEntries.add(new BarEntry(12, 697));
 
-        BarDataSet barDataSet = new BarDataSet(barEntries, "tổng tiền");
+
+        BarDataSet barDataSet = new BarDataSet(barEntries, "Khoản chi tiêu");
         barDataSet.setValueTextColor(Color.BLACK);
         barDataSet.setValueTextSize(16f);
         barDataSet.setColor(Color.parseColor("#347AF0"));
@@ -182,8 +184,15 @@ public class ReportMonthFragment extends Fragment {
         BarData barData = new BarData(barDataSet);
         barChart.setFitBars(true);
         barChart.setData(barData);
-        barChart.getDescription().setText("Thống kê");
+        barChart.getDescription().setEnabled(false);
         barChart.animateY(2000);
+        /*barChart.invalidate();
+        barChart.getBarData().setBarWidth((0.6f));
+        barChart.getXAxis().setAxisMinimum(1);
+        barChart.setDrawBarShadow(false);
+        barChart.setDrawValueAboveBar(true);
+        barChart.setMaxVisibleValueCount(60);*/
+
 
         //-----------------------------------------------------------------------
 
@@ -204,6 +213,7 @@ public class ReportMonthFragment extends Fragment {
         pieChartOne.setData(pieData);
         pieChartOne.animate();
         pieChartOne.setEntryLabelTextSize(8f);
+        pieChartOne.setCenterText("Khoản chi");
         pieChartOne.getDescription().setEnabled(false);
 
         //--------------------------------------------------------------------------
@@ -224,8 +234,8 @@ public class ReportMonthFragment extends Fragment {
         pieChartTwo.setData(pieDataa);
         pieChartTwo.animate();
         pieChartTwo.setEntryLabelTextSize(8f);
+        pieChartTwo.setCenterText("Khoản thu");
         pieChartTwo.getDescription().setEnabled(false);
-
     }
 
 }
