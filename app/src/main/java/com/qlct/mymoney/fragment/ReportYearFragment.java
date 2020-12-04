@@ -1,15 +1,22 @@
 package com.qlct.mymoney.fragment;
 
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.anychart.APIlib;
@@ -22,18 +29,29 @@ import com.anychart.chart.common.listener.ListenersInterface;
 import com.anychart.charts.Cartesian;
 import com.anychart.charts.Pie;
 import com.anychart.core.cartesian.series.Column;
+import com.anychart.core.cartesian.series.Line;
+import com.anychart.data.Mapping;
+import com.anychart.data.Set;
 import com.anychart.enums.Anchor;
 import com.anychart.enums.HoverMode;
+import com.anychart.enums.Orientation;
 import com.anychart.enums.Position;
+import com.anychart.enums.ScaleStackMode;
 import com.anychart.enums.TooltipPositionMode;
+import com.anychart.scales.Linear;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.LargeValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.qlct.mymoney.R;
@@ -42,185 +60,157 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReportYearFragment extends Fragment {
+
     private View view;
-    private BarChart barChart;
-    private PieChart pieChartOne, pieChartTwo;
+    private ProgressBar progressBar;
+    private BarChart barChartDay;
+    private PieChart pieChartOnes, pieChartTwos;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         view = inflater.inflate(R.layout.fragment_report_year, container, false);
-        return view;
-    }
+        barChartDay = view.findViewById(R.id.barChart_year);
+        float groupSpace = 0.02f;
+        float barSpace = 0.03f; // x4 DataSet
+        float barWidth = 0.2f;
+        ArrayList<BarEntry> expenditus = new ArrayList<>();
+        expenditus.add(new BarEntry(2018.4f, 20000000));
+        expenditus.add(new BarEntry(2019.4f, 30000000));
+        expenditus.add(new BarEntry(2020.4f, 40000000));
+        expenditus.add(new BarEntry(2021.4f, 50000000));
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        initView();
-        creatChart();
-    }
+        ArrayList<BarEntry> inditous = new ArrayList<>();
+        inditous.add(new BarEntry(2018.8f, 30000000));
+        inditous.add(new BarEntry(2019.8f, 40000000));
+        inditous.add(new BarEntry(2020.8f, 60000000));
+        inditous.add(new BarEntry(2021.8f, 60000000));
 
-    private void initView() {
-    }
+        BarDataSet set1, set2;
+        set1 = new BarDataSet(inditous, "Khoản thu");
+        set1.setColor(Color.rgb(242, 247, 158));
+        set2 = new BarDataSet(expenditus, "Khoản chi");
+        set1.setColor(Color.rgb(255, 102, 0));
+        BarData data = new BarData(set1, set2);
+        data.setValueFormatter(new LargeValueFormatter());
+        data.setValueTextSize(10f);
 
-    private void creatChart() {
-        /*final AnyChartView anyChartView = view.findViewById(R.id.any_chart_view_expense);
-        APIlib.getInstance().setActiveAnyChartView(anyChartView);
+        // this replaces setStartAtZero(true)
+        barChartDay.setPinchZoom(false);
 
-        final Pie pie = AnyChart.pie();
+        barChartDay.setDrawBarShadow(false);
+        barChartDay.invalidate();
+        barChartDay.setDrawGridBackground(false);
+        barChartDay.getAxisRight().setEnabled(false);
+        barChartDay.setData(data);
+        int startday = 2;
+        barChartDay.getXAxis().setAxisMinimum(2018f);
+        barChartDay.getXAxis().setAxisMaximum(2022f);
+        barChartDay.getBarData().setBarWidth(0.4F);
+        pieChartOnes = view.findViewById(R.id.pieChart_year);
+        barChartDay.animateY(1000);
+//        Legend l = barChartDay.getLegend();
+//        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+//        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
+//        l.setOrientation(Legend.LegendOrientation.VERTICAL);
+//        l.setDrawInside(true);
+//
+//        l.setYOffset(0f);
+//        l.setXOffset(4f);
+//        l.setYEntrySpace(0f);
+//        l.setTextSize(8f);
 
-        pie.setOnClickListener(new ListenersInterface.OnClickListener(new String[]{"x", "value"}) {
+        XAxis xAxis = barChartDay.getXAxis();
 
-            @Override
-            public void onClick(Event event) {
-                Toast.makeText(getContext(), event.getData().get("x") + ":" + event.getData().get("value"), Toast.LENGTH_SHORT).show();
-            }
-        });
+        xAxis.setGranularity(1f);
+        xAxis.setCenterAxisLabels(true);
 
-        List<DataEntry> data = new ArrayList<>();
-        data.add(new ValueDataEntry("Apples", 6371664));
-        data.add(new ValueDataEntry("Pears", 789622));
-        data.add(new ValueDataEntry("Bananas", 7216301));
-        data.add(new ValueDataEntry("Grapes", 1486621));
-        data.add(new ValueDataEntry("Oranges", 1200000));
+        YAxis leftAxis = barChartDay.getAxisLeft();
+        leftAxis.setValueFormatter(new LargeValueFormatter());
+        leftAxis.setDrawGridLines(false);
+        leftAxis.setSpaceTop(35f);
+        leftAxis.setAxisMinimum(2018f); // this replaces setStartAtZero(true)
+        barChartDay.getAxisRight().setEnabled(true);
+        ArrayList<PieEntry> pieEntriess = new ArrayList<>();
+        pieEntriess.add(new PieEntry(500000, "Mua sắm"));
+        pieEntriess.add(new PieEntry(300000, "Nhà Hàng"));
+        pieEntriess.add(new PieEntry(200000, "Giải trí"));
+        pieEntriess.add(new PieEntry(521000, "Giáo dục"));
+        pieEntriess.add(new PieEntry(249000, "Phương tiện"));
 
-        pie.data(data);
-
-        pie.title("KHoản thu");
-
-        anyChartView.setChart(pie);
-
-        final AnyChartView anyChartView1 = view.findViewById(R.id.any_chart_view_income);
-        APIlib.getInstance().setActiveAnyChartView(anyChartView1);
-
-        final Pie pie1 = AnyChart.pie();
-
-        pie1.setOnClickListener(new ListenersInterface.OnClickListener(new String[]{"x", "value"}) {
-            @Override
-            public void onClick(Event event) {
-                Toast.makeText(getContext(), event.getData().get("x") + ":" + event.getData().get("value"), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        List<DataEntry> data1 = new ArrayList<>();
-        data1.add(new ValueDataEntry("Apples", 6371664));
-        data1.add(new ValueDataEntry("Pears", 789622));
-        data1.add(new ValueDataEntry("Bananas", 7216301));
-        data1.add(new ValueDataEntry("Grapes", 1486621));
-        data1.add(new ValueDataEntry("Oranges", 1200000));
-
-        pie1.data(data1);
-
-        pie1.title("Khoản chi");
-
-        anyChartView1.setChart(pie1);
-
-        //set report colum
-        AnyChartView anyChartView2 = view.findViewById(R.id.any_chart_view_colum);
-        APIlib.getInstance().setActiveAnyChartView(anyChartView2);
-
-        Cartesian cartesian = AnyChart.column();
-
-        List<DataEntry> data2 = new ArrayList<>();
-        data2.add(new ValueDataEntry("1", 351540));
-        data2.add(new ValueDataEntry("2", 941910));
-        data2.add(new ValueDataEntry("3", 102610));
-        data2.add(new ValueDataEntry("4", 110430));
-        data2.add(new ValueDataEntry("5", 1280100));
-        data2.add(new ValueDataEntry("6", 143760));
-        data2.add(new ValueDataEntry("7", 1706170));
-        data2.add(new ValueDataEntry("8", 213210));
-        data2.add(new ValueDataEntry("9", 2492980));
-        data2.add(new ValueDataEntry("10", 2292980));
-        data2.add(new ValueDataEntry("11", 259980));
-        data2.add(new ValueDataEntry("12", 24080));
-
-        Column column = cartesian.column(data2);
-
-        column.tooltip()
-                .titleFormat("{%X}")
-                .position(Position.CENTER_BOTTOM)
-                .anchor(Anchor.CENTER_BOTTOM)
-                .offsetX(0d)
-                .offsetY(5d)
-                .format("đ{%Value}{groupsSeparator: }");
-
-        cartesian.title("");
-
-        cartesian.yScale().minimum(0d);
-
-        cartesian.yAxis(0).labels().format("đ{%Value}{groupsSeparator: }");
-
-        cartesian.tooltip().positionMode(TooltipPositionMode.POINT);
-        cartesian.interactivity().hoverMode(HoverMode.BY_X);
-
-        cartesian.xAxis(0).title("Tháng");
-        // cartesian.yAxis(0).title("Revenue");
-
-        anyChartView2.setChart(cartesian);*/
-
-        barChart = view.findViewById(R.id.barChart);
-        ArrayList<BarEntry> barEntries = new ArrayList<>();
-        barEntries.add(new BarEntry(2017, 7230000));
-        barEntries.add(new BarEntry(2018, 8211000));
-        barEntries.add(new BarEntry(2019, 6180000));
-        barEntries.add(new BarEntry(2020, 5890000));
-        barEntries.add(new BarEntry(2021, 0));
-
-        BarDataSet barDataSet = new BarDataSet(barEntries, "Tổng tiền");
-        barDataSet.setValueTextColor(Color.BLACK);
-        barDataSet.setValueTextSize(16f);
-        barDataSet.setColor(Color.parseColor("#347AF0"));
-
-
-        BarData barData = new BarData(barDataSet);
-        barChart.setFitBars(true);
-        barChart.setData(barData);
-        barChart.getDescription().setText("Thống kê");
-        barChart.animateY(2000);
-
-        //-----------------------------------------------------------------------
-
-        pieChartOne = view.findViewById(R.id.pieChartOne);
-        ArrayList<PieEntry> pieEntries = new ArrayList<>();
-        pieEntries.add(new PieEntry(500000, "Mua sắm"));
-        pieEntries.add(new PieEntry(300000, "Nhà Hàng"));
-        pieEntries.add(new PieEntry(200000, "Giải trí"));
-        pieEntries.add(new PieEntry(521000, "Giáo dục"));
-        pieEntries.add(new PieEntry(249000, "Phương tiện"));
-
-        PieDataSet pieDataSet = new PieDataSet(pieEntries, "Khoản Thu");
+        PieDataSet pieDataSet = new PieDataSet(pieEntriess, "Khoản Thu");
         pieDataSet.setValueTextColor(Color.WHITE);
         pieDataSet.setValueTextSize(8f);
         pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
 
-        PieData pieData = new PieData(pieDataSet);
-        pieChartOne.setData(pieData);
-        pieChartOne.animate();
-        pieChartOne.setCenterText("Khoản chi");
-        pieChartOne.getDescription().setEnabled(false);
-        pieChartOne.setEntryLabelTextSize(8f);
+        PieData pieDatas = new PieData(pieDataSet);
+        pieChartOnes.setData(pieDatas);
+        pieChartOnes.animate();
+        pieChartOnes.setEntryLabelTextSize(8f);
+        pieChartOnes.setCenterText("Khoản thu");
+        pieChartOnes.getDescription().setEnabled(false);
+        pieChartOnes.getDescription().setEnabled(false);
+        pieChartOnes.setHoleColor(Color.WHITE);
+
+        pieChartOnes.setTransparentCircleColor(Color.WHITE);
+        pieChartOnes.setTransparentCircleAlpha(110);
+
+        pieChartOnes.setHoleRadius(58f);
+        pieChartOnes.setTransparentCircleRadius(61f);
+
+        pieChartOnes.setDrawCenterText(true);
+
+        pieChartOnes.setRotationAngle(0);
+
         //--------------------------------------------------------------------------
 
-        pieChartTwo = view.findViewById(R.id.pieChartTwo);
-        ArrayList<PieEntry> pieEntriess = new ArrayList<>();
-        pieEntriess.add(new PieEntry(2000000, "Lương"));
-        pieEntriess.add(new PieEntry(1000000, "Tiền thưởng"));
-        pieEntriess.add(new PieEntry(2500000, "Bán hàng"));
-        pieEntriess.add(new PieEntry(800000, "Khoản khác"));
+        pieChartTwos = view.findViewById(R.id.pieChart_year_one);
+        ArrayList<PieEntry> pieEntries = new ArrayList<>();
+        pieEntries.add(new PieEntry(2000000, "Lương"));
+        pieEntries.add(new PieEntry(1000000, "Tiền thưởng"));
+        pieEntries.add(new PieEntry(2500000, "Bán hàng"));
+        pieEntries.add(new PieEntry(800000, "Khoản khác"));
 
-        PieDataSet pieDataSett = new PieDataSet(pieEntriess, "Khoản Chi");
+        PieDataSet pieDataSett = new PieDataSet(pieEntries, "Khoản Chi");
         pieDataSett.setValueTextColor(Color.WHITE);
         pieDataSett.setValueTextSize(8f);
         pieDataSett.setColors(ColorTemplate.COLORFUL_COLORS);
 
         PieData pieDataa = new PieData(pieDataSett);
-        pieChartTwo.setData(pieDataa);
-        pieChartTwo.animate();
-        pieChartTwo.setCenterText("Khoản thu");
-        pieChartOne.setEntryLabelTextSize(8f);
-        pieChartTwo.getDescription().setEnabled(false);
+        pieChartTwos.setData(pieDataa);
+        pieChartTwos.animate();
+        pieChartTwos.setEntryLabelTextSize(8f);
+        pieChartTwos.setCenterText("Khoản chi");
+        pieChartTwos.getDescription().setEnabled(false);
+        pieChartTwos.setTransparentCircleColor(Color.WHITE);
+        pieChartTwos.setTransparentCircleAlpha(110);
+
+        pieChartTwos.setHoleRadius(58f);
+        pieChartTwos.setTransparentCircleRadius(61f);
+
+        pieChartTwos.setDrawCenterText(true);
+
+        pieChartTwos.setRotationAngle(0);
+        return view;
     }
+    private SpannableString generateCenterSpannableText() {
+
+        SpannableString s = new SpannableString("MPAndroidChart\ndeveloped by Philipp Jahoda");
+        s.setSpan(new RelativeSizeSpan(1.7f), 0, 14, 0);
+        s.setSpan(new StyleSpan(Typeface.NORMAL), 14, s.length() - 15, 0);
+        s.setSpan(new ForegroundColorSpan(Color.GRAY), 14, s.length() - 15, 0);
+        s.setSpan(new RelativeSizeSpan(.8f), 14, s.length() - 15, 0);
+        s.setSpan(new StyleSpan(Typeface.ITALIC), s.length() - 14, s.length(), 0);
+        s.setSpan(new ForegroundColorSpan(ColorTemplate.getHoloBlue()), s.length() - 14, s.length(), 0);
+        return s;
+    }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+    }
+
 
 }

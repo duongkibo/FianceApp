@@ -40,7 +40,7 @@ public class HomeMonthFragment extends Fragment {
     private RecyclerView rcIncome;
     private List<Expenditures> expenditures = new ArrayList<>();
     private List<IncomeDitures> incomeDitures = new ArrayList<>();
-    ExpenseAdapter expenseAdapter = new ExpenseAdapter(expenditures);
+    ExpenseAdapter expenseAdapter = new ExpenseAdapter(expenditures,getActivity());
 
 
     @Override

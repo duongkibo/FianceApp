@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.qlct.mymoney.R;
@@ -80,6 +81,7 @@ public class IncomeFragment extends Fragment {
                     new AddIncomeTask(incomeDitures).execute();
                     getActivity().onBackPressed();
                 } else {
+                    Toast.makeText(getContext(),"vui long nhap day du thong tin",Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -137,9 +139,8 @@ public class IncomeFragment extends Fragment {
                         String date = day + "/" + month + "/" + year;
                         edtCalendarIncome.setText(date);
                         years = year;
-                        days = day;
                         months = month;
-                        incomeDitures.setDay(days);
+                        incomeDitures.setDay(day);
                         incomeDitures.setMonth(months);
                         incomeDitures.setYear(years);
                     }

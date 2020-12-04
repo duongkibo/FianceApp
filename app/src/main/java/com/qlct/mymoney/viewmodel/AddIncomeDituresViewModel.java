@@ -1,6 +1,7 @@
 package com.qlct.mymoney.viewmodel;
 
 import android.app.Application;
+import android.os.AsyncTask;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -10,6 +11,8 @@ import androidx.lifecycle.MutableLiveData;
 import com.qlct.mymoney.model.Expenditures;
 import com.qlct.mymoney.model.IncomeDitures;
 import com.qlct.mymoney.model.IncomeDituresDB;
+import com.qlct.mymoney.model.UserDitures;
+import com.qlct.mymoney.model.UserDituresDB;
 
 import java.util.List;
 
@@ -47,4 +50,6 @@ public class AddIncomeDituresViewModel extends AndroidViewModel {
     {
         return income;
     }
+
 }
+

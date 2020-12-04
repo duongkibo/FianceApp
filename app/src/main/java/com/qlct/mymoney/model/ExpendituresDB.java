@@ -16,6 +16,7 @@ import androidx.sqlite.db.SupportSQLiteOpenHelper;
 public abstract class ExpendituresDB extends RoomDatabase {
     public static ExpendituresDB expenditures;
 
+
     public static ExpendituresDB getExpendituresDB(Context context) {
         if (expenditures == null) {
             expenditures = Room.databaseBuilder(context, ExpendituresDB.class, "expenditures_db").build();

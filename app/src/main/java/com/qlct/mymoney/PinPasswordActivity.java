@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 import android.widget.Toolbar;
@@ -28,7 +29,7 @@ public class PinPasswordActivity extends AppCompatActivity {
 
     private PinEntryEditText pinEntry;
     private UserDituresDB userDituresDB;
-    private int strPin = 0;
+    private String strPin = "";
 
 
     @Override
@@ -45,7 +46,8 @@ public class PinPasswordActivity extends AppCompatActivity {
             @Override
             public void onChanged(UserDitures userDitures) {
                 if (userDitures != null) {
-                    strPin = Integer.parseInt(userDitures.getPassword());
+                    strPin = userDitures.getPassword().toString();
+
                     //Toast.makeText(getApplicationContext(), String.valueOf(strPin), Toast.LENGTH_SHORT).show();
                     //Toast.makeText(getApplicationContext(), String.valueOf(userDitures.getWallet()), Toast.LENGTH_SHORT).show();
                 }
@@ -61,7 +63,7 @@ public class PinPasswordActivity extends AppCompatActivity {
                 @Override
                 public void onPinEntered(CharSequence str) {
 
-                    if (str.toString().equals(String.valueOf(strPin))) {
+                    if (str.toString().equals(strPin)) {
                         Toast.makeText(PinPasswordActivity.this, "SUCCESS", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);

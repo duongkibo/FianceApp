@@ -86,6 +86,7 @@ public class ExpenseFragment extends Fragment {
                     new AddExpendituresTask(expenditures).execute();
                     getActivity().onBackPressed();
                 } else {
+                    Toast.makeText(getContext(),"vui long nhap day du thong tin",Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -151,7 +152,7 @@ public class ExpenseFragment extends Fragment {
                         years = year;
                         days =day;
                         months = month;
-                        expenditures.setDay(days);
+                        expenditures.setDay(day);
                         expenditures.setMonth(months);
                         expenditures.setYear(years);
 

@@ -40,12 +40,17 @@ import com.anychart.enums.TooltipPositionMode;
 import com.anychart.scales.Linear;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.LargeValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.qlct.mymoney.R;
@@ -59,32 +64,35 @@ public class ReportDayFragment extends Fragment {
     private ProgressBar progressBar;
     private BarChart barChartDay;
     private PieChart pieChartOnes, pieChartTwos;
+    protected final String[] dayOfWeek = new String[] {
+            "T2","T3","T4","T5","T6","T7","CN"
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                                 Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_report_day, container, false);
+            view = inflater.inflate(R.layout.fragment_report_day, container, false);
         barChartDay = view.findViewById(R.id.barChart_day);
-        float groupSpace = 0.08f;
+        float groupSpace = 0.02f;
         float barSpace = 0.03f; // x4 DataSet
         float barWidth = 0.2f;
         ArrayList<BarEntry> expenditus = new ArrayList<>();
-        expenditus.add(new BarEntry(1, 2000000));
-        expenditus.add(new BarEntry(2, 3000000));
-        expenditus.add(new BarEntry(3, 4000000));
-        expenditus.add(new BarEntry(4, 5000000));
-        expenditus.add(new BarEntry(5, 6000000));
-        expenditus.add(new BarEntry(6, 7000000));
-        expenditus.add(new BarEntry(7, 8000000));
+        expenditus.add(new BarEntry(2.4f, 2000000));
+        expenditus.add(new BarEntry(3.4f, 3000000));
+        expenditus.add(new BarEntry(4.4f, 4000000));
+        expenditus.add(new BarEntry(5.4f, 5000000));
+        expenditus.add(new BarEntry(6.4f, 6000000));
+        expenditus.add(new BarEntry(7.4f, 7000000));
+        expenditus.add(new BarEntry(8.4f, 8000000));
         ArrayList<BarEntry> inditous = new ArrayList<>();
-        inditous.add(new BarEntry(1, 2000000));
-        inditous.add(new BarEntry(2, 4000000));
-        inditous.add(new BarEntry(3, 6000000));
-        inditous.add(new BarEntry(4, 7000000));
-        inditous.add(new BarEntry(5, 8000000));
-        inditous.add(new BarEntry(6, 9000000));
-        inditous.add(new BarEntry(7, 5000000));
+        inditous.add(new BarEntry(2.8f, 2000000));
+        inditous.add(new BarEntry(3.8f, 4000000));
+        inditous.add(new BarEntry(4.8f, 6000000));
+        inditous.add(new BarEntry(5.8f, 7000000));
+        inditous.add(new BarEntry(6.8f, 8000000));
+        inditous.add(new BarEntry(7.8f, 9000000));
+        inditous.add(new BarEntry(8.8f, 5000000));
         BarDataSet set1, set2;
         set1 = new BarDataSet(inditous, "Khoản thu");
         set1.setColor(Color.rgb(242, 247, 158));
@@ -93,23 +101,21 @@ public class ReportDayFragment extends Fragment {
         BarData data = new BarData(set1, set2);
         data.setValueFormatter(new LargeValueFormatter());
         data.setValueTextSize(10f);
-        barChartDay.setData(data);
-        int startday = 1;
-        barChartDay.groupBars(startday, groupSpace, barSpace);
-        barChartDay.invalidate();
-        barChartDay.getBarData().setBarWidth((0.6f));
 
-        barChartDay.getXAxis().setAxisMinimum(1);
-        barChartDay.setDrawBarShadow(false);
-        barChartDay.setDrawValueAboveBar(true);
-        barChartDay.setMaxVisibleValueCount(60);
-        barChartDay.getDescription().setEnabled(false);
+         // this replaces setStartAtZero(true)
         barChartDay.setPinchZoom(false);
+
+        barChartDay.setDrawBarShadow(false);
+
         barChartDay.setDrawGridBackground(false);
-        barChartDay.animateY(2000);
+        barChartDay.getAxisRight().setEnabled(false);
+        barChartDay.setData(data);
+        int startday = 2;
 
-
+       barChartDay.getXAxis().setAxisMaximum(8.5f);
+        barChartDay.getBarData().setBarWidth(0.4f);
         pieChartOnes = view.findViewById(R.id.pieChart_one);
+        barChartDay.animateY(1000);
         ArrayList<PieEntry> pieEntriess = new ArrayList<>();
         pieEntriess.add(new PieEntry(500000, "Mua sắm"));
         pieEntriess.add(new PieEntry(300000, "Nhà Hàng"));

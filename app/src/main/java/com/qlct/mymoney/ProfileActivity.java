@@ -21,6 +21,7 @@ import com.alimuzaffar.lib.pin.PinEntryEditText;
 import com.qlct.mymoney.model.DataBaseIntalizerUser;
 import com.qlct.mymoney.model.UserDitures;
 import com.qlct.mymoney.model.UserDituresDB;
+import com.qlct.mymoney.viewmodel.AddExpendituresViewModel;
 import com.qlct.mymoney.viewmodel.AddUserDituresViewModel;
 
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
@@ -30,6 +31,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private EditText oldPinEntry;
     private EditText newPinEntry;
     private EditText newAgainPinEtry;
+
     private Button btnSave;
     private AddUserDituresViewModel addUserDituresViewModel;
 
@@ -44,9 +46,11 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         int id = intent.getIntExtra("xxx",2);
         Log.d("sssss",id+"");
         initView(id);
+
     }
 
     private void initView(int id) {
+
         imgProfileClose = findViewById(R.id.imgprofile_close);
         edtChangeName = findViewById(R.id.edtChange_name);
         // oldPinEntry = findViewById(R.id.edtPin_old);
@@ -78,6 +82,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             }
 
         });
+
 
 
         btnSave.setOnClickListener(new View.OnClickListener() {

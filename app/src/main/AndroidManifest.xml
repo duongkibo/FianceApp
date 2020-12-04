@@ -16,7 +16,8 @@
         <activity
             android:name=".ViewsSildeActivity"
             android:theme="@style/AppTheme.FullScreen" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity"
+            android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

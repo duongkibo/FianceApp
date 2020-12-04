@@ -44,6 +44,14 @@ public class AddExpendituresViewModel extends AndroidViewModel {
     public LiveData<List<Expenditures>> getExpanddituresYears(int years) {
         return expendituresDB.getExpendituresDao().getItemYears(years);
     }
+    public  void deleteExpDB(Expenditures expenditures)
+    {
+        expendituresDB.getExpendituresDao().delete(expenditures);
+    }
+    public  int countRow()
+    {
+        return expendituresDB.getExpendituresDao().rowCount();
+    }
 
 
     public LiveData<List<Expenditures>> getExpendiures() {

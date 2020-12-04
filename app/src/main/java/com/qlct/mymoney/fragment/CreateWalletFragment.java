@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.room.Room;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +54,7 @@ public class CreateWalletFragment extends Fragment {
         btnResume.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("my pin",pin);
                 userDitures = new UserDitures(name, Integer.valueOf(edtWallet.getText().toString().trim()), pin);
 
                 new AddUserDituresTask(userDitures).execute();
