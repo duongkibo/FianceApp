@@ -8,7 +8,10 @@ import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -33,8 +36,11 @@ import com.qlct.mymoney.model.ExpendituresDB;
 import com.qlct.mymoney.model.Group;
 import com.qlct.mymoney.model.IncomeDitures;
 import com.qlct.mymoney.model.IncomeDituresDB;
+import com.qlct.mymoney.model.UserDitures;
+import com.qlct.mymoney.model.UserDituresDB;
 import com.qlct.mymoney.viewmodel.AddExpendituresViewModel;
 import com.qlct.mymoney.viewmodel.AddIncomeDituresViewModel;
+import com.qlct.mymoney.viewmodel.AddUserDituresViewModel;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -55,14 +61,13 @@ public class IncomeFragment extends Fragment {
     private AddIncomeDituresViewModel addIncomeDituresViewModel;
     private int days, years, months;
     private IncomeDitures incomeDitures;
+    private UserDitures userDituresXx = new UserDitures();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_income, container, false);
         edtCalendarIncome = view.findViewById(R.id.edtCalendar);
         init();
-
-
         edtMoney = (TextInputEditText) view.findViewById(R.id.tp_money);
         edtNote = (TextInputEditText) view.findViewById(R.id.tp_note);
         recyclerView = (RecyclerView) view.findViewById(R.id.rc_group);
@@ -71,14 +76,41 @@ public class IncomeFragment extends Fragment {
         recyclerView.setLayoutManager(gridLayoutManager);
         groupAdapter = new GroupAdapter(getActivity(), groupList);
         recyclerView.setAdapter(groupAdapter);
+        AddUserDituresViewModel viewModel = ViewModelProviders.of(IncomeFragment.this).get(AddUserDituresViewModel.class);
+        viewModel.getUserDitures().observe(getActivity(), new Observer<UserDitures>() {
+            @Override
+            public void onChanged(UserDitures userDitures) {
+                if(userDitures!=null)
+                {
+                    userDituresXx.setWallet(userDitures.getWallet());
+                    userDituresXx.setUsername(userDitures.getUsername());
+                    userDituresXx.setId(userDitures.getId());
+                    userDituresXx.setPassword(userDitures.getPassword());
+
+                }
+
+
+            }
+        });
         getDataExpen();
         // add to db
+
+
+        addIncomeDituresViewModel = ViewModelProviders.of(IncomeFragment.this).get(AddIncomeDituresViewModel.class);
+        return view;
+    }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
         btnAddExp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d("xxxxx", years + " " + months + " " + days);
                 if (incomeDitures != null) {
                     new AddIncomeTask(incomeDitures).execute();
+                    int a = userDituresXx.getWallet() + Integer.valueOf(incomeDitures.getMoney());
+                    userDituresXx.setWallet(a);
+                    new updateUserAsyncTaskss(userDituresXx).execute();
                     getActivity().onBackPressed();
                 } else {
                     Toast.makeText(getContext(),"vui long nhap day du thong tin",Toast.LENGTH_SHORT).show();
@@ -87,8 +119,19 @@ public class IncomeFragment extends Fragment {
             }
         });
 
-        addIncomeDituresViewModel = ViewModelProviders.of(IncomeFragment.this).get(AddIncomeDituresViewModel.class);
-        return view;
+    }
+    private class updateUserAsyncTaskss extends AsyncTask<Void, Void, Void> {
+        UserDitures userDitures;
+
+        public updateUserAsyncTaskss(UserDitures userDitures) {
+            this.userDitures = userDitures;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            UserDituresDB.getUserDituresDB(getContext().getApplicationContext()).getUserDituresDao().update(userDitures);
+            return null;
+        }
     }
 
     public void getDataExpen() {

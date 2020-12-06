@@ -10,10 +10,12 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import androidx.annotation.LongDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -38,11 +40,15 @@ import com.qlct.mymoney.adapter.GroupAdapter;
 import com.qlct.mymoney.model.Expenditures;
 import com.qlct.mymoney.model.ExpendituresDB;
 import com.qlct.mymoney.model.Group;
+import com.qlct.mymoney.model.UserDitures;
+import com.qlct.mymoney.model.UserDituresDB;
 import com.qlct.mymoney.viewmodel.AddExpendituresViewModel;
+import com.qlct.mymoney.viewmodel.AddUserDituresViewModel;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Observable;
 import java.util.logging.Logger;
 
 public class ExpenseFragment extends Fragment {
@@ -59,6 +65,8 @@ public class ExpenseFragment extends Fragment {
     private AddExpendituresViewModel addExpendituresViewModel;
     private int days, years, months;
     private Expenditures expenditures;
+    private  TextView tv_sumss,tv_namess,tv_pinolds;
+    private  UserDitures userDituresX = new UserDitures();
 
 
     @Override
@@ -66,31 +74,35 @@ public class ExpenseFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_expense, container, false);
         edtCalendar = (TextView) view.findViewById(R.id.edtCalendar);
         init();
-
-
         edtMoney = (TextInputEditText) view.findViewById(R.id.tp_money);
         edtNote = (TextInputEditText) view.findViewById(R.id.tp_note);
         recyclerView = (RecyclerView) view.findViewById(R.id.rc_group);
         btnAddExp = (Button) view.findViewById(R.id.btn_add_expense);
+
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 4, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(gridLayoutManager);
         groupAdapter = new GroupAdapter(getActivity(), groupList);
         recyclerView.setAdapter(groupAdapter);
         getDataExpen();
-        // add to db
-        btnAddExp.setOnClickListener(new View.OnClickListener() {
+        AddUserDituresViewModel viewModel = ViewModelProviders.of(ExpenseFragment.this).get(AddUserDituresViewModel.class);
+        viewModel.getUserDitures().observe(getActivity(), new Observer<UserDitures>() {
             @Override
-            public void onClick(View view) {
-                Log.d("xxxxx", years + " " + months + " " + days);
-                if (expenditures != null) {
-                    new AddExpendituresTask(expenditures).execute();
-                    getActivity().onBackPressed();
-                } else {
-                    Toast.makeText(getContext(),"vui long nhap day du thong tin",Toast.LENGTH_SHORT).show();
+            public void onChanged(UserDitures userDitures) {
+                if(userDitures!=null)
+                {
+                    userDituresX.setWallet(userDitures.getWallet());
+                    userDituresX.setUsername(userDitures.getUsername());
+                    userDituresX.setId(userDitures.getId());
+                    userDituresX.setPassword(userDitures.getPassword());
+
                 }
+
 
             }
         });
+
+        // add to db
+
 
         addExpendituresViewModel = ViewModelProviders.of(ExpenseFragment.this).get(AddExpendituresViewModel.class);
 
@@ -117,7 +129,44 @@ public class ExpenseFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        tv_sumss =(TextView) view.findViewById(R.id.tv_sumwallet);
+        tv_namess =(TextView) view.findViewById(R.id.tv_namess);
+        tv_pinolds =(TextView) view.findViewById(R.id.tv_pinolds);
+        btnAddExp.setOnClickListener(new View.OnClickListener() {
+            UserDitures userDituress = new UserDitures();
+            @Override
+            public void onClick(View view) {
+                Log.d("xxxxx", years + " " + months + " " + days);
+                if (expenditures != null) {
+                    new AddExpendituresTask(expenditures).execute();
+                    int a = userDituresX.getWallet() - Integer.parseInt(expenditures.getMoney());
+                    userDituresX.setWallet(a);
+                   new updateUserAsyncTasks(userDituresX).execute();
 
+
+
+                    getActivity().onBackPressed();
+                } else {
+                    Toast.makeText(getContext(),"vui long nhap day du thong tin",Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+
+    }
+    private class updateUserAsyncTasks extends AsyncTask<Void, Void, Void> {
+        UserDitures userDitures;
+
+        public updateUserAsyncTasks(UserDitures userDitures) {
+            this.userDitures = userDitures;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            UserDituresDB.getUserDituresDB(getContext().getApplicationContext()).getUserDituresDao().update(userDitures);
+            return null;
+        }
     }
 
     private class AddExpendituresTask extends AsyncTask<Void, Void, Void> {
@@ -135,6 +184,7 @@ public class ExpenseFragment extends Fragment {
     }
 
     private void init() {
+
         Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
         final int month = calendar.get(Calendar.MONTH);
