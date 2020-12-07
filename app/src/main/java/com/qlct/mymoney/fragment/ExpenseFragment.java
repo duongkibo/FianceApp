@@ -139,7 +139,7 @@ public class ExpenseFragment extends Fragment {
                 Log.d("xxxxx", years + " " + months + " " + days);
                 if (expenditures != null) {
                     new AddExpendituresTask(expenditures).execute();
-                    int a = userDituresX.getWallet() - Integer.parseInt(expenditures.getMoney());
+                    int a = userDituresX.getWallet() -Integer.parseInt(expenditures.getMoney());
                     userDituresX.setWallet(a);
                    new updateUserAsyncTasks(userDituresX).execute();
 

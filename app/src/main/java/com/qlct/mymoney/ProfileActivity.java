@@ -1,7 +1,6 @@
 package com.qlct.mymoney;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -13,15 +12,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alimuzaffar.lib.pin.PinEntryEditText;
-import com.qlct.mymoney.model.DataBaseIntalizerUser;
 import com.qlct.mymoney.model.UserDitures;
 import com.qlct.mymoney.model.UserDituresDB;
-import com.qlct.mymoney.viewmodel.AddExpendituresViewModel;
 import com.qlct.mymoney.viewmodel.AddUserDituresViewModel;
 
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
@@ -62,7 +56,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         addUserDituresViewModel = ViewModelProviders.of(ProfileActivity.this).get(AddUserDituresViewModel.class);
 
 
-        DataBaseIntalizerUser.populateAsync(UserDituresDB.getUserDituresDB(getApplicationContext()));
+
         AddUserDituresViewModel viewModel = ViewModelProviders.of(this).get(AddUserDituresViewModel.class);
         viewModel.getUserDitures().observe(this, new Observer<UserDitures>() {
             @Override
@@ -91,7 +85,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 String name = edtChangeName.getText().toString();
                 String password = String.valueOf(newPinEntry.getText());
                 Log.d("passxx",password);
-                UserDitures userDitures = new UserDitures(name, 4642213, password);
+                UserDitures userDitures = new UserDitures(name,  4642213, password);
                 userDitures.setId(id);
                 new updateUserAsyncTask(userDitures).execute();
                 Toast.makeText(getApplicationContext(), "change...", Toast.LENGTH_SHORT).show();

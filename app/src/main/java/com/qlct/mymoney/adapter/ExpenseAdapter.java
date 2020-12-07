@@ -19,6 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.qlct.mymoney.R;
 import com.qlct.mymoney.model.Expenditures;
 import com.qlct.mymoney.model.ExpendituresDB;
+import com.qlct.mymoney.model.UserDitures;
+import com.qlct.mymoney.model.UserDituresDB;
 import com.qlct.mymoney.viewmodel.AddExpendituresViewModel;
 
 import java.util.List;
@@ -27,10 +29,13 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.HomeDayV
     private List<Expenditures> expendituresList;
     private  AddExpendituresViewModel viewModel;
     private  Context context;
+    private UserDitures userDituress;
 
-    public ExpenseAdapter(List<Expenditures> expendituresList, Context context) {
+    public ExpenseAdapter(List<Expenditures> expendituresList, Context context,UserDitures userDitures) {
         this.expendituresList = expendituresList;
         this.context = context;
+        this.userDituress = userDitures;
+
 
     }
 
@@ -57,7 +62,20 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.HomeDayV
        holder.btnDelete.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               expendituresList.remove(expenditures);
+
+               class UpdateUserssss extends AsyncTask<Void, Void, Void> {
+                   UserDitures userDitures;
+
+                   UpdateUserssss(UserDitures userDitures) {
+                       this.userDitures = userDitures;
+                   }
+
+                   @Override
+                   protected Void doInBackground(Void... voids) {
+                       UserDituresDB.getUserDituresDB(v.getContext().getApplicationContext()).getUserDituresDao().update(userDitures);
+                       return null;
+                   }
+               }
                class  DeleteEx extends AsyncTask<Void, Void, Void>
                {
                    Expenditures expenditures;
@@ -72,7 +90,13 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.HomeDayV
                        return null;
                    }
                }
+               String a = expenditures.getMoney();
+               int sum = userDituress.getWallet() + Integer.valueOf(a);
+               userDituress.setWallet(sum);
+               expendituresList.remove(expenditures);
+               new UpdateUserssss(userDituress).execute();
                new DeleteEx(expenditures).execute();
+
 
                notifyDataSetChanged();
 

@@ -1,29 +1,19 @@
 package com.qlct.mymoney;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.alimuzaffar.lib.pin.PinEntryEditText;
-import com.qlct.mymoney.model.DataBaseIntalizerIncome;
-import com.qlct.mymoney.model.DataBaseIntalizerUser;
-import com.qlct.mymoney.model.IncomeDitures;
-import com.qlct.mymoney.model.IncomeDituresDB;
 import com.qlct.mymoney.model.UserDitures;
 import com.qlct.mymoney.model.UserDituresDB;
-import com.qlct.mymoney.viewmodel.AddIncomeDituresViewModel;
 import com.qlct.mymoney.viewmodel.AddUserDituresViewModel;
-
-import java.util.List;
 
 public class PinPasswordActivity extends AppCompatActivity {
 
@@ -38,7 +28,7 @@ public class PinPasswordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pin_password);
         pinEntry = findViewById(R.id.txt_pin_entry);
 
-        DataBaseIntalizerUser.populateAsync(UserDituresDB.getUserDituresDB(getApplicationContext()));
+
 
         AddUserDituresViewModel viewModel = ViewModelProviders.of(this).get(AddUserDituresViewModel.class);
         //  viewMode.getIncome().observe(getActivity(), incomeAdapter::setIncomeDituresList);

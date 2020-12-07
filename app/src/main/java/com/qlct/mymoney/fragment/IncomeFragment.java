@@ -107,10 +107,10 @@ public class IncomeFragment extends Fragment {
             public void onClick(View view) {
                 Log.d("xxxxx", years + " " + months + " " + days);
                 if (incomeDitures != null) {
-                    new AddIncomeTask(incomeDitures).execute();
-                    int a = userDituresXx.getWallet() + Integer.valueOf(incomeDitures.getMoney());
+                    new AddIncomeTask(incomeDitures,view.getContext()).execute();
+                    int a = userDituresXx.getWallet() + Integer.valueOf(incomeDitures.getMoney().trim());
                     userDituresXx.setWallet(a);
-                    new updateUserAsyncTaskss(userDituresXx).execute();
+                    new updateUserAsyncTaskss(userDituresXx,view.getContext()).execute();
                     getActivity().onBackPressed();
                 } else {
                     Toast.makeText(getContext(),"vui long nhap day du thong tin",Toast.LENGTH_SHORT).show();
@@ -122,14 +122,16 @@ public class IncomeFragment extends Fragment {
     }
     private class updateUserAsyncTaskss extends AsyncTask<Void, Void, Void> {
         UserDitures userDitures;
+        Context context;
 
-        public updateUserAsyncTaskss(UserDitures userDitures) {
+        public updateUserAsyncTaskss(UserDitures userDitures,Context context) {
             this.userDitures = userDitures;
+            this.context = context;
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
-            UserDituresDB.getUserDituresDB(getContext().getApplicationContext()).getUserDituresDao().update(userDitures);
+            UserDituresDB.getUserDituresDB(context.getApplicationContext()).getUserDituresDao().update(userDitures);
             return null;
         }
     }
@@ -141,7 +143,6 @@ public class IncomeFragment extends Fragment {
                 nameGroupss = intent.getStringExtra("nameGroup");
                 idImage = intent.getIntExtra("sss", 10);
                 //Toast.makeText(getContext(),idImage, Toast.LENGTH_SHORT).show();
-                Log.d("iddd", idImage + "");
                 incomeDitures = new IncomeDitures(edtMoney.getText().toString(), edtNote.getText().toString(), idImage, nameGroupss, months, days, years);
                 incomeDitures.setImage(idImage);
 
@@ -154,14 +155,16 @@ public class IncomeFragment extends Fragment {
 
     private class AddIncomeTask extends AsyncTask<Void, Void, Void> {
         IncomeDitures incomeDitures;
+        Context context;
 
-        public AddIncomeTask(IncomeDitures incomeDitures) {
+        public AddIncomeTask(IncomeDitures incomeDitures,Context context) {
             this.incomeDitures = incomeDitures;
+            this.context = context;
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
-            IncomeDituresDB.getIncomeDituresBD(getActivity().getApplication()).getIncomeDituresDao().insert(incomeDitures);
+            IncomeDituresDB.getIncomeDituresBD(context.getApplicationContext()).getIncomeDituresDao().insert(incomeDitures);
             return null;
         }
     }

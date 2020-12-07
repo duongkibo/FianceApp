@@ -36,7 +36,7 @@ public class UserDitures {
         this.username = username;
     }
 
-    public Integer getWallet() {
+    public int getWallet() {
         return wallet;
     }
 

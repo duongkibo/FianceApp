@@ -1,6 +1,5 @@
 package com.qlct.mymoney;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,14 +8,12 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.qlct.mymoney.model.DataBaseIntalizerUser;
 import com.qlct.mymoney.model.UserDitures;
 import com.qlct.mymoney.model.UserDituresDB;
 import com.qlct.mymoney.viewmodel.AddUserDituresViewModel;
@@ -56,7 +53,7 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                DataBaseIntalizerUser.populateAsync(UserDituresDB.getUserDituresDB(getApplicationContext()));
+
                 AddUserDituresViewModel viewModel = ViewModelProviders.of(SplashActivity.this).get(AddUserDituresViewModel.class);
                 viewModel.getUserDitures().observe(SplashActivity.this, new Observer<UserDitures>() {
                     @Override

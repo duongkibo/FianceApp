@@ -7,11 +7,14 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,13 +53,23 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.DefaultValueFormatter;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.LargeValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.utils.FSize;
 import com.qlct.mymoney.R;
+import com.qlct.mymoney.model.Expenditures;
+import com.qlct.mymoney.model.IncomeDitures;
+import com.qlct.mymoney.model.Positions;
+import com.qlct.mymoney.viewmodel.AddExpendituresViewModel;
+import com.qlct.mymoney.viewmodel.AddIncomeDituresViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.PriorityQueue;
+
+import static android.os.Build.VERSION_CODES.M;
 
 public class ReportDayFragment extends Fragment {
 
@@ -64,55 +77,125 @@ public class ReportDayFragment extends Fragment {
     private ProgressBar progressBar;
     private BarChart barChartDay;
     private PieChart pieChartOnes, pieChartTwos;
-    protected final String[] dayOfWeek = new String[] {
-            "T2","T3","T4","T5","T6","T7","CN"
-    };
+    ArrayList<BarEntry> expendituss = new ArrayList<>();
+    ArrayList<BarEntry> inditouss = new ArrayList<>();
+    List<Positions> positions = new ArrayList<>();
+    List<Positions> positionss = new ArrayList<>();
+
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-            view = inflater.inflate(R.layout.fragment_report_day, container, false);
+        view = inflater.inflate(R.layout.fragment_report_day, container, false);
         barChartDay = view.findViewById(R.id.barChart_day);
-        float groupSpace = 0.02f;
-        float barSpace = 0.03f; // x4 DataSet
-        float barWidth = 0.2f;
-        ArrayList<BarEntry> expenditus = new ArrayList<>();
-        expenditus.add(new BarEntry(2.4f, 2000000));
-        expenditus.add(new BarEntry(3.4f, 3000000));
-        expenditus.add(new BarEntry(4.4f, 4000000));
-        expenditus.add(new BarEntry(5.4f, 5000000));
-        expenditus.add(new BarEntry(6.4f, 6000000));
-        expenditus.add(new BarEntry(7.4f, 7000000));
-        expenditus.add(new BarEntry(8.4f, 8000000));
-        ArrayList<BarEntry> inditous = new ArrayList<>();
-        inditous.add(new BarEntry(2.8f, 2000000));
-        inditous.add(new BarEntry(3.8f, 4000000));
-        inditous.add(new BarEntry(4.8f, 6000000));
-        inditous.add(new BarEntry(5.8f, 7000000));
-        inditous.add(new BarEntry(6.8f, 8000000));
-        inditous.add(new BarEntry(7.8f, 9000000));
-        inditous.add(new BarEntry(8.8f, 5000000));
+        inditouss.add(new BarEntry(2.8f, 0));
+        inditouss.add(new BarEntry(3.8f, 000000));
+        inditouss.add(new BarEntry(4.8f, 000000));
+        inditouss.add(new BarEntry(5.8f, 000000));
+        inditouss.add(new BarEntry(6.8f,0 ));
+        inditouss.add(new BarEntry(7.8f, 000000));
+        inditouss.add(new BarEntry(8.6f, 000000));
+        expendituss.add(new BarEntry(2.4f, 000000));
+        expendituss.add(new BarEntry(3.4f, 000000));
+        expendituss.add(new BarEntry(4.4f, 000000));
+        expendituss.add(new BarEntry(5.4f, 000000));
+        expendituss.add(new BarEntry(6.4f, 000000));
+        expendituss.add(new BarEntry(7.4f, 000000));
+        expendituss.add(new BarEntry(8.2f, 000000));
+        int size = expendituss.size();
+        int sizeb = inditouss.size();
+        AddExpendituresViewModel viewModel = ViewModelProviders.of(ReportDayFragment.this).get(AddExpendituresViewModel.class);
+        viewModel.getExpendiures().observe(getActivity(), new Observer<List<Expenditures>>() {
+            @Override
+            public void onChanged(List<Expenditures> expenditures) {
+                Log.d("size of expen", expenditures.size() + "");
+
+                if (expenditures.size() > 0) {
+                    for (int i = 0; i < expenditures.size(); i++) {
+                        for (int j =0;j<size;j++)
+                        {
+                            if(j==i)
+                            {
+                                expendituss.get(j).setY(Float.parseFloat(expenditures.get(j).getMoney()));
+                            }
+
+
+                        }
+                    }
+                }
+                Log.d("ssize of postion",positions.size()+"");
+            }
+        });
+        AddIncomeDituresViewModel viewModel1 = ViewModelProviders.of(ReportDayFragment.this).get(AddIncomeDituresViewModel.class);
+        viewModel1.getIncome().observe(getActivity(), new Observer<List<IncomeDitures>>() {
+            @Override
+            public void onChanged(List<IncomeDitures> incomeDitures) {
+
+                if (incomeDitures.size() > 0) {
+                    for (int i = 0; i < incomeDitures.size(); i++) {
+                        for (int j =0;j<sizeb;j++)
+                        {
+                            if(j==i)
+                            {
+                                inditouss.get(j).setY(Float.parseFloat(incomeDitures.get(j).getMoney().trim()));
+                            }
+
+
+                        }
+                    }
+
+                }
+            }
+        });
+
+        return view;
+    }
+
+    private SpannableString generateCenterSpannableText() {
+
+        SpannableString s = new SpannableString("MPAndroidChart\ndeveloped by Philipp Jahoda");
+        s.setSpan(new RelativeSizeSpan(1.7f), 0, 14, 0);
+        s.setSpan(new StyleSpan(Typeface.NORMAL), 14, s.length() - 15, 0);
+        s.setSpan(new ForegroundColorSpan(Color.GRAY), 14, s.length() - 15, 0);
+        s.setSpan(new RelativeSizeSpan(.8f), 14, s.length() - 15, 0);
+        s.setSpan(new StyleSpan(Typeface.ITALIC), s.length() - 14, s.length(), 0);
+        s.setSpan(new ForegroundColorSpan(ColorTemplate.getHoloBlue()), s.length() - 14, s.length(), 0);
+        return s;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         BarDataSet set1, set2;
-        set1 = new BarDataSet(inditous, "Khoản thu");
+        set1 = new BarDataSet(inditouss, "Khoản thu");
         set1.setColor(Color.rgb(242, 247, 158));
-        set2 = new BarDataSet(expenditus, "Khoản chi");
+        set2 = new BarDataSet(expendituss, "Khoản chi");
         set1.setColor(Color.rgb(255, 102, 0));
         BarData data = new BarData(set1, set2);
         data.setValueFormatter(new LargeValueFormatter());
         data.setValueTextSize(10f);
 
-         // this replaces setStartAtZero(true)
-        barChartDay.setPinchZoom(false);
+
+
+
+
+       // this replaces setStartAtZero(true)
+
 
         barChartDay.setDrawBarShadow(false);
+        barChartDay.invalidate();
+      YAxis yAxis = barChartDay.getAxisLeft();
 
-        barChartDay.setDrawGridBackground(false);
-        barChartDay.getAxisRight().setEnabled(false);
         barChartDay.setData(data);
-        int startday = 2;
 
-       barChartDay.getXAxis().setAxisMaximum(8.5f);
+        barChartDay.setPinchZoom(true);
+
+        barChartDay.setDrawBarShadow(false);
+        barChartDay.setDrawGridBackground(false);
+        barChartDay.getAxisRight().setEnabled(true);
+        barChartDay.setFitBars(true);
+
+        barChartDay.getXAxis().setAxisMaximum(8.5f);
         barChartDay.getBarData().setBarWidth(0.4f);
         pieChartOnes = view.findViewById(R.id.pieChart_one);
         barChartDay.animateY(1000);
@@ -176,22 +259,6 @@ public class ReportDayFragment extends Fragment {
         pieChartTwos.setDrawCenterText(true);
 
         pieChartTwos.setRotationAngle(0);
-        return view;
-    }
-    private SpannableString generateCenterSpannableText() {
-
-        SpannableString s = new SpannableString("MPAndroidChart\ndeveloped by Philipp Jahoda");
-        s.setSpan(new RelativeSizeSpan(1.7f), 0, 14, 0);
-        s.setSpan(new StyleSpan(Typeface.NORMAL), 14, s.length() - 15, 0);
-        s.setSpan(new ForegroundColorSpan(Color.GRAY), 14, s.length() - 15, 0);
-        s.setSpan(new RelativeSizeSpan(.8f), 14, s.length() - 15, 0);
-        s.setSpan(new StyleSpan(Typeface.ITALIC), s.length() - 14, s.length(), 0);
-        s.setSpan(new ForegroundColorSpan(ColorTemplate.getHoloBlue()), s.length() - 14, s.length(), 0);
-        return s;
-    }
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
 
     }
 

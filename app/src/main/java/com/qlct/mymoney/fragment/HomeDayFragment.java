@@ -3,6 +3,8 @@ package com.qlct.mymoney.fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -26,8 +28,10 @@ import com.qlct.mymoney.model.Expenditures;
 import com.qlct.mymoney.model.ExpendituresDB;
 import com.qlct.mymoney.model.IncomeDitures;
 import com.qlct.mymoney.model.IncomeDituresDB;
+import com.qlct.mymoney.model.UserDitures;
 import com.qlct.mymoney.viewmodel.AddExpendituresViewModel;
 import com.qlct.mymoney.viewmodel.AddIncomeDituresViewModel;
+import com.qlct.mymoney.viewmodel.AddUserDituresViewModel;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -48,7 +52,8 @@ public class HomeDayFragment extends Fragment {
     private RecyclerView rcIncome;
     private List<Expenditures> expenditures = new ArrayList<>();
     private List<IncomeDitures> incomeDitures = new ArrayList<>();
-    ExpenseAdapter expenseAdapter = new ExpenseAdapter(expenditures,getActivity());
+
+    UserDitures userDituresS = new UserDitures();
 
 
     @Override
@@ -57,15 +62,44 @@ public class HomeDayFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_home_day, container, false);
 
-/*
-        txtCostExpense = rootView.findViewById(R.id.txtCostExpense);
-        txtCostIncome = rootView.findViewById(R.id.txtCostIncoming);
-*/
-
         DatabaseIntalizer.populateAsync(ExpendituresDB.getExpendituresDB(getContext()));
         DataBaseIntalizerIncome.populateAsync(IncomeDituresDB.getIncomeDituresBD(getContext()));
 
         /* start before 1 month from now */
+
+        /*viewModel2.getIncome().observe(getActivity(), new Observer<List<IncomeDitures>>() {
+            @Override
+            public void onChanged(List<IncomeDitures> incomeDituresList) {
+                if(incomeDituresList!=null)
+                {
+                    for (int i=0;i<incomeDituresList.size();i++)
+                    {
+                        IncomeDitures incomeDitures = incomeDituresList.get(i);
+                        incomeDitures.getDay();
+                    }
+                }
+            }
+        });*/
+        AddUserDituresViewModel viewModel = ViewModelProviders.of(HomeDayFragment.this).get(AddUserDituresViewModel.class);
+        viewModel.getUserDitures().observe(getActivity(), new Observer<UserDitures>() {
+            @Override
+            public void onChanged(UserDitures userDitures) {
+                if(userDitures!=null)
+                {
+                    userDituresS.setWallet(userDitures.getWallet());
+                    userDituresS.setUsername(userDitures.getUsername());
+                    userDituresS.setId(userDitures.getId());
+                    userDituresS.setPassword(userDitures.getPassword());
+
+                }
+            }
+        });
+        return rootView;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         Calendar startDate = Calendar.getInstance();
         startDate.add(Calendar.MONTH, -2);
 
@@ -73,7 +107,7 @@ public class HomeDayFragment extends Fragment {
         Calendar endDate = Calendar.getInstance();
         endDate.add(Calendar.MONTH, 2);
 
-        horizontalCalendar = new HorizontalCalendar.Builder(rootView, R.id.calendarView)
+        horizontalCalendar = new HorizontalCalendar.Builder(view, R.id.calendarView)
                 .range(startDate, endDate)
                 .datesNumberOnScreen(5)
                 .configure()
@@ -92,16 +126,17 @@ public class HomeDayFragment extends Fragment {
             public void onDateSelected(Calendar date, int position) {
                 Toast.makeText(getContext(), DateFormat.format("EEE, MMM d, yyyy", date) + " is selected!", Toast.LENGTH_SHORT).show();
                 int day = Integer.valueOf(DateFormat.format("d", date).toString().trim());
-                rcExpend = (RecyclerView) rootView.findViewById(R.id.recyclerViewDay);
+                ExpenseAdapter expenseAdapter = new ExpenseAdapter(expenditures,getActivity(),userDituresS);
+                rcExpend = (RecyclerView) view.findViewById(R.id.recyclerViewDay);
                 rcExpend.setLayoutManager(new LinearLayoutManager(getActivity()));
                 rcExpend.setAdapter(expenseAdapter);
 
                 AddExpendituresViewModel viewModel = ViewModelProviders.of(HomeDayFragment.this).get(AddExpendituresViewModel.class);
                 viewModel.getExpanddituresDay(day).observe(getActivity(), expenseAdapter::setExpendituresList);
+                Log.d("id xxxSxxx",userDituresS.getId()+"");
+                rcIncome = view.findViewById(R.id.recyclerViewDay_1);
 
-                rcIncome = rootView.findViewById(R.id.recyclerViewDay_1);
-
-                IncomeAdapter incomeAdapter = new IncomeAdapter(incomeDitures);
+                IncomeAdapter incomeAdapter = new IncomeAdapter(incomeDitures,userDituresS);
                 rcIncome.setLayoutManager(new LinearLayoutManager(getActivity()));
                 rcIncome.setAdapter(incomeAdapter);
 
@@ -127,32 +162,16 @@ public class HomeDayFragment extends Fragment {
         });
 
 
-        rcIncome = rootView.findViewById(R.id.recyclerViewDay_1);
-
-
-        IncomeAdapter incomeAdapter = new IncomeAdapter(incomeDitures);
-
-        rcIncome.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rcIncome.setAdapter(incomeAdapter);
-
-
-        AddIncomeDituresViewModel viewModel2 = ViewModelProviders.of(this).get(AddIncomeDituresViewModel.class);
-        viewModel2.getIncome().observe(getActivity(), incomeAdapter::setIncomeDituresList);
-        /*viewModel2.getIncome().observe(getActivity(), new Observer<List<IncomeDitures>>() {
-            @Override
-            public void onChanged(List<IncomeDitures> incomeDituresList) {
-                if(incomeDituresList!=null)
-                {
-                    for (int i=0;i<incomeDituresList.size();i++)
-                    {
-                        IncomeDitures incomeDitures = incomeDituresList.get(i);
-                        incomeDitures.getDay();
-                    }
-                }
-            }
-        });*/
-
-        return rootView;
+//        rcIncome = view.findViewById(R.id.recyclerViewDay_1);
+//
+//
+//        IncomeAdapter incomeAdapter = new IncomeAdapter(incomeDitures,userDituresS);
+//
+//        rcIncome.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        rcIncome.setAdapter(incomeAdapter);
+//
+//
+//        AddIncomeDituresViewModel viewModel2 = ViewModelProviders.of(this).get(AddIncomeDituresViewModel.class);
+//        viewModel2.getIncome().observe(getActivity(), incomeAdapter::setIncomeDituresList);
     }
-
 }

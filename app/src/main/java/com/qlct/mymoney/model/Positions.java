@@ -1,17 +1,17 @@
 package com.qlct.mymoney.model;
 
-public class Position {
+public class Positions {
     double x;
     double y;
 
-    public Position() {
+    public Positions() {
     }
 
-    public Position(double x, double y) {
+    public Positions(double x, double y) {
         this.x = x;
         this.y = y;
     }
-    public Position(double x) {
+    public Positions(double x) {
         this.x = x;
 
     }

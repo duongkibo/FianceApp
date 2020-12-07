@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.qlct.mymoney.databinding.ActivityViewsSildeBinding;
-import com.qlct.mymoney.model.DataBaseIntalizerUser;
 import com.qlct.mymoney.model.UserDitures;
 import com.qlct.mymoney.model.UserDituresDB;
 import com.qlct.mymoney.viewmodel.AddUserDituresViewModel;
@@ -45,7 +44,7 @@ public class ViewsSildeActivity extends AppCompatActivity {
             launchHomeScreen();
         }*/
 
-        DataBaseIntalizerUser.populateAsync(UserDituresDB.getUserDituresDB(getApplicationContext()));
+
         AddUserDituresViewModel viewModel = ViewModelProviders.of(ViewsSildeActivity.this).get(AddUserDituresViewModel.class);
         viewModel.getUserDitures().observe(ViewsSildeActivity.this, new Observer<UserDitures>() {
             @Override

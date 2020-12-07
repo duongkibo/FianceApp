@@ -16,27 +16,23 @@ import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.qlct.mymoney.ProfileActivity;
 import com.qlct.mymoney.R;
 import com.qlct.mymoney.adapter.NotificationReceiver;
-import com.qlct.mymoney.model.DataBaseIntalizerUser;
 import com.qlct.mymoney.model.Expenditures;
 import com.qlct.mymoney.model.ExpendituresDB;
 import com.qlct.mymoney.model.IncomeDitures;
 import com.qlct.mymoney.model.IncomeDituresDB;
 import com.qlct.mymoney.model.UserDitures;
 import com.qlct.mymoney.model.UserDituresDB;
-import com.qlct.mymoney.ui.AddGroupActivity;
 import com.qlct.mymoney.viewmodel.AddExpendituresViewModel;
 import com.qlct.mymoney.viewmodel.AddIncomeDituresViewModel;
 import com.qlct.mymoney.viewmodel.AddUserDituresViewModel;
@@ -185,8 +181,8 @@ public class AccountFragment extends Fragment {
         }
         @Override
         protected String doInBackground(Void... voids) {
-            int a = IncomeDituresDB.getIncomeDituresBD(getContext().getApplicationContext()).getIncomeDituresDao().rowCount();
-            int b = ExpendituresDB.getExpendituresDB(getContext().getApplicationContext()).getExpendituresDao().rowCount();
+            int a = IncomeDituresDB.getIncomeDituresBD(views.getContext().getApplicationContext()).getIncomeDituresDao().rowCount();
+            int b = ExpendituresDB.getExpendituresDB(views.getContext().getApplicationContext()).getExpendituresDao().rowCount();
             int sums = a+b;
             Log.d("valuesxxx",a+"");
             publishProgress(sums+"","ss","sss");
@@ -242,7 +238,7 @@ public class AccountFragment extends Fragment {
             }
         });
 
-        DataBaseIntalizerUser.populateAsync(UserDituresDB.getUserDituresDB(getContext()));
+
         AddUserDituresViewModel viewModel = ViewModelProviders.of(this).get(AddUserDituresViewModel.class);
 
         // viewModel2.getIncome().observe(getActivity(), incomeAdapter::setIncomeDituresList);
