@@ -174,6 +174,23 @@ public class ReportDayFragment extends Fragment {
         BarData data = new BarData(set1, set2);
         data.setValueFormatter(new LargeValueFormatter());
         data.setValueTextSize(10f);
+        Legend l = barChartDay.getLegend();
+        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+        l.setOrientation(Legend.LegendOrientation.VERTICAL);
+        l.setDrawInside(true);
+        l.setYOffset(100f);
+        l.setXOffset(10f);
+        l.setYEntrySpace(100f);
+        l.setTextSize(8f);
+        YAxis leftAxis = barChartDay.getAxisLeft();
+
+        leftAxis.setValueFormatter(new LargeValueFormatter());
+        leftAxis.setDrawGridLines(false);
+        leftAxis.setSpaceTop(35f);
+        leftAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
+
+        barChartDay.getAxisRight().setEnabled(false);
 
 
 
@@ -192,9 +209,6 @@ public class ReportDayFragment extends Fragment {
 
         barChartDay.setDrawBarShadow(false);
         barChartDay.setDrawGridBackground(false);
-        barChartDay.getAxisRight().setEnabled(true);
-        barChartDay.setFitBars(true);
-
         barChartDay.getXAxis().setAxisMaximum(8.5f);
         barChartDay.getBarData().setBarWidth(0.4f);
         pieChartOnes = view.findViewById(R.id.pieChart_one);

@@ -141,7 +141,7 @@ public class ExpenseFragment extends Fragment {
                     new AddExpendituresTask(expenditures).execute();
                     int a = userDituresX.getWallet() -Integer.parseInt(expenditures.getMoney());
                     userDituresX.setWallet(a);
-                   new updateUserAsyncTasks(userDituresX).execute();
+                   new updateUserAsyncTasks(userDituresX,view.getContext()).execute();
 
 
 
@@ -157,14 +157,16 @@ public class ExpenseFragment extends Fragment {
     }
     private class updateUserAsyncTasks extends AsyncTask<Void, Void, Void> {
         UserDitures userDitures;
+        Context context;
 
-        public updateUserAsyncTasks(UserDitures userDitures) {
+        public updateUserAsyncTasks(UserDitures userDitures,Context context) {
             this.userDitures = userDitures;
+            this.context = context;
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
-            UserDituresDB.getUserDituresDB(getContext().getApplicationContext()).getUserDituresDao().update(userDitures);
+            UserDituresDB.getUserDituresDB(context.getApplicationContext()).getUserDituresDao().update(userDitures);
             return null;
         }
     }
