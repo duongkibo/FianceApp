@@ -35,8 +35,8 @@ public class AddIncomeDituresViewModel extends AndroidViewModel {
     {
         incomeDituresDB.getIncomeDituresDao().insert(incomeDitures);
     }
-    public LiveData<List<IncomeDitures>> getIncomeDituresDay(int days) {
-        return incomeDituresDB.getIncomeDituresDao().getItemDays(days);
+    public LiveData<List<IncomeDitures>> getIncomeDituresDay(int days,int months) {
+        return incomeDituresDB.getIncomeDituresDao().getItemDays(days,months);
     }
 
     public LiveData<List<IncomeDitures>> getIncomeDituresMonths(int month) {

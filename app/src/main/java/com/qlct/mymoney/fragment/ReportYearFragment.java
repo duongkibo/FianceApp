@@ -109,7 +109,7 @@ public class ReportYearFragment extends Fragment {
         barChartDay.getXAxis().setAxisMinimum(2018f);
         barChartDay.getXAxis().setAxisMaximum(2022f);
         barChartDay.getBarData().setBarWidth(0.4F);
-        pieChartOnes = view.findViewById(R.id.pieChart_year);
+
         barChartDay.animateY(1000);
 //        Legend l = barChartDay.getLegend();
 //        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
@@ -122,77 +122,7 @@ public class ReportYearFragment extends Fragment {
 //        l.setYEntrySpace(0f);
 //        l.setTextSize(8f);
 
-        XAxis xAxis = barChartDay.getXAxis();
 
-        xAxis.setGranularity(1f);
-        xAxis.setCenterAxisLabels(true);
-
-        YAxis leftAxis = barChartDay.getAxisLeft();
-        leftAxis.setValueFormatter(new LargeValueFormatter());
-        leftAxis.setDrawGridLines(false);
-        leftAxis.setSpaceTop(35f);
-        leftAxis.setAxisMinimum(2018f); // this replaces setStartAtZero(true)
-        barChartDay.getAxisRight().setEnabled(true);
-        ArrayList<PieEntry> pieEntriess = new ArrayList<>();
-        pieEntriess.add(new PieEntry(500000, "Mua sắm"));
-        pieEntriess.add(new PieEntry(300000, "Nhà Hàng"));
-        pieEntriess.add(new PieEntry(200000, "Giải trí"));
-        pieEntriess.add(new PieEntry(521000, "Giáo dục"));
-        pieEntriess.add(new PieEntry(249000, "Phương tiện"));
-
-        PieDataSet pieDataSet = new PieDataSet(pieEntriess, "Khoản Thu");
-        pieDataSet.setValueTextColor(Color.WHITE);
-        pieDataSet.setValueTextSize(8f);
-        pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-
-        PieData pieDatas = new PieData(pieDataSet);
-        pieChartOnes.setData(pieDatas);
-        pieChartOnes.animate();
-        pieChartOnes.setEntryLabelTextSize(8f);
-        pieChartOnes.setCenterText("Khoản thu");
-        pieChartOnes.getDescription().setEnabled(false);
-        pieChartOnes.getDescription().setEnabled(false);
-        pieChartOnes.setHoleColor(Color.WHITE);
-
-        pieChartOnes.setTransparentCircleColor(Color.WHITE);
-        pieChartOnes.setTransparentCircleAlpha(110);
-
-        pieChartOnes.setHoleRadius(58f);
-        pieChartOnes.setTransparentCircleRadius(61f);
-
-        pieChartOnes.setDrawCenterText(true);
-
-        pieChartOnes.setRotationAngle(0);
-
-        //--------------------------------------------------------------------------
-
-        pieChartTwos = view.findViewById(R.id.pieChart_year_one);
-        ArrayList<PieEntry> pieEntries = new ArrayList<>();
-        pieEntries.add(new PieEntry(2000000, "Lương"));
-        pieEntries.add(new PieEntry(1000000, "Tiền thưởng"));
-        pieEntries.add(new PieEntry(2500000, "Bán hàng"));
-        pieEntries.add(new PieEntry(800000, "Khoản khác"));
-
-        PieDataSet pieDataSett = new PieDataSet(pieEntries, "Khoản Chi");
-        pieDataSett.setValueTextColor(Color.WHITE);
-        pieDataSett.setValueTextSize(8f);
-        pieDataSett.setColors(ColorTemplate.COLORFUL_COLORS);
-
-        PieData pieDataa = new PieData(pieDataSett);
-        pieChartTwos.setData(pieDataa);
-        pieChartTwos.animate();
-        pieChartTwos.setEntryLabelTextSize(8f);
-        pieChartTwos.setCenterText("Khoản chi");
-        pieChartTwos.getDescription().setEnabled(false);
-        pieChartTwos.setTransparentCircleColor(Color.WHITE);
-        pieChartTwos.setTransparentCircleAlpha(110);
-
-        pieChartTwos.setHoleRadius(58f);
-        pieChartTwos.setTransparentCircleRadius(61f);
-
-        pieChartTwos.setDrawCenterText(true);
-
-        pieChartTwos.setRotationAngle(0);
         return view;
     }
     private SpannableString generateCenterSpannableText() {

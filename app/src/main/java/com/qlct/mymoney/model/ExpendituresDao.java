@@ -27,8 +27,10 @@ public interface ExpendituresDao {
     @Query("SELECT* FROM Expenditures")
     LiveData<List<Expenditures>> getAllItems();
 
-    @Query("SELECT * FROM expenditures WHERE day=:days ")
-    LiveData<List<Expenditures>> getItemDays(int days);
+    @Query("SELECT * FROM expenditures WHERE day=:days AND month=:month ")
+    LiveData<List<Expenditures>> getItemDays(int days,int month);
+
+
 
     @Query("SELECT * FROM expenditures WHERE month=:months ")
     LiveData<List<Expenditures>> getItemMonths(int months);

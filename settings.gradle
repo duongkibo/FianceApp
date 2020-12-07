@@ -1,3 +1,5 @@
+include ':MPChartExample'
+include ':MPChartLib'
 include ':mylibrary'
 include ':horizontalcalendar'
 include ':app'

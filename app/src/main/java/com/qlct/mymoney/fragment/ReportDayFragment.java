@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.text.SpannableString;
+import android.text.format.DateFormat;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
@@ -65,7 +66,12 @@ import com.qlct.mymoney.model.Positions;
 import com.qlct.mymoney.viewmodel.AddExpendituresViewModel;
 import com.qlct.mymoney.viewmodel.AddIncomeDituresViewModel;
 
+import java.text.SimpleDateFormat;
+import java.time.Month;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.PriorityQueue;
 
@@ -81,6 +87,21 @@ public class ReportDayFragment extends Fragment {
     ArrayList<BarEntry> inditouss = new ArrayList<>();
     List<Positions> positions = new ArrayList<>();
     List<Positions> positionss = new ArrayList<>();
+    int sumday1 = 0;
+    int sumday2 = 0;
+    int sumday3 = 0;
+    int sumday4 = 0;
+    int sumday5 = 0;
+    int sumday6 = 0;
+    int sumday7 = 0;
+    int sumday8 = 0;
+    int sumday9 = 0;
+    int sumday10 = 0;
+    int sumday11 = 0;
+    int sumday12 = 0;
+    int sumday13 = 0;
+    int sumday14 = 0;
+
 
 
     @Override
@@ -102,48 +123,217 @@ public class ReportDayFragment extends Fragment {
         expendituss.add(new BarEntry(6.4f, 000000));
         expendituss.add(new BarEntry(7.4f, 000000));
         expendituss.add(new BarEntry(8.2f, 000000));
+
+
         int size = expendituss.size();
         int sizeb = inditouss.size();
+
+
+
+             Date todayDate = Calendar.getInstance().getTime();
+         SimpleDateFormat format = new SimpleDateFormat("d");
+
+        String monthNumber  = (String) DateFormat.format("MM", todayDate);
+        String todayString = format.format(todayDate);
+         Calendar calendar = new GregorianCalendar();
+
+         int day = Integer.parseInt(todayString);
+         int monthx= Integer.parseInt(monthNumber);
+
+
         AddExpendituresViewModel viewModel = ViewModelProviders.of(ReportDayFragment.this).get(AddExpendituresViewModel.class);
-        viewModel.getExpendiures().observe(getActivity(), new Observer<List<Expenditures>>() {
+        viewModel.getExpanddituresDay(day,monthx).observe(getActivity(), new Observer<List<Expenditures>>() {
             @Override
             public void onChanged(List<Expenditures> expenditures) {
-                Log.d("size of expen", expenditures.size() + "");
-
-                if (expenditures.size() > 0) {
-                    for (int i = 0; i < expenditures.size(); i++) {
-                        for (int j =0;j<size;j++)
-                        {
-                            if(j==i)
-                            {
-                                expendituss.get(j).setY(Float.parseFloat(expenditures.get(j).getMoney()));
-                            }
-
-
-                        }
+                if(expenditures!=null){
+                    for(int i=0;i<expenditures.size();i++)
+                    {
+                        sumday1 += Integer.parseInt(expenditures.get(i).getMoney().trim());
                     }
+                    expendituss.get(6).setY(sumday1);
                 }
-                Log.d("ssize of postion",positions.size()+"");
+                }
+        });
+        AddExpendituresViewModel viewModel1 = ViewModelProviders.of(ReportDayFragment.this).get(AddExpendituresViewModel.class);
+        viewModel1.getExpanddituresDay(day-1,monthx).observe(getActivity(), new Observer<List<Expenditures>>() {
+            @Override
+            public void onChanged(List<Expenditures> expenditures) {
+                if(expenditures!=null){
+                    for(int i=0;i<expenditures.size();i++)
+                    {
+                        sumday2 += Integer.parseInt(expenditures.get(i).getMoney().trim());
+                    }
+                    expendituss.get(5).setY(sumday2);
+                }
             }
         });
-        AddIncomeDituresViewModel viewModel1 = ViewModelProviders.of(ReportDayFragment.this).get(AddIncomeDituresViewModel.class);
-        viewModel1.getIncome().observe(getActivity(), new Observer<List<IncomeDitures>>() {
+        AddExpendituresViewModel viewModel2 = ViewModelProviders.of(ReportDayFragment.this).get(AddExpendituresViewModel.class);
+        viewModel2.getExpanddituresDay(day-2,monthx).observe(getActivity(), new Observer<List<Expenditures>>() {
+            @Override
+            public void onChanged(List<Expenditures> expenditures) {
+                if(expenditures!=null){
+                    for(int i=0;i<expenditures.size();i++)
+                    {
+                        sumday3 += Integer.parseInt(expenditures.get(i).getMoney().trim());
+                    }
+                    expendituss.get(4).setY(sumday3);
+                }
+            }
+        });
+        AddExpendituresViewModel viewModel3 = ViewModelProviders.of(ReportDayFragment.this).get(AddExpendituresViewModel.class);
+        viewModel3.getExpanddituresDay(day-3,monthx).observe(getActivity(), new Observer<List<Expenditures>>() {
+            @Override
+            public void onChanged(List<Expenditures> expenditures) {
+                if(expenditures!=null){
+                    for(int i=0;i<expenditures.size();i++)
+                    {
+                        sumday4 += Integer.parseInt(expenditures.get(i).getMoney().trim());
+                    }
+                    expendituss.get(3).setY(sumday4);
+                }
+            }
+        });
+        AddExpendituresViewModel viewModel4 = ViewModelProviders.of(ReportDayFragment.this).get(AddExpendituresViewModel.class);
+        viewModel4.getExpanddituresDay(day-4,monthx).observe(getActivity(), new Observer<List<Expenditures>>() {
+            @Override
+            public void onChanged(List<Expenditures> expenditures) {
+                if(expenditures!=null){
+                    for(int i=0;i<expenditures.size();i++)
+                    {
+                        sumday5 += Integer.parseInt(expenditures.get(i).getMoney().trim());
+                    }
+                    expendituss.get(2).setY(sumday5);
+                }
+            }
+        });
+        AddExpendituresViewModel viewModel5 = ViewModelProviders.of(ReportDayFragment.this).get(AddExpendituresViewModel.class);
+        viewModel5.getExpanddituresDay(day-5,monthx).observe(getActivity(), new Observer<List<Expenditures>>() {
+            @Override
+            public void onChanged(List<Expenditures> expenditures) {
+                if(expenditures!=null){
+                    for(int i=0;i<expenditures.size();i++)
+                    {
+                        sumday6 += Integer.parseInt(expenditures.get(i).getMoney().trim());
+                    }
+                    expendituss.get(1).setY(sumday6);
+                }
+            }
+        });
+        AddExpendituresViewModel viewModel6 = ViewModelProviders.of(ReportDayFragment.this).get(AddExpendituresViewModel.class);
+        viewModel6.getExpanddituresDay(day-6,monthx).observe(getActivity(), new Observer<List<Expenditures>>() {
+            @Override
+            public void onChanged(List<Expenditures> expenditures) {
+                if(expenditures!=null){
+                    for(int i=0;i<expenditures.size();i++)
+                    {
+                        sumday7 += Integer.parseInt(expenditures.get(i).getMoney().trim());
+                    }
+                    expendituss.get(0).setY(sumday7);
+                }
+            }
+        });
+        AddIncomeDituresViewModel viewModels = ViewModelProviders.of(ReportDayFragment.this).get(AddIncomeDituresViewModel.class);
+        viewModels.getIncomeDituresDay(day, monthx).observe(getActivity(), new Observer<List<IncomeDitures>>() {
             @Override
             public void onChanged(List<IncomeDitures> incomeDitures) {
 
-                if (incomeDitures.size() > 0) {
-                    for (int i = 0; i < incomeDitures.size(); i++) {
-                        for (int j =0;j<sizeb;j++)
-                        {
-                            if(j==i)
-                            {
-                                inditouss.get(j).setY(Float.parseFloat(incomeDitures.get(j).getMoney().trim()));
-                            }
+              if(incomeDitures!=null)
+              {
+                  for(int i=0;i<incomeDitures.size();i++)
+                  {
+                      sumday8+=Integer.parseInt(incomeDitures.get(i).getMoney().trim());
+                  }
+                  inditouss.get(6).setY(sumday8);
+              }
+            }
+        });
+        AddIncomeDituresViewModel viewModels1 = ViewModelProviders.of(ReportDayFragment.this).get(AddIncomeDituresViewModel.class);
+        viewModels1.getIncomeDituresDay(day-1, monthx).observe(getActivity(), new Observer<List<IncomeDitures>>() {
+            @Override
+            public void onChanged(List<IncomeDitures> incomeDitures) {
 
-
-                        }
+                if(incomeDitures!=null)
+                {
+                    for(int i=0;i<incomeDitures.size();i++)
+                    {
+                        sumday9+=Integer.parseInt(incomeDitures.get(i).getMoney().trim());
                     }
+                    inditouss.get(5).setY(sumday9);
+                }
+            }
+        });
+        AddIncomeDituresViewModel viewModels2 = ViewModelProviders.of(ReportDayFragment.this).get(AddIncomeDituresViewModel.class);
+        viewModels2.getIncomeDituresDay(day-2, monthx).observe(getActivity(), new Observer<List<IncomeDitures>>() {
+            @Override
+            public void onChanged(List<IncomeDitures> incomeDitures) {
 
+                if(incomeDitures!=null)
+                {
+                    for(int i=0;i<incomeDitures.size();i++)
+                    {
+                        sumday10+=Integer.parseInt(incomeDitures.get(i).getMoney().trim());
+                    }
+                    inditouss.get(4).setY(sumday10);
+                }
+            }
+        });
+        AddIncomeDituresViewModel viewModels3 = ViewModelProviders.of(ReportDayFragment.this).get(AddIncomeDituresViewModel.class);
+        viewModels3.getIncomeDituresDay(day-3, monthx).observe(getActivity(), new Observer<List<IncomeDitures>>() {
+            @Override
+            public void onChanged(List<IncomeDitures> incomeDitures) {
+
+                if(incomeDitures!=null)
+                {
+                    for(int i=0;i<incomeDitures.size();i++)
+                    {
+                        sumday11+=Integer.parseInt(incomeDitures.get(i).getMoney().trim());
+                    }
+                    inditouss.get(3).setY(sumday11);
+                }
+            }
+        });
+        AddIncomeDituresViewModel viewModels4 = ViewModelProviders.of(ReportDayFragment.this).get(AddIncomeDituresViewModel.class);
+        viewModels4.getIncomeDituresDay(day-4, monthx).observe(getActivity(), new Observer<List<IncomeDitures>>() {
+            @Override
+            public void onChanged(List<IncomeDitures> incomeDitures) {
+
+                if(incomeDitures!=null)
+                {
+                    for(int i=0;i<incomeDitures.size();i++)
+                    {
+                        sumday12+=Integer.parseInt(incomeDitures.get(i).getMoney().trim());
+                    }
+                    inditouss.get(2).setY(sumday12);
+                }
+            }
+        });
+        AddIncomeDituresViewModel viewModels5 = ViewModelProviders.of(ReportDayFragment.this).get(AddIncomeDituresViewModel.class);
+        viewModels5.getIncomeDituresDay(day-5, monthx).observe(getActivity(), new Observer<List<IncomeDitures>>() {
+            @Override
+            public void onChanged(List<IncomeDitures> incomeDitures) {
+
+                if(incomeDitures!=null)
+                {
+                    for(int i=0;i<incomeDitures.size();i++)
+                    {
+                        sumday13+=Integer.parseInt(incomeDitures.get(i).getMoney().trim());
+                    }
+                    inditouss.get(1).setY(sumday13);
+                }
+            }
+        });
+        AddIncomeDituresViewModel viewModels6 = ViewModelProviders.of(ReportDayFragment.this).get(AddIncomeDituresViewModel.class);
+        viewModels6.getIncomeDituresDay(day-6, monthx).observe(getActivity(), new Observer<List<IncomeDitures>>() {
+            @Override
+            public void onChanged(List<IncomeDitures> incomeDitures) {
+
+                if(incomeDitures!=null)
+                {
+                    for(int i=0;i<incomeDitures.size();i++)
+                    {
+                        sumday14+=Integer.parseInt(incomeDitures.get(i).getMoney().trim());
+                    }
+                    inditouss.get(0).setY(sumday14);
                 }
             }
         });
@@ -174,21 +364,13 @@ public class ReportDayFragment extends Fragment {
         BarData data = new BarData(set1, set2);
         data.setValueFormatter(new LargeValueFormatter());
         data.setValueTextSize(10f);
-        Legend l = barChartDay.getLegend();
-        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
-        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
-        l.setOrientation(Legend.LegendOrientation.VERTICAL);
-        l.setDrawInside(true);
-        l.setYOffset(100f);
-        l.setXOffset(10f);
-        l.setYEntrySpace(100f);
-        l.setTextSize(8f);
         YAxis leftAxis = barChartDay.getAxisLeft();
 
         leftAxis.setValueFormatter(new LargeValueFormatter());
         leftAxis.setDrawGridLines(false);
-        leftAxis.setSpaceTop(35f);
+        leftAxis.setSpaceTop(2000000000f);
         leftAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
+
 
         barChartDay.getAxisRight().setEnabled(false);
 
@@ -211,68 +393,12 @@ public class ReportDayFragment extends Fragment {
         barChartDay.setDrawGridBackground(false);
         barChartDay.getXAxis().setAxisMaximum(8.5f);
         barChartDay.getBarData().setBarWidth(0.4f);
-        pieChartOnes = view.findViewById(R.id.pieChart_one);
+
         barChartDay.animateY(1000);
-        ArrayList<PieEntry> pieEntriess = new ArrayList<>();
-        pieEntriess.add(new PieEntry(500000, "Mua sắm"));
-        pieEntriess.add(new PieEntry(300000, "Nhà Hàng"));
-        pieEntriess.add(new PieEntry(200000, "Giải trí"));
-        pieEntriess.add(new PieEntry(521000, "Giáo dục"));
-        pieEntriess.add(new PieEntry(249000, "Phương tiện"));
 
-        PieDataSet pieDataSet = new PieDataSet(pieEntriess, "Khoản Thu");
-        pieDataSet.setValueTextColor(Color.WHITE);
-        pieDataSet.setValueTextSize(8f);
-        pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
 
-        PieData pieDatas = new PieData(pieDataSet);
-        pieChartOnes.setData(pieDatas);
-        pieChartOnes.animate();
-        pieChartOnes.setEntryLabelTextSize(8f);
-        pieChartOnes.setCenterText("Khoản thu");
-        pieChartOnes.getDescription().setEnabled(false);
-        pieChartOnes.getDescription().setEnabled(false);
-        pieChartOnes.setHoleColor(Color.WHITE);
 
-        pieChartOnes.setTransparentCircleColor(Color.WHITE);
-        pieChartOnes.setTransparentCircleAlpha(110);
 
-        pieChartOnes.setHoleRadius(58f);
-        pieChartOnes.setTransparentCircleRadius(61f);
-
-        pieChartOnes.setDrawCenterText(true);
-
-        pieChartOnes.setRotationAngle(0);
-
-        //--------------------------------------------------------------------------
-
-        pieChartTwos = view.findViewById(R.id.pieChart);
-        ArrayList<PieEntry> pieEntries = new ArrayList<>();
-        pieEntries.add(new PieEntry(2000000, "Lương"));
-        pieEntries.add(new PieEntry(1000000, "Tiền thưởng"));
-        pieEntries.add(new PieEntry(2500000, "Bán hàng"));
-        pieEntries.add(new PieEntry(800000, "Khoản khác"));
-
-        PieDataSet pieDataSett = new PieDataSet(pieEntries, "Khoản Chi");
-        pieDataSett.setValueTextColor(Color.WHITE);
-        pieDataSett.setValueTextSize(8f);
-        pieDataSett.setColors(ColorTemplate.COLORFUL_COLORS);
-
-        PieData pieDataa = new PieData(pieDataSett);
-        pieChartTwos.setData(pieDataa);
-        pieChartTwos.animate();
-        pieChartTwos.setEntryLabelTextSize(8f);
-        pieChartTwos.setCenterText("Khoản chi");
-        pieChartTwos.getDescription().setEnabled(false);
-        pieChartTwos.setTransparentCircleColor(Color.WHITE);
-        pieChartTwos.setTransparentCircleAlpha(110);
-
-        pieChartTwos.setHoleRadius(58f);
-        pieChartTwos.setTransparentCircleRadius(61f);
-
-        pieChartTwos.setDrawCenterText(true);
-
-        pieChartTwos.setRotationAngle(0);
 
     }
 

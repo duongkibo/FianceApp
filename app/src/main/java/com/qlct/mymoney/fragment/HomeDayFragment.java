@@ -35,6 +35,7 @@ import com.qlct.mymoney.viewmodel.AddUserDituresViewModel;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import devs.mulham.horizontalcalendar.HorizontalCalendar;
@@ -126,13 +127,15 @@ public class HomeDayFragment extends Fragment {
             public void onDateSelected(Calendar date, int position) {
                 Toast.makeText(getContext(), DateFormat.format("EEE, MMM d, yyyy", date) + " is selected!", Toast.LENGTH_SHORT).show();
                 int day = Integer.valueOf(DateFormat.format("d", date).toString().trim());
+                int month = Integer.valueOf(DateFormat.format("M",date).toString().trim());
+                Log.d("month",month+"");
                 ExpenseAdapter expenseAdapter = new ExpenseAdapter(expenditures,getActivity(),userDituresS);
                 rcExpend = (RecyclerView) view.findViewById(R.id.recyclerViewDay);
                 rcExpend.setLayoutManager(new LinearLayoutManager(getActivity()));
                 rcExpend.setAdapter(expenseAdapter);
 
                 AddExpendituresViewModel viewModel = ViewModelProviders.of(HomeDayFragment.this).get(AddExpendituresViewModel.class);
-                viewModel.getExpanddituresDay(day).observe(getActivity(), expenseAdapter::setExpendituresList);
+                viewModel.getExpanddituresDay(day,month).observe(getActivity(), expenseAdapter::setExpendituresList);
                 Log.d("id xxxSxxx",userDituresS.getId()+"");
                 rcIncome = view.findViewById(R.id.recyclerViewDay_1);
 
@@ -142,7 +145,7 @@ public class HomeDayFragment extends Fragment {
 
 
                 AddIncomeDituresViewModel viewModel2 = ViewModelProviders.of(HomeDayFragment.this).get(AddIncomeDituresViewModel.class);
-                viewModel2.getIncomeDituresDay(day).observe(getActivity(), incomeAdapter::setIncomeDituresList);
+                viewModel2.getIncomeDituresDay(day,month).observe(getActivity(), incomeAdapter::setIncomeDituresList);
                /* viewModel.getExpanddituresDay(day).observe(getActivity(), new Observer<List<Expenditures>>() {
                     @Override
                     public void onChanged(List<Expenditures> expendituresList) {

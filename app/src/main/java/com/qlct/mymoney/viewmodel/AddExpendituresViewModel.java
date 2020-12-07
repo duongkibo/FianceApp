@@ -33,8 +33,8 @@ public class AddExpendituresViewModel extends AndroidViewModel {
         expendituresDB.getExpendituresDao().insert(expenditures);
     }
 
-    public LiveData<List<Expenditures>> getExpanddituresDay(int days) {
-        return expendituresDB.getExpendituresDao().getItemDays(days);
+    public LiveData<List<Expenditures>> getExpanddituresDay(int days,int months) {
+        return expendituresDB.getExpendituresDao().getItemDays(days,months);
     }
 
     public LiveData<List<Expenditures>> getExpanddituresMonths(int month) {

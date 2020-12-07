@@ -25,8 +25,9 @@ public interface IncomeDituresDao {
 
     @Query("SELECT* FROM IncomeDitures")
     LiveData<List<IncomeDitures>> getAllItems();
-    @Query("SELECT * FROM IncomeDitures WHERE day=:days ")
-    LiveData<List<IncomeDitures>> getItemDays(int days);
+    @Query("SELECT * FROM IncomeDitures WHERE day=:days AND month=:month ")
+    LiveData<List<IncomeDitures>> getItemDays(int days,int month);
+
     @Query("SELECT * FROM IncomeDitures WHERE month=:months ")
     LiveData<List<IncomeDitures>> getItemMonths(int months);
     @Query("SELECT * FROM IncomeDitures WHERE year=:years ")
