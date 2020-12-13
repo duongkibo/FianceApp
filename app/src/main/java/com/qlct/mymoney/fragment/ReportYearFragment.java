@@ -77,16 +77,16 @@ public class ReportYearFragment extends Fragment {
         float barSpace = 0.03f; // x4 DataSet
         float barWidth = 0.2f;
         ArrayList<BarEntry> expenditus = new ArrayList<>();
-        expenditus.add(new BarEntry(2018.4f, 20000000));
-        expenditus.add(new BarEntry(2019.4f, 30000000));
-        expenditus.add(new BarEntry(2020.4f, 40000000));
-        expenditus.add(new BarEntry(2021.4f, 50000000));
+        expenditus.add(new BarEntry(2020.0f, 20000000));
+        expenditus.add(new BarEntry(2021.0f, 30000000));
+        expenditus.add(new BarEntry(2022.0f, 40000000));
+        expenditus.add(new BarEntry(2023.0f, 50000000));
 
         ArrayList<BarEntry> inditous = new ArrayList<>();
-        inditous.add(new BarEntry(2018.8f, 30000000));
-        inditous.add(new BarEntry(2019.8f, 40000000));
-        inditous.add(new BarEntry(2020.8f, 60000000));
-        inditous.add(new BarEntry(2021.8f, 60000000));
+        inditous.add(new BarEntry(2020.4f, 30000000));
+        inditous.add(new BarEntry(2021.4f, 40000000));
+        inditous.add(new BarEntry(2022.4f, 60000000));
+        inditous.add(new BarEntry(2023.4f, 60000000));
 
         BarDataSet set1, set2;
         set1 = new BarDataSet(inditous, "Khoản thu");
@@ -106,11 +106,14 @@ public class ReportYearFragment extends Fragment {
         barChartDay.getAxisRight().setEnabled(false);
         barChartDay.setData(data);
         int startday = 2;
-        barChartDay.getXAxis().setAxisMinimum(2018f);
-        barChartDay.getXAxis().setAxisMaximum(2022f);
+        barChartDay.getXAxis().setAxisMinimum(2019);
+        barChartDay.getXAxis().setAxisMaximum(2024);
         barChartDay.getBarData().setBarWidth(0.4F);
 
         barChartDay.animateY(1000);
+        XAxis xAxis = barChartDay.getXAxis();
+
+        xAxis.setGranularity(1f);
 //        Legend l = barChartDay.getLegend();
 //        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
 //        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);

@@ -139,6 +139,7 @@ public class ReportDayFragment extends Fragment {
 
          int day = Integer.parseInt(todayString);
          int monthx= Integer.parseInt(monthNumber);
+        Log.d("dayss",day+"");
 
 
         AddExpendituresViewModel viewModel = ViewModelProviders.of(ReportDayFragment.this).get(AddExpendituresViewModel.class);
@@ -383,7 +384,8 @@ public class ReportDayFragment extends Fragment {
 
         barChartDay.setDrawBarShadow(false);
         barChartDay.invalidate();
-      YAxis yAxis = barChartDay.getAxisLeft();
+     XAxis  xAxis = barChartDay.getXAxis();
+        xAxis.setGranularity(1f);
 
         barChartDay.setData(data);
 
