@@ -7,6 +7,27 @@
     <string name="plan4">Theo dõi hóa đơn của bạn như điện, internet, nước,...</string>
     <string name="plan3">Tạo ra định kỳ các giao dịch sẽ được tự động thêm trong tương lai</string>
     <string name="plan1">Tạo ngân sách cho từng nhóm hoặc cho cả ví</string>
+    <string name="loading" translatable="false">Loading</string>
+    <string name="waiting">Xin chờ…</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="PHONE_NUMBER">PHONE NUMBER</string>
+    <string name="resend_verification_code"><![CDATA[<u>Resend verification code</u>]]></string>
+    <string name="SIGN_IN">SIGN IN</string>
+    <string name="notify_login_fail">Please enter your phone number</string>
+    <string name="notify_dismiss">DISMISS</string>
+    <color name="color_text_dismiss_notification">#B63737</color>
+    <string name="otp_is_empty">OTP is empty</string>
+    <string name="content_empty_otp">Please enter OTP code </string>
+    <string name="dialog_confirm">confirm</string>
+    <string name="txtiCaller" translatable="false">sMoney</string>
+    <string name="error_phone_number">Please enter phone number</string>
+    <string name="msg_no_internet_access">Not Internet</string>
+    <string name="key_missing_phone_name">Name and number cannot be empty</string>
+    <string name="valid_code"><![CDATA[Verification code is valid for <u>%1$d</u> seconds]]></string>
+    <string name="sign_in_fail">Sign in fail.</string>
+    <string name="logout" translatable="false">LOG OUT</string>
+    <string name="logout_confirm" translatable="false">Are you sure you want to logout?</string>
+    <string name="cancel" translatable="false">Cancel</string>
+    <string name="ok" translatable="false">LOG OUT</string>
 </resources>

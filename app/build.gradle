@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'realm-android'
-
+apply plugin: 'com.google.gms.google-services'
 
 
 android {
@@ -11,7 +11,7 @@ android {
         jcenter()
     }
     defaultConfig {
-        applicationId "com.qlct.mymoney"
+        applicationId "com.pigllet.moneysaver"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
@@ -27,9 +27,13 @@ android {
         }
     }
 
-    viewBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding true
+        viewBinding = true
+        // for view binding:
+        // viewBinding true
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -38,6 +42,9 @@ android {
 }
 
 dependencies {
+    // Progress dialog
+    implementation 'com.github.d-max:spots-dialog:1.1@aar'
+
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation "com.android.support:support-compat:28.0.0"
@@ -83,4 +90,30 @@ dependencies {
     }
     //MP chart
     //mplementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+    //firebase
+    implementation 'com.google.firebase:firebase-analytics:18.0.0'
+    implementation 'com.google.firebase:firebase-auth:20.0.1'
+
+//    implementation 'com.google.firebase:firebase-crashlytics:17.2.1'
+    implementation 'com.google.firebase:firebase-perf:19.0.10'
+
+    // Add the SDK for Firebase Cloud Messaging
+    implementation 'com.google.firebase:firebase-messaging:21.0.0'
+    implementation 'com.google.firebase:firebase-core:18.0.0'
+
+    //Firebase Remote Config
+    implementation 'com.google.firebase:firebase-config:20.0.1'
+    implementation platform('com.google.firebase:firebase-bom:26.1.0')
+
+    //OTP pinview
+    implementation 'com.github.mukeshsolanki:android-otpview-pinview:2.1.0'
+
+
+    //country code picker
+    implementation 'com.github.joielechong:countrycodepicker:2.4.2'
+
+    implementation 'com.googlecode.libphonenumber:libphonenumber:8.2.0'
+    implementation 'io.michaelrocks:libphonenumber-android:8.12.5'
+    implementation 'androidx.browser:browser:1.2.0'
 }

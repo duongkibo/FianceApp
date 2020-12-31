@@ -21,6 +21,7 @@
     <color name="title">#0D1F3C</color>
     <color name="title_expense">#CCDAF6</color>
     <color name="gray_edittext">#99A0B0</color>
+    <color name="color_purple_light">#843088</color>
     <color name="category_word">#485068</color>
     <color name="grayyyy">#FAF6F6</color>
     <color name="grayyyyText">#BCB7B7</color>
@@ -29,6 +30,10 @@
     <color name="dot_light_screen2">#347AF0</color>
     <color name="dot_light_screen3">#347AF0</color>
     <color name="dot_light_screen4">#347AF0</color>
+    <color name="color_purple_dark">#602077</color>
+    <color name="white">#FFFFFF</color>
+    <color name="color_background_notification">#F34949</color>
+    <color name="black">#000000</color>
 
     <array name="array_dot_active">
         <item>@color/dot_light_screen1</item>

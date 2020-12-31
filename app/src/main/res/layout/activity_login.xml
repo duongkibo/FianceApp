@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.qlct.mymoney.authenticate.LoginViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/hi_bg">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/appCompatImageView"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_100sdp"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/images" />
+
+        <TextView
+            android:id="@+id/tvPhoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_50sdp"
+            android:text="@string/PHONE_NUMBER"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/appCompatImageView" />
+
+        <View
+            android:id="@+id/viewTextPhoneNumber"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_40sdp"
+            app:layout_constraintEnd_toEndOf="@id/tvPhoneNumber"
+            app:layout_constraintStart_toStartOf="@id/tvPhoneNumber"
+            app:layout_constraintTop_toBottomOf="@id/tvPhoneNumber" />
+
+
+        <com.rilixtech.widget.countrycodepicker.CountryCodePicker
+            android:id="@+id/country_code_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="@dimen/_30sdp"
+            app:ccp_hideNameCode="true"
+            app:ccp_textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/viewTextPhoneNumber"
+            app:layout_constraintStart_toStartOf="@+id/viewTextPhoneNumber"
+            app:layout_constraintTop_toTopOf="@id/viewTextPhoneNumber" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edtPhoneNumber"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:textColor="@color/white"
+            android:digits="0123456789+-()*#"
+            android:inputType="phone"
+            android:paddingStart="@dimen/_70sdp"
+            app:layout_constraintBottom_toBottomOf="@id/viewTextPhoneNumber"
+            app:layout_constraintEnd_toEndOf="@id/viewTextPhoneNumber"
+            app:layout_constraintStart_toStartOf="@id/viewTextPhoneNumber"
+            app:layout_constraintTop_toTopOf="@id/viewTextPhoneNumber" />
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/img_cancel_phone_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/viewTextPhoneNumber"
+            app:layout_constraintEnd_toEndOf="@id/viewTextPhoneNumber"
+            app:layout_constraintTop_toTopOf="@id/viewTextPhoneNumber"
+            app:srcCompat="@drawable/ic_cancel_24dp" />
+
+        <com.mukesh.OtpView
+            android:id="@+id/otpView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:inputType="number"
+            android:itemBackground="@drawable/item_otp"
+            android:textColor="@color/color_purple_dark"
+            android:visibility="invisible"
+            app:itemCount="6"
+            app:layout_constraintEnd_toEndOf="@id/viewTextPhoneNumber"
+            app:layout_constraintStart_toStartOf="@id/viewTextPhoneNumber"
+            app:layout_constraintTop_toBottomOf="@id/viewTextPhoneNumber"
+            app:viewType="rectangle" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textResendCode"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_5sdp"
+            android:text="@string/resend_verification_code"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/_9sdp"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="@id/otpView"
+            app:layout_constraintTop_toBottomOf="@id/otpView" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnSignIn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_30sdp"
+            android:layout_marginBottom="@dimen/_50sdp"
+            android:background="@drawable/bg_rounded_button"
+            android:text="@string/SIGN_IN"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@id/viewDismiss"
+            app:layout_constraintEnd_toEndOf="@id/otpView"
+            app:layout_constraintStart_toStartOf="@id/otpView" />
+
+        <View
+            android:id="@+id/viewDismiss"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/color_background_notification"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:gravity="center"
+            android:text="@string/notify_login_fail"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_11sdp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/viewDismiss"
+            app:layout_constraintStart_toStartOf="@id/viewDismiss"
+            app:layout_constraintTop_toTopOf="@id/viewDismiss" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtDismiss"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="8dp"
+            android:gravity="center"
+            android:text="@string/notify_dismiss"
+            android:textColor="@color/color_text_dismiss_notification"
+            android:textSize="@dimen/_11sdp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/viewDismiss"
+            app:layout_constraintEnd_toEndOf="@id/viewDismiss"
+            app:layout_constraintTop_toTopOf="@id/viewDismiss" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

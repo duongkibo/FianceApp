@@ -32,19 +32,6 @@ public class ViewsSildeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        /*boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
-                .getBoolean("isfirstrun", true);
-
-        if (isFirstRun) {
-            getSharedPreferences("PREFERENCE", MODE_PRIVATE)
-                    .edit()
-                    .putBoolean("isfirstrun", false).commit();
-        } else {
-            launchHomeScreen();
-        }*/
-
-
         AddUserDituresViewModel viewModel = ViewModelProviders.of(ViewsSildeActivity.this).get(AddUserDituresViewModel.class);
         viewModel.getUserDitures().observe(ViewsSildeActivity.this, new Observer<UserDitures>() {
             @Override

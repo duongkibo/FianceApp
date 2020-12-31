@@ -14,8 +14,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.qlct.mymoney.authenticate.LoginActivity;
 import com.qlct.mymoney.model.UserDitures;
-import com.qlct.mymoney.model.UserDituresDB;
+import com.qlct.mymoney.utils.SharedPreferencesManager;
 import com.qlct.mymoney.viewmodel.AddUserDituresViewModel;
 
 public class SplashActivity extends AppCompatActivity {
@@ -63,9 +64,26 @@ public class SplashActivity extends AppCompatActivity {
                             startActivity(intent);
                             finish();
                         } else {
-                            Intent intent = new Intent(SplashActivity.this, PinPasswordActivity.class);
-                            startActivity(intent);
-                            finish();
+                            String defaultToken = SharedPreferencesManager.getDefault(getApplicationContext()).getFireBaseToken();
+                            if (defaultToken == null) {
+                                Intent intent = new Intent(SplashActivity.this, PinPasswordActivity.class);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                String fireBaseToken = SharedPreferencesManager.getDefault(getApplicationContext()).getFireBaseToken();
+                                if (fireBaseToken != null) {
+                                    Intent intent = new Intent(SplashActivity.this, PinPasswordActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                } else {
+                                    Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+
+
+                            }
+
                         }
                     }
 

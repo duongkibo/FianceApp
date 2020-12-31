@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
@@ -27,12 +28,16 @@ import androidx.lifecycle.ViewModelProviders;
 import com.qlct.mymoney.ProfileActivity;
 import com.qlct.mymoney.R;
 import com.qlct.mymoney.adapter.NotificationReceiver;
+import com.qlct.mymoney.authenticate.LoginActivity;
+import com.qlct.mymoney.dialog.DialogOnclickListener;
+import com.qlct.mymoney.dialog.SelectionDialog;
 import com.qlct.mymoney.model.Expenditures;
 import com.qlct.mymoney.model.ExpendituresDB;
 import com.qlct.mymoney.model.IncomeDitures;
 import com.qlct.mymoney.model.IncomeDituresDB;
 import com.qlct.mymoney.model.UserDitures;
-import com.qlct.mymoney.model.UserDituresDB;
+import com.qlct.mymoney.utils.SharedPreferencesConstants;
+import com.qlct.mymoney.utils.SharedPreferencesManager;
 import com.qlct.mymoney.viewmodel.AddExpendituresViewModel;
 import com.qlct.mymoney.viewmodel.AddIncomeDituresViewModel;
 import com.qlct.mymoney.viewmodel.AddUserDituresViewModel;
@@ -53,7 +58,8 @@ public class AccountFragment extends Fragment {
     private View view;
     private FragmentManager fragmentManager;
     private Switch btnSetNotification;
-    private TextView tvIncome,tvExpends,tvSums;
+    private TextView tvIncome, tvExpends, tvSums;
+    private ConstraintLayout clLogout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,63 +75,60 @@ public class AccountFragment extends Fragment {
         tvExpends = view.findViewById(R.id.tv_sum_expen);
         tvIncome = view.findViewById(R.id.tv_sum_indi);
 
-       new  GetCount(view).execute();
-       new GetCountInti(view).execute();
-       new GetCountSum(view).execute();
-       AddExpendituresViewModel viewModel = ViewModelProviders.of(this).get(AddExpendituresViewModel.class);
-       viewModel.getExpendiures().observe(getActivity(), new Observer<List<Expenditures>>() {
-           @Override
-           public void onChanged(List<Expenditures> expenditures) {
-               if (expenditures!=null)
-               {
-                   int sum = 0;
-                   for(int i=0;i<expenditures.size();i++)
-                   {
-                       sum+=Integer.valueOf(expenditures.get(i).getMoney());
-                   }
-                   tvExpends.setText(sum+"");
+        new GetCount(view).execute();
+        new GetCountInti(view).execute();
+        new GetCountSum(view).execute();
+        AddExpendituresViewModel viewModel = ViewModelProviders.of(this).get(AddExpendituresViewModel.class);
+        viewModel.getExpendiures().observe(getActivity(), new Observer<List<Expenditures>>() {
+            @Override
+            public void onChanged(List<Expenditures> expenditures) {
+                if (expenditures != null) {
+                    int sum = 0;
+                    for (int i = 0; i < expenditures.size(); i++) {
+                        sum += Integer.valueOf(expenditures.get(i).getMoney());
+                    }
+                    tvExpends.setText(sum + "");
 
 
-               }
-           }
-       });
+                }
+            }
+        });
         AddIncomeDituresViewModel viewModel1 = ViewModelProviders.of(this).get(AddIncomeDituresViewModel.class);
         viewModel1.getIncome().observe(getActivity(), new Observer<List<IncomeDitures>>() {
             @Override
             public void onChanged(List<IncomeDitures> incomeDitures) {
-               if(incomeDitures!=null)
-               {
-                   int sum = 0;
-                   for(int i=0;i<incomeDitures.size();i++)
-                   {
-                       sum+= Integer.valueOf(incomeDitures.get(i).getMoney());
-                   }
-                   tvIncome.setText(sum+"");
+                if (incomeDitures != null) {
+                    int sum = 0;
+                    for (int i = 0; i < incomeDitures.size(); i++) {
+                        sum += Integer.valueOf(incomeDitures.get(i).getMoney());
+                    }
+                    tvIncome.setText(sum + "");
 
-               }
+                }
             }
         });
 
     }
-    class GetCount extends  AsyncTask<Void,String,String>
-    {
+
+    class GetCount extends AsyncTask<Void, String, String> {
         View views;
         String sum = "";
-        GetCount(View views)
-        {
+
+        GetCount(View views) {
             this.views = views;
         }
+
         @Override
         protected String doInBackground(Void... voids) {
             int a = ExpendituresDB.getExpendituresDB(getContext().getApplicationContext()).getExpendituresDao().rowCount();
-            Log.d("valuesxxx",a+"");
-            publishProgress(a+"","ss","sss");
+            Log.d("valuesxxx", a + "");
+            publishProgress(a + "", "ss", "sss");
             return "finish";
         }
 
         @Override
         protected void onProgressUpdate(String... values) {
-            Log.d("resultss",values[0]);
+            Log.d("resultss", values[0]);
             TextView tv_Expend = (TextView) views.findViewById(R.id.tv_expendituse);
             tv_Expend.setText(values[0]);
 
@@ -139,25 +142,26 @@ public class AccountFragment extends Fragment {
 
         }
     }
-    class GetCountInti extends  AsyncTask<Void,String,String>
-    {
+
+    class GetCountInti extends AsyncTask<Void, String, String> {
         View views;
         String sum = "";
-        GetCountInti(View views)
-        {
+
+        GetCountInti(View views) {
             this.views = views;
         }
+
         @Override
         protected String doInBackground(Void... voids) {
             int a = IncomeDituresDB.getIncomeDituresBD(getContext().getApplicationContext()).getIncomeDituresDao().rowCount();
-            Log.d("valuesxxx",a+"");
-            publishProgress(a+"","ss","sss");
+            Log.d("valuesxxx", a + "");
+            publishProgress(a + "", "ss", "sss");
             return "finish";
         }
 
         @Override
         protected void onProgressUpdate(String... values) {
-            Log.d("resultss",values[0]);
+            Log.d("resultss", values[0]);
             TextView tv_Expend = (TextView) views.findViewById(R.id.tv_inditues);
             tv_Expend.setText(values[0]);
 
@@ -171,27 +175,28 @@ public class AccountFragment extends Fragment {
 
         }
     }
-    class GetCountSum extends  AsyncTask<Void,String,String>
-    {
+
+    class GetCountSum extends AsyncTask<Void, String, String> {
         View views;
         String sum = "";
-        GetCountSum(View views)
-        {
+
+        GetCountSum(View views) {
             this.views = views;
         }
+
         @Override
         protected String doInBackground(Void... voids) {
             int a = IncomeDituresDB.getIncomeDituresBD(views.getContext().getApplicationContext()).getIncomeDituresDao().rowCount();
             int b = ExpendituresDB.getExpendituresDB(views.getContext().getApplicationContext()).getExpendituresDao().rowCount();
-            int sums = a+b;
-            Log.d("valuesxxx",a+"");
-            publishProgress(sums+"","ss","sss");
+            int sums = a + b;
+            Log.d("valuesxxx", a + "");
+            publishProgress(sums + "", "ss", "sss");
             return "finish";
         }
 
         @Override
         protected void onProgressUpdate(String... values) {
-            Log.d("resultss",values[0]);
+            Log.d("resultss", values[0]);
             TextView tv_Expend = (TextView) views.findViewById(R.id.tv_sums);
             tv_Expend.setText(values[0]);
 
@@ -216,6 +221,22 @@ public class AccountFragment extends Fragment {
         tvSums = view.findViewById(R.id.tv_sums);
         userName = view.findViewById(R.id.username);
         rlAccount_profile = view.findViewById(R.id.rlAccount_profile);
+        clLogout = view.findViewById(R.id.clLogout);
+        clLogout.setOnClickListener(v -> {
+            SelectionDialog selectionDialog = new SelectionDialog(getContext(),
+                    getContext().getString(R.string.logout),
+                    getContext().getString(R.string.logout_confirm),
+                    getContext().getString(R.string.cancel),
+                    getContext().getString(R.string.ok),
+                    new DialogOnclickListener() {
+                        @Override
+                        public void onButtonEndClick() {
+                            SharedPreferencesManager.getDefault().removeKeyPreference(SharedPreferencesConstants.KEY_TOKEN_LOGIN);
+                            getContext().startActivity(new Intent(getContext(), LoginActivity.class));
+                        }
+                    });
+            selectionDialog.show();
+        });
         rlAccount_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -226,8 +247,8 @@ public class AccountFragment extends Fragment {
                         if (userDitures != null) {
 
                             Intent intent = new Intent(getContext(), ProfileActivity.class);
-                            intent.putExtra("xxx",userDitures.getId());
-                            Log.d("ssss", userDitures.getId()+"");
+                            intent.putExtra("xxx", userDitures.getId());
+                            Log.d("ssss", userDitures.getId() + "");
                             startActivity(intent);
 
 

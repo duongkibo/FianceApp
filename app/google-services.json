@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "315098262729",
+    "project_id": "moneysaver-bc82b",
+    "storage_bucket": "moneysaver-bc82b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:315098262729:android:d06da50c8525d0fffa7118",
+        "android_client_info": {
+          "package_name": "com.pigllet.moneysaver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "315098262729-bsalccu3uv1u6g8qhd2nkn6c16u77aa2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVajF0daRuCqcfuopBftIJFV4POabrsUs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "315098262729-bsalccu3uv1u6g8qhd2nkn6c16u77aa2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

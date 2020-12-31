@@ -69,20 +69,6 @@
 
                 </TextView>
 
-                <!--<TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/username"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="13dp"
-                    android:layout_marginTop="22dp"
-                    android:layout_toRightOf="@+id/profile"
-                    android:fontFamily="@font/lato_regular_2"
-                    android:text="0908 008 800"
-                    android:textColor="#ffff"
-                    android:textSize="16dp">
-
-                </TextView>-->
 
             </RelativeLayout>
 
@@ -230,16 +216,19 @@
 
                     </TextView>
                 </LinearLayout>
-                 <LinearLayout
-                     android:layout_width="wrap_content"
-                     android:layout_height="@dimen/_80sdp">
-                     <TextView
-                         android:text="            "
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content">
 
-                     </TextView>
-                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_80sdp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="            ">
+
+                    </TextView>
+                </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
@@ -283,7 +272,7 @@
                     android:src="@drawable/settings">
 
                 </ImageView>
--
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -305,9 +294,8 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_marginBottom="@dimen/_30sdp"
                 android:id="@+id/rlAccount_profile"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="34dp">
 
@@ -327,9 +315,7 @@
                     android:layout_toRightOf="@id/icon_sh"
                     android:text="Hồ sơ"
                     android:textColor="#202020"
-                    android:textSize="20dp">
-
-                </TextView>
+                    android:textSize="20dp"></TextView>
 
                 <ImageView
                     android:layout_width="16dp"
@@ -341,6 +327,30 @@
                 </ImageView>
             </RelativeLayout>
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clLogout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="34dp">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imgLogout"
+                    android:layout_width="@dimen/_16sdp"
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/logout"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="14dp"
+                    android:gravity="center"
+                    android:text="Thoát"
+                    android:textColor="#202020"
+                    android:textSize="20dp"
+                    app:layout_constraintStart_toEndOf="@+id/imgLogout" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
     </FrameLayout>
