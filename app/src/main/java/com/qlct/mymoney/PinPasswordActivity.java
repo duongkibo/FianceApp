@@ -7,19 +7,30 @@ import androidx.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.alimuzaffar.lib.pin.PinEntryEditText;
+import com.qlct.mymoney.fragment.AccountFragment;
 import com.qlct.mymoney.model.UserDitures;
 import com.qlct.mymoney.model.UserDituresDB;
 import com.qlct.mymoney.viewmodel.AddUserDituresViewModel;
 
-public class PinPasswordActivity extends AppCompatActivity {
+import me.aflak.libraries.callback.FingerprintDialogSecureCallback;
+import me.aflak.libraries.callback.PasswordCallback;
+import me.aflak.libraries.dialog.FingerprintDialog;
+import me.aflak.libraries.dialog.PasswordDialog;
+import me.aflak.libraries.utils.FingerprintToken;
+
+public class PinPasswordActivity extends AppCompatActivity implements FingerprintDialogSecureCallback, PasswordCallback {
 
     private PinEntryEditText pinEntry;
     private UserDituresDB userDituresDB;
     private String strPin = "";
+    public ImageView imgFinger;
+    private AccountFragment accountFragment = new AccountFragment();
 
 
     @Override
@@ -27,7 +38,7 @@ public class PinPasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pin_password);
         pinEntry = findViewById(R.id.txt_pin_entry);
-
+        imgFinger = findViewById(R.id.img_pin_fingerprint);
 
 
         AddUserDituresViewModel viewModel = ViewModelProviders.of(this).get(AddUserDituresViewModel.class);
@@ -72,5 +83,60 @@ public class PinPasswordActivity extends AppCompatActivity {
                 }
             });
         }
+
+        imgFinger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(FingerprintDialog.isAvailable(PinPasswordActivity.this)) {
+                    FingerprintDialog.initialize(PinPasswordActivity.this)
+                            .title(R.string.fingerprint_title)
+                            .message(R.string.fingerprint_message)
+                            .callback(PinPasswordActivity.this, "KeyName1")
+                            .show();
+                }
+            }
+        });
     }
+
+
+
+
+    @Override
+    public void onAuthenticationSucceeded() {
+        Intent intent = new Intent(PinPasswordActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void onAuthenticationCancel() {
+
+    }
+
+    @Override
+    public void onNewFingerprintEnrolled(FingerprintToken token) {
+        PasswordDialog.initialize(this, token)
+                .title(R.string.password_title)
+                .message(R.string.password_message)
+                .callback(this)
+                .passwordType(PasswordDialog.PASSWORD_TYPE_TEXT)
+                .show();
+    }
+
+    @Override
+    public void onPasswordSucceeded() {
+
+    }
+
+    @Override
+    public boolean onPasswordCheck(String password) {
+        return password.equals("password");
+    }
+
+    @Override
+    public void onPasswordCancel() {
+
+    }
+
+
 }

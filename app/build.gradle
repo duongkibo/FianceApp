@@ -12,7 +12,7 @@ android {
     }
     defaultConfig {
         applicationId "com.pigllet.moneysaver"
-        minSdkVersion 21
+        minSdkVersion 23
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -116,4 +116,7 @@ dependencies {
     implementation 'com.googlecode.libphonenumber:libphonenumber:8.2.0'
     implementation 'io.michaelrocks:libphonenumber-android:8.12.5'
     implementation 'androidx.browser:browser:1.2.0'
+
+    //van tay
+    implementation 'me.aflak.libraries:fingerprint:2.5.3'
 }

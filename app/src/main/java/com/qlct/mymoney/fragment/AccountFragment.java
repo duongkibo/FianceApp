@@ -4,6 +4,8 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,15 +18,18 @@ import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.qlct.mymoney.PinPasswordActivity;
 import com.qlct.mymoney.ProfileActivity;
 import com.qlct.mymoney.R;
 import com.qlct.mymoney.adapter.NotificationReceiver;
@@ -58,6 +63,7 @@ public class AccountFragment extends Fragment {
     private View view;
     private FragmentManager fragmentManager;
     private Switch btnSetNotification;
+    public Switch btnSetFinger;
     private TextView tvIncome, tvExpends, tvSums;
     private ConstraintLayout clLogout;
 
@@ -72,6 +78,7 @@ public class AccountFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         iniViews();
+        checkFinger();
         tvExpends = view.findViewById(R.id.tv_sum_expen);
         tvIncome = view.findViewById(R.id.tv_sum_indi);
 
@@ -217,6 +224,7 @@ public class AccountFragment extends Fragment {
         fragmentManager = getChildFragmentManager();
         openNotification();
         tvExpends = view.findViewById(R.id.tv_expendituse);
+        btnSetFinger = (Switch) view.findViewById(R.id.btnSetFinger);
         tvIncome = view.findViewById(R.id.tv_inditues);
         tvSums = view.findViewById(R.id.tv_sums);
         userName = view.findViewById(R.id.username);
@@ -300,5 +308,32 @@ public class AccountFragment extends Fragment {
         });
     }
 
+    private void checkFinger() {
+        btnSetFinger.setChecked(update("finger"));
 
+        btnSetFinger.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                saveSwitch("finger", isChecked);
+            }
+        });
+
+
+    }
+
+    public void saveSwitch(String key, boolean value) {
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("save", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(key, value);
+        editor.apply();
+    }
+
+    private boolean update(String key) {
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("save", Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean(key, false);
+    }
+
+    public void ff(){
+        Toast.makeText(getContext(), "dđ",Toast.LENGTH_SHORT).show();
+    }
 }
